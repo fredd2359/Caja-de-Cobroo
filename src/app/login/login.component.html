@@ -1,0 +1,16 @@
+<div>
+    <form #formlogin="ngForm">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Nombre de Usuario</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre de usuario" name="usuario" #usuario="ngModel" [(ngModel)]="usuario.nombre" required>
+            <div *ngIf="!usuario.valid">
+                <small class="form-text text-muted text-danger">El usuario es requerido.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Contraseña</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="contraseña">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="(form-login.valid)?login():''">Submit</button>
+    </form>
+</div>
