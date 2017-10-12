@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-asignar-caja',
+  selector: 'asignar-caja',
   templateUrl: './asignar-caja.component.html',
   styleUrls: ['./asignar-caja.component.css']
 })

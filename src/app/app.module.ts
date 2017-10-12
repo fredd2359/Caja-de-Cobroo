@@ -4,6 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {routing,appRoutingProviders} from './app.routing';
 import {HttpModule} from '@angular/http';
 
+import {SupervisorModule} from './supervisor/supervisor.module';
+
 import { AppComponent } from './app.component';
 import { AsignarCajaComponent } from './supervisor/components/asignar-caja/asignar-caja.component';
 import { AsignarFondoComponent } from './supervisor/components/asignar-fondo/asignar-fondo.component';
@@ -23,6 +25,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     routing,
     HttpModule,
+    SupervisorModule
   ],
   providers: [
     appRoutingProviders

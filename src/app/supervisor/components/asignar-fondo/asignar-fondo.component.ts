@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-asignar-fondo',
+  selector: 'asignar-fondo',
   templateUrl: './asignar-fondo.component.html',
   styleUrls: ['./asignar-fondo.component.css']
 })

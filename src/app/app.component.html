@@ -1,22 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!-- Aqui se va a poner la nav -->
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['']">Administración </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                    <li>
-                        <!-- asignacion fondo-->
-                    </li>
-                    <li>
-                        <!-- asignacion caja -->
-                    </li>
-                </ul>
+                <a class="nav-link dropdown-toggle" [routerLinkActive]="['active']" id="DropCaja" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja </a>
+                <div class="dropdown-menu" aria-labelledby="DropCaja">
+                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Asignación de Fondo</a>
+                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-caja']">Asignación de Caja</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Features</a>
