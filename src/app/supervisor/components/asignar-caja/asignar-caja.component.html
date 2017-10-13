@@ -1,8 +1,8 @@
 <div class="container col-12">
     <h2 class="mt-4 d-flex">Asignar Caja</h2>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
-    <div class="alert alert-success d-flex" role="alert">
-        This is a success alert—check it out!
+    <div class="alert alert-success d-flex col-5" role="alert">
+        Se ha asignado la caja correctamente.
     </div>
 
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
@@ -10,22 +10,20 @@
         <div class="col-8 mt-4 d-flex">
             <div class="form-group col-4">
                 <label>Seleccionar Caja:</label>
-                <select class="form-control" placeholder="Seleccionar Caja">
-        <option>Caja 1</option>
-        <option>Caja 2</option>
+                <select class="form-control" #cajaselect="ngModel" [(ngModel)]="cajero.caja" name="cajaselect">
+        <option *ngFor="let caja of cajas">{{caja.nombre}}</option>
       </select>
             </div>
             <div class="form-group col-4">
                 <label for="sel1">Seleccionar Cajero:</label>
-                <select class="form-control" placeholder="Seleccionar Cajero">
-        <option>Maira</option>
-       <option>Pedro</option>
-      </select>
+                <select class="form-control" #cajeroselect="ngModel" [(ngModel)]="cajero.nombre" name="cajeroselect">
+                    <option *ngFor="let cajero of cajeros">{{cajero.nombre}}</option>
+                </select>
             </div>
         </div>
         <!-- Boton de asignar un cajero a una caja -->
         <div class="col-2">
-            <button class="btn btn-success btn-lg">Asignar</button>
+            <button class="btn btn-success btn-lg" (click)="onSubmit()">Asignar</button>
         </div>
     </div>
 

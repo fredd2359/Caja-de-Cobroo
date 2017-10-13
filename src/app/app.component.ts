@@ -15,4 +15,8 @@ export class AppComponent {
 
   getUsusario(){
   }
+
+  carrarCaja(){
+    
+  }
 }

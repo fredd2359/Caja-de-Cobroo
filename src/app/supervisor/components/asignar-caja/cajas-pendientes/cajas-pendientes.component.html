@@ -9,25 +9,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">Caja 1</th>
-                <td>Mark</td>
-                <td>500</td>
-                <td>
-                    <button class="btn btn-danger" type="button">
+            <tr *ngFor="let cajero of cajeros">
+                <th scope="row">{{cajero.caja.nombre}}/th>
+                    <td>{{cajero.nombre}}</td>
+                    <td>{{cajero.fondo}}</td>
+                    <td>
+                        <button class="btn btn-danger" type="button">
                     <i class="fa fa-times" aria-hidden="true"></i>
                   </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Caja 2</th>
-                <td>Jacob</td>
-                <td>400</td>
-                <td>
-                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ModalCancelar">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                      </button>
-                </td>
+                    </td>
             </tr>
         </tbody>
     </table>

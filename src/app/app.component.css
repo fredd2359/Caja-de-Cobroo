@@ -1,0 +1,25 @@
+.navsistema {
+    background: #77D4D4;
+}
+
+.navlet {
+    color: white;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+.droptext {
+    font-size: 130%;
+}
+
+.navmenu .fw {
+    color: white !important;
+}
+
+.navmenu {
+    background: #13445A !important;
+}
+
+nav .inicio {
+    justify-content: flex-end;
+}
