@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {PrincipalComponent} from './principal/principal.component'
 import {LoginComponent} from './login/login.component';
 import {AsignarCajaComponent} from './supervisor/components/asignar-caja/asignar-caja.component';
-import {AsignarFondoComponent} from './supervisor/components/asignar-fondo/asignar-fondo.component';
 
 const appRoutes:Routes=[
     

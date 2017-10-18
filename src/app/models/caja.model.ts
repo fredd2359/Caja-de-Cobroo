@@ -1,6 +1,10 @@
 export class Caja {
-    id:number;
-    nombre: string;
-    sucursal:number;
-    estatus:string;
+    constructor(
+    public    id:number,
+    public nombre: string,
+    public sucursal:number,
+    public estatus:string
+    ){
+
+    }
 }

@@ -2,16 +2,18 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+
+import {SupervisorService} from './supervisor.service';
+
+
 import { CajasPendientesComponent } from './components/asignar-caja/cajas-pendientes/cajas-pendientes.component';
 import { CajasAsignadasComponent } from './components/asignar-caja/cajas-asignadas/cajas-asignadas.component';
 import {SupervisorRoutingModule} from './supervisor.routing';
-import { FondoAsignadoComponent } from './components/asignar-fondo/fondo-asignado/fondo-asignado.component';
-
+ 
 @NgModule ({
     declarations:[
         CajasPendientesComponent,
-        CajasAsignadasComponent,
-        FondoAsignadoComponent
+        CajasAsignadasComponent
 ],
     imports:[
         CommonModule,
@@ -24,6 +26,7 @@ import { FondoAsignadoComponent } from './components/asignar-fondo/fondo-asignad
         CajasAsignadasComponent
     ],
     providers:[
+        SupervisorService
         // SuperGuard
     ]
 })

@@ -23,13 +23,12 @@ export class CajasAsignadasComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.caja=new Caja();
     this.cajas=new Array();
-    this.cajero=new Cajero();
     this.cajeros=new Array();
   }
 
   ngOnInit() {
+    console.log("Entro a cajas asignadas");
     this._superService.getCaja("OCUPADA").subscribe( 
       result =>{
         console.log(result);

@@ -32,9 +32,8 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link dropdown-toggle fw" [routerLinkActive]="['active']" id="DropCaja" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja </a>
-                <div class="dropdown-menu" aria-labelledby="DropCaja">
-                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Asignación de Fondo</a>
+                <a class="nav-link dropdown-toggle fw" style=" cursor: pointer !important" [routerLinkActive]="['active']" id="DropCaja" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja </a>
+                <div class="dropdown-menu " aria-labelledby="DropCaja">
                     <a class="dropdown-item" [routerLink]="['supervisor/asignar-caja']">Asignación de Caja</a>
                 </div>
             </li>
@@ -63,150 +62,15 @@
 
 
 
-
-<nav class="navbar navbar-default container">
-    <div class="container-fluid" #collapse>
-        <div class="navbar-header">
-            <button type="button" [ngClass]="collapse.value?'navbar-toggle collapsed':'navbar-toggle'" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" (click)="collapse.value=!collapse.value">
-              <i class="fa fa-bars" aria-hidden="true"></i>
-            </button>
-            <a [routerLink]="['/']" [routerLinkActive]="['active']"><img src="./assets/images/aca-logo2.png"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav menunav">
-                <!-- <li *ngIf="isAuth(['CAJA_SUPERVISOR'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Administración<span class="caret"></span></a>
-                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li>
-                            <a tabindex="-1" href="#"><strong>Caja</strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="['AsignacionCaja']" [routerLinkActive]="['active']">Asignación</a></li>
-                                <li><a [routerLink]="['CierreTurno']" [routerLinkActive]="['active']">Autorización Cierre de turno</a></li>
-                                <li><a [routerLink]="['AutorizacionCorteParcial']" [routerLinkActive]="['active']">Autorización de Corte Parcial</a></li>
-                                <li><a [routerLink]="['pendiente']" [routerLinkActive]="['active']">Corte Parcial</a></li>
-                                <!-- <li><a [routerLink]="['SolicitarCorteParcial']" [routerLinkActive]="['active']">Corte Parcial</a></li> -->
-                                <!-- <li><a [routerLink]="['CorteGeneral']" [routerLinkActive]="['active']">Corte General</a></li> -->
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#"><strong>Series</strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="['AltaSerie']" [routerLinkActive]="['active']">Alta</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#"><strong>Folios</strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="['AltaFolios']" [routerLinkActive]="['active']">Alta</a></li>
-                                <li><a [routerLink]="['AsignacionFolios']" [routerLinkActive]="['active']">Asignación</a></li>
-                                <li><a [routerLink]="['CancelarFolioSuper']" [routerLinkActive]="['active']">Cancelación</a></li>
-                                <li><a [routerLink]="['AutCancelacionFolio']" [routerLinkActive]="['active']">Autorización Solicitud de Cancelación</a></li>
-                                <li><a [routerLink]="['AutDevolucionFolio']" [routerLinkActive]="['active']">Autorización Solicitud de Devolución</a></li>
-                                <li><a [routerLink]="['Folios']" [routerLinkActive]="['active']">Consulta</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#"><strong>Recibos</strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="['']" [routerLinkActive]="['active']">Cancelación</a></li>
-                                <li><a [routerLink]="['RecibosA']" [routerLinkActive]="['active']">Autorización Solicitud de Cancelación</a></li>
-                                <li><a [routerLink]="['Recibos']" [routerLinkActive]="['active']">Consultar</a></li>
-                            </ul>
-                        </li>
-                        <!--li class="dropdown-submenu">
-                    <a tabindex="-1" href="#"><strong>Reportes</strong></a>
-                    <ul class="dropdown-menu">
-                      <li><a [routerLink]="['ReportIngAfcContable']" [routerLinkActive]="['active']">Ingresos por afectación contable</a></li>
-                    </ul>
-                  </li-->
-                    </ul>
-                </li>
-                <!-- <li *ngIf="isAuth(['CAJA_SUPERVISOR'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Descuentos y Prescripciones<span class="caret"></span></a>
-                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li><a [routerLink]="['Solicitudes']" [routerLinkActive]="['active']">Solicitud</a></li>
-                        <li><a [routerLink]="['AutorizacionDescuentos']" [routerLinkActive]="['active']">Autorización de Solicitudes</a></li>
-                        <li><a [routerLink]="['Resoluciones']" [routerLinkActive]="['active']">Generación de Resoluciones</a></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#"><strong>Configuración</strong></a>
-                            <ul class="dropdown-menu">
-                                <li><a [routerLink]="['Cabildo']" [routerLinkActive]="['active']">Acuerdos de Cabildo</a></li>
-                                <li><a [routerLink]="['Parametros']" [routerLinkActive]="['active']">Parámetros</a></li>
-                                <li><a [routerLink]="['Captura']" [routerLinkActive]="['active']">Captura de Inpc</a></li>
-                                <li><a [routerLink]="['CapturaRecargo']" [routerLinkActive]="['active']">Captura de U.M.A.</a></li>
-                                <li><a [routerLink]="['ConfiguracionEspecial']" [routerLinkActive]="['active']">Especial</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <!--CAJERO-->
-                <!-- <li *ngIf="isAuth(['CAJA_CAJERO'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Caja<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a [routerLink]="['PagoPredial', 0]" [routerLinkActive]="['active']">Cobrar</a></li>
-                        <li><a [routerLink]="['DesgloseCorteParcial']" [routerLinkActive]="['active']">Desglose Corte Parcial</a></li>
-                        <li><a [routerLink]="['Desgloce']" [routerLinkActive]="['active']">Desglose Corte General</a></li>
-                        <li><a [routerLink]="['SolicitarCorteParcial']" [routerLinkActive]="['active']">Solicitar Corte Parcial</a></li>
-                        <li><a [routerLink]="['CorteGeneral']" [routerLinkActive]="['active']">Solicitar Corte General</a></li>
-                    </ul>
-                </li>
-
-                <!-- <li *ngIf="isAuth(['CAJA_CAJERO'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Recibos<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a [routerLink]="['Recibos']" [routerLinkActive]="['active']">Consultar</a></li>
-                        <li><a [routerLink]="['RecibosA']" [routerLinkActive]="['active']">Cancelar</a></li>
-                    </ul>
-                </li>
-
-                <!-- <li *ngIf="isAuth(['CAJA_CAJERO'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Folios<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a [routerLink]="['FoliosPendientes']" [routerLinkActive]="['active']">Aceptación</a></li>
-                        <li><a [routerLink]="['CancelacionFolio']" [routerLinkActive]="['active']">Cancelación</a></li>
-                        <li><a [routerLink]="['DevolucionFolio']" [routerLinkActive]="['active']">Devolución</a></li>
-                        <li><a [routerLink]="['FoliosAsignados']" [routerLinkActive]="['active']">Consulta</a></li>
-                    </ul>
-                </li>
-
-                <!-- <li *ngIf="isAuth(['CAJA_CAJERO'])" class="dropdown"> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Impuesto Predial<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a [routerLink]="['ElaboracionLiquidaciones']" [routerLinkActive]="['active']">Elaboración de liquidaciones</a></li>
-                        <li><a [routerLink]="['LiquidacionesVigentes']" [routerLinkActive]="['active']">Liquidaciones vigentes</a></li>
-                        <li><a [routerLink]="['HistorialPagos']" [routerLinkActive]="['active']">Historial de pagos</a></li>
-                        <li><a [routerLink]="['RegistroBeneficiarios']" [routerLinkActive]="['active']">Registro de beneficiarios</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <!-- <li *ngIf="!isLoged()"><a [routerLink]="['logging']">Iniciar Sesión</a></li>
-                <li *ngIf="isLoged()"><a href="">{{getUsusario()}}</a></li>
-                <li *ngIf="isLoged()"><a (click)="logOut(); redireccionar();">Cerrar Sesión</a></li> -->
-
-                <li><a [routerLink]="['login']">Iniciar Sesión</a></li>
-                <li><a href="">{{getUsusario()}}</a></li>
-                <li><a (click)="logOut(); redireccionar();">Cerrar Sesión</a></li>
-            </ul>
-
-        </div>
-    </div>
-</nav>
 <!-- <div class="container" (click)="cerrarCaja()" *ngIf="isAuth(['CAJA_CAJERO'])"> -->
-<div class="container" (click)="cerrarCaja()">
+<!-- <div class="container" (click)="cerrarCaja()">
     <button class="btn-corte-g btn"><span>Cerrar caja</span></button>
-</div>
+</div> -->
 
 <!-- <div class="container" *ngIf="isAuth(['CAJA_SUPERVISOR'])"> -->
-<div class="container">
+<!-- <div class="container">
     <button class="btn-corte-g btn" [routerLink]="['CorteGeneral']"><span>Corte general</span></button>
-</div>
+</div> -->
 <!-- <app-modal [modal]="modal" (hide)="modalHide()">
 </app-modal> -->
 

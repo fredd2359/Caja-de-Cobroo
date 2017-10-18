@@ -25,13 +25,12 @@ export class CajasPendientesComponent implements OnInit {
     private _router: Router
   
   ) {
-    this.caja=new Caja();
     this.cajas=new Array();
-    this.cajero=new Cajero();
     this.cajeros=new Array();
   }
 
   ngOnInit() {
+    console.log("entro a cajas pendietes");
     this._superService.getCaja("PENDIENTE").subscribe( 
       result =>{
         console.log(result);

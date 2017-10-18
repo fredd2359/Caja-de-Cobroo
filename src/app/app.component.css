@@ -23,3 +23,7 @@
 nav .inicio {
     justify-content: flex-end;
 }
+
+li .manita {
+    cursor: auto !important;
+}

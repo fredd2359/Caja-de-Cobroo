@@ -1,45 +1,93 @@
 <div class="container col-12">
     <h2 class="mt-4 d-flex">Asignar Caja</h2>
+    <hr>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
-    <div class="alert alert-success d-flex col-5" role="alert">
+    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
         Se ha asignado la caja correctamente.
+    </div>
+    <div *ngIf="status=='error'" class="alert alert-danger d-flex col-5" role="alert">
+        No se ha asignado la caja.
     </div>
 
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
     <div class="row align-items-center">
-        <div class="col-8 mt-4 d-flex">
-            <div class="form-group col-4">
-                <label>Seleccionar Caja:</label>
-                <select class="form-control" #cajaselect="ngModel" [(ngModel)]="cajero.caja" name="cajaselect">
-        <option *ngFor="let caja of cajas">{{caja.nombre}}</option>
-      </select>
-            </div>
-            <div class="form-group col-4">
-                <label for="sel1">Seleccionar Cajero:</label>
-                <select class="form-control" #cajeroselect="ngModel" [(ngModel)]="cajero.nombre" name="cajeroselect">
+        <form class="form-inline" #form="ngForm" id="form" name="form">
+            <div class="col-8 mt-3 d-flex">
+                <div class="form-group col-4">
+                    <label>Seleccionar Caja:</label>
+                    <select class="form-control" #cajaselect="ngModel" [(ngModel)]="caja.nombre" name="cajaselect" (change)="seleccCaja()">
+                    <option value="">Seleccionar caja...</option>
+                    <option *ngFor="let caja of cajas" >{{caja.nombre}}</option>
+                </select>
+                </div>
+                <div class="form-group col-4">
+                    <label for="sel1">Seleccionar Cajero:</label>
+                    <select class="form-control" #cajeroselect="ngModel" [(ngModel)]="cajero.nombre" (change)="seleccCajero()" name="cajeroselect">
+                    <option>Seleccionar cajero...</option>
                     <option *ngFor="let cajero of cajeros">{{cajero.nombre}}</option>
                 </select>
+                </div>
+                <div class="col-4">
+                    <label for="sel1">Fondo:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" name="caj" #caj="ngModel" [(ngModel)]="cajerofondo" [disabled]="!modfondo" (change)="verificarCantidad()" required pattern="[0-9][0-9]*(.([0-9][0-9]))?$">
+                    </div>
+                    <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="caj.dirty && !caj.valid">
+                        <span class="err" *ngIf="caj.errors.required">
+                                         Este campo es requerido.
+                                    </span>
+                        <span class="err" *ngIf="caj.errors.pattern">
+                                        Ingresar un formato válido.
+                            </span>
+                    </div>
+                </div>
+
             </div>
-        </div>
-        <!-- Boton de asignar un cajero a una caja -->
-        <div class="col-2">
-            <button class="btn btn-success btn-lg" (click)="onSubmit()">Asignar</button>
-        </div>
+
+            <!-- Boton de asignar un cajero a una caja -->
+            <div class="col-4 align-items-center">
+                <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol|| !caj.valid">Asignar</button>
+                <button class="btn btn-secondary btn-lg" (click)="cambiarfondo()">Modificar</button>
+            </div>
+        </form>
     </div>
 
     <!-- Comienza las tablas de cajas asignadas y la de cajas pendientes -->
-    <div class="row">
-        <div class="col-12">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['cajas-asignadas']" [routerLinkActive]="['active']">Cajas Asignadas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['cajas-pendientes']" [routerLinkActive]="['active']">Cajas Pendientes</a>
-                </li>
-            </ul>
-            <!-- Router-outlet para llamar a los archivos que contienen las tablas de asignadas y pendientes -->
-            <router-outlet></router-outlet>
+    <h2>Cajas</h2>
+    <hr>
+    <div class="container">
+
+        <div class="row my-3 justify-content-end">
         </div>
+        <div class="row">
+            <div class="col-9">
+                <table id="example" class="table display" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="mastercheckbox" class="form-check-input ml-3"></th>
+                            <th>Caja</th>
+                            <th>Cajero</th>
+                            <th>Fondo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let cajero of DataArray; let i=index">
+                            <td><input type="checkbox" id="{{i}}" class="form-check-input ml-3" /></td>
+                            <th scope="row">{{cajero.nombre}}</th>
+                            <td>{{(cajero.nombrecajero)?cajero.nombrecajero:'n/a'}}</td>
+                            <td> {{(cajero.fondo)?cajero.fondo:'0'}}</td>
+                            <td>{{cajero.estatus}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+
     </div>
 </div>
