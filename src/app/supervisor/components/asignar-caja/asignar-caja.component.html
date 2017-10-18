@@ -47,7 +47,7 @@
 
             <!-- Boton de asignar un cajero a una caja -->
             <div class="col-4 align-items-center">
-                <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol|| !caj.valid">Asignar</button>
+                <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol && !caj.valid">Asignar</button>
                 <button class="btn btn-secondary btn-lg" (click)="cambiarfondo()">Modificar</button>
             </div>
         </form>
@@ -65,7 +65,7 @@
                 <table id="example" class="table display" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="mastercheckbox" class="form-check-input ml-3"></th>
+                            <th><input type="checkbox" id="mastercheckbox" name="mastercheckbox" (change)="seleccionarcheck()" class="form-check-input ml-3"></th>
                             <th>Caja</th>
                             <th>Cajero</th>
                             <th>Fondo</th>

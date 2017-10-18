@@ -11,7 +11,7 @@ import {SupervisorService} from '../../supervisor.service';
 //import {  }
 
 declare var jquery: any;
-declare var $;
+declare var $: any;
 
 @Component({
   selector: 'asignar-caja',
@@ -64,6 +64,8 @@ export class AsignarCajaComponent implements OnInit {
     this.obtenerdatos();
 
         console.log(this.cajeros);
+
+        this.seleccionarcheck();
   }
 
   obtenerdatos(){
@@ -270,6 +272,26 @@ export class AsignarCajaComponent implements OnInit {
         $('#example').DataTable();
       });
     }, 1000);
+  }
+
+
+
+  //JQuery
+
+  seleccionarcheck(){
+    $('#mastercheckbox').click(function(event) {
+      if(this.checked) {
+          // Iterate each checkbox
+          $(':checkbox').each(function() {
+              this.checked = true;
+          });
+      }
+      else {
+        $(':checkbox').each(function() {
+              this.checked = false;
+          });
+      }
+    });
   }
 
 
