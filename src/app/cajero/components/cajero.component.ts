@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './cajero.component.html',
   styleUrls: ['./cajero.component.css']
 })
-export class CajerosComponent implements OnInit {
+export class CajeroComponent implements OnInit {
     public title:String;
 
   constructor() {

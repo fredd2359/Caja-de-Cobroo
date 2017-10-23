@@ -1,0 +1,97 @@
+<div class="container">
+    <h1 title="Alta en Folio de Pago">{{title}}</h1>
+    <hr>
+    <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
+
+    <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
+
+    <form #formAltaSeries="ngForm" id="" name="">
+
+        <div class="form-group row">
+            <label name="serie" class="col-sm-2 col-form-label" for="serie" title="Serie" [class.errorLabel]="serie.touched && !serie.valid">Serie: </label>
+            <div class="col-sm-8">
+                <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="altafoliopago.serie" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                <option selected>Escoge una categoria...</option>
+                <option>1</option>
+            </select>
+            </div>
+
+        </div>
+
+        <!--FOLIO-->
+        <div class="form-group row">
+            <label name="folio" class="col-sm-2 col-form-label" for="folio" title="Folio Inicial" [class.errorLabel]="folio.touched && !folio.valid">Folio Inicial: </label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" title="Folio Inicial" id="folio" name="folio" placeholder="Inserte el folio" #folio="ngModel" [(ngModel)]="altafoliopago.folio" [class.error]="folio.touched && !folio.valid" minlength="2" maxlength="100" required
+                />
+            </div>
+            <!--VALIDACIÓN DE FOLIO-->
+            <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.touched && !folio.valid">
+                <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El campo folio es obligatorio</small></span>
+                <span class="err" *ngIf="folio.errors.minlength" title="longitud mínima de caracteres que conforman el folio es de al menos 2 caracteres."><small>longitud mínima de caracteres que conforman el folio es de al menos 2 caracteres.</small></span>
+            </div>
+
+        </div>
+        <!--TERMINA VALIDACIÓN DE FOLIO-->
+
+        <!--TERMINA FOLIO-->
+        <div class="form-group row">
+            <!--CANTIDAD-->
+            <label name="cantidad" class="col-sm-2 col-form-label" for="cantidad" title="Cantidad" [class.errorLabel]="cantidad.touched && !cantidad.valid">Cantidad: </label>
+            <div class="col-sm-8">
+
+                <input type="text" class="form-control" title="Cantidad" id="cantidad" name="cantidad" placeholder="Inserte la cantidad" #cantidad="ngModel" [(ngModel)]="altafoliopago.cantidad" [class.error]="cantidad.touched && !cantidad.valid" step=0.01 required pattern="[1-9][0-9]*$"
+                />
+                <!-- con decimales pattern="[1-9][0-9]*.([0-9][0-9])$"-->
+            </div>
+
+            <!--VALIDACIÓN DE CANTIDAD-->
+
+            <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.touched && !cantidad.valid">
+                <span class="err" *ngIf="cantidad.errors.required" title="El apellido paterno es obligatorio."><small>Ingresa la cantidad.</small></span>
+                <span class="err" *ngIf="cantidad.errors.pattern" title="Extención no valida"><small>Sólo puedes ingresar números enteros.</small></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <label name="foliof" class="col-sm-2 col-form-label" for="foliof" title="Folio Final">Folio Final: </label>
+
+        </div>
+        <!--TERMINA VALIDACIÓN DE CANTIDAD-->
+
+        <!--BOTÓN GUARDAR REGISTRO USUARIO-->
+
+        <div class="offset-xs-3 col-xs-9 form-inline">
+            <button type="submit" class="btn btn-success" title="Realizar Alta" data-toggle="modal" data-target="#modalRegistrarfolio">Guardar</button>
+        </div>
+        <!--TERMINA BOTÓN GUARDAR REGISTRO USUARIO
+        [disabled]="!formAltaSeries.form.valid" -->
+
+    </form>
+
+    <hr>
+</div>
+
+<!-- Modal CONFIRMACIÓN DE REGISTRO -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="modalRegistrarfolio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>Se ha registrado el folio con éxito</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal CONFIRMACIÓN DE REGISTRO -->

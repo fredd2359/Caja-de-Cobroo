@@ -4,10 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 /**IMPORTACIÓN DE COMPONENTES... */
 /**COMPONENTE DE CAJEROS */
-import { CajerosComponent } from './components/cajero.component';
+import { CajeroComponent } from './components/cajero.component';
 /**COMPONENTE DE LOGIN Y REGISTRO DE ADMINISTRADOR... */
 //import { LoginUserComponent } from './login/login-user.component';
 //import { RegistroUserComponent } from './register/registro-user.component';
+/**COMPONENTE DE PRUEBA */
+import { ReciboComponent } from './components/recibo/recibo.component';
 
 /**Guard */
 //import { AdminGuard } from '../services/admin.guards';
@@ -15,14 +17,22 @@ import { CajerosComponent } from './components/cajero.component';
 
 /**Las variables o propiedades constantes, siempre tienen el mismo valor... */
 const usersRoutes: Routes = [
+    // {
+    //     path: 'cajero', 
+    //     component: CajeroComponent,
+    //     //canActivate: [AdminGuard],
+    //     children:[ //Aquí se pueden crear más rutas para los componentes que dependen de CAJAS.
+    //         { path: '', component: CajeroComponent},
+    //         { path: 'apertura-caja', component: CajeroComponent}, 
+    //         { path: 'recibos', component: ReciboComponent}
+    //     ]
+    // },
     {
-        path: 'cajas', 
-        component: CajerosComponent,
+        path: 'cajero/recibos', 
+        component: ReciboComponent,
         //canActivate: [AdminGuard],
-        children:[ //Aquí se pueden crear más rutas para los componentes que dependen de CAJAS.
-            { path: '', redirectTo: 'Index-Caja', pathMatch: 'full'},
-            { path: 'Index-Caja', component: CajerosComponent} 
-            //{ path: 'registro', component: RegistroUserComponent}
+        children:[ //Aquí se pueden crear más rutas para l
+            { path: '', component: ReciboComponent},
         ]
     }
 ];

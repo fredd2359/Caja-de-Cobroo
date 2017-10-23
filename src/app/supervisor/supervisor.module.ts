@@ -6,14 +6,26 @@ import {HttpModule} from '@angular/http';
 import {SupervisorService} from './supervisor.service';
 
 
-import { CajasPendientesComponent } from './components/asignar-caja/cajas-pendientes/cajas-pendientes.component';
-import { CajasAsignadasComponent } from './components/asignar-caja/cajas-asignadas/cajas-asignadas.component';
 import {SupervisorRoutingModule} from './supervisor.routing';
+import {MainComponent} from './components/main/main.component';
+import {FoliosComponent} from './components/folios/folios.component';
+import { AltasBajasFolioValeComponent } from './components/folios/altas-bajas-folio-vale/altas-bajas-folio-vale.component';
+import { AltasBajasFolioPagoComponent } from './components/folios/altas-bajas-folio-pago/altas-bajas-folio-pago.component';
  
+import { SeriesComponent } from './components/series/series.component';
+
+/**MODULOS CHILD DE SERIES */
+import { AltaPagoComponent } from './components/series/altapago/altapago.component';
+import { AltaValeComponent } from './components/series/altavale/altavale.component';
 @NgModule ({
     declarations:[
-        CajasPendientesComponent,
-        CajasAsignadasComponent
+        MainComponent,
+        FoliosComponent,
+        SeriesComponent,
+        AltaPagoComponent,
+        AltaValeComponent,
+        AltasBajasFolioPagoComponent,
+        AltasBajasFolioValeComponent,
 ],
     imports:[
         CommonModule,
@@ -22,8 +34,13 @@ import {SupervisorRoutingModule} from './supervisor.routing';
         SupervisorRoutingModule
     ],
     exports:[
-        CajasPendientesComponent,
-        CajasAsignadasComponent
+        MainComponent,
+        FoliosComponent,
+        SeriesComponent,
+        AltaPagoComponent,
+        AltaValeComponent,
+        AltasBajasFolioPagoComponent,
+        AltasBajasFolioValeComponent,
     ],
     providers:[
         SupervisorService

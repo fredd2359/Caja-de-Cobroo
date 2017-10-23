@@ -8,86 +8,136 @@
     <div *ngIf="status=='error'" class="alert alert-danger d-flex col-5" role="alert">
         No se ha asignado la caja.
     </div>
+    <div *ngIf="status=='cajaelim'" class="alert alert-success d-flex col-5" role="alert">
+        Caja desasignada.
+    </div>
+    <div *ngIf="status=='cajaerror'" class="alert alert-danger d-flex col-5" role="alert">
+        Error desasignando caja.
+    </div>
+    <!--ERROR DE FONDO MAYOR A LO PERMITIDO-->
+    <div *ngIf="status=='fondomayor'" class="alert alert-danger d-flex col-5" role="alert">
+        Error: fondo mayor a lo permitido, Ejemplo de formato permitido: 12345678.00 (8 dígitos enteros + 2 decimales)
+    </div>
 
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
     <div class="row align-items-center">
-        <form class="form-inline" #form="ngForm" id="form" name="form">
-            <div class="col-8 mt-3 d-flex">
-                <div class="form-group col-4">
+        <form class="form" #form="ngForm" id="form" name="form">
+            <div class="col-12 mt-3 d-flex">
+                <div class="form-group col-3">
                     <label>Seleccionar Caja:</label>
-                    <select class="form-control" #cajaselect="ngModel" [(ngModel)]="caja.nombre" name="cajaselect" (change)="seleccCaja()">
+                    <select class="form-control" #cajaselect="ngModel" [(ngModel)]="caja.nombre" name="cajaselect" (change)="seleccCaja();verificarCantidad()">
                     <option value="">Seleccionar caja...</option>
                     <option *ngFor="let caja of cajas" >{{caja.nombre}}</option>
                 </select>
                 </div>
-                <div class="form-group col-4">
+                <div class="form-group col-3">
                     <label for="sel1">Seleccionar Cajero:</label>
-                    <select class="form-control" #cajeroselect="ngModel" [(ngModel)]="cajero.nombre" (change)="seleccCajero()" name="cajeroselect">
+                    <select class="form-control" #cajeroselect="ngModel" [(ngModel)]="cajero.nombre" (change)="seleccCajero();verificarCantidad()" name="cajeroselect">
                     <option>Seleccionar cajero...</option>
                     <option *ngFor="let cajero of cajeros">{{cajero.nombre}}</option>
                 </select>
                 </div>
-                <div class="col-4">
-                    <label for="sel1">Fondo:</label>
+                <div class="col-3">
+                    <label>Fondo:</label>
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" name="caj" #caj="ngModel" [(ngModel)]="cajerofondo" [disabled]="!modfondo" (change)="verificarCantidad()" required pattern="[0-9][0-9]*(.([0-9][0-9]))?$">
+                        <input type="text" class="form-control" name="caj" #caj="ngModel" [(ngModel)]="cajerofondo" [disabled]="!modfondo " maxlength=16 (keyup)="verificarCantidad()" required pattern="[0-9][0-9]*(.([0-9][0-9]))?$">
                     </div>
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="caj.dirty && !caj.valid">
-                        <span class="err" *ngIf="caj.errors.required">
+                        <span class="err" *ngIf="caj.errors?.required">
                                          Este campo es requerido.
                                     </span>
-                        <span class="err" *ngIf="caj.errors.pattern">
+                        <span class="err" *ngIf="caj.errors?.pattern">
                                         Ingresar un formato válido.
                             </span>
                     </div>
                 </div>
-
+                <!-- Boton de asignar un cajero a una caja -->
+                <div class="col-3 align-items-center mt-4 d-flex">
+                    <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol || !fondobol  && !caj.valid" [class.error]="!disabled" [class.bien]="disabled">Asignar</button>
+                    <button *ngIf="modbol" class="btn btn-info btn-lg ml-2" (click)="cambiarfondo()">Modificar Fondo</button>
+                    <button *ngIf="!modbol" class="btn btn-danger btn-lg ml-2" (click)="cambiarfondo();cancelfondo()">Cancelar</button>
+                </div>
             </div>
 
-            <!-- Boton de asignar un cajero a una caja -->
-            <div class="col-4 align-items-center">
-                <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol && !caj.valid">Asignar</button>
-                <button class="btn btn-secondary btn-lg" (click)="cambiarfondo()">Modificar</button>
-            </div>
+
         </form>
     </div>
 
-    <!-- Comienza las tablas de cajas asignadas y la de cajas pendientes -->
-    <h2>Cajas</h2>
+    <!-- Comienza la tabla de cajas -->
+    <h2 class="mt-5">Cajas</h2>
     <hr>
     <div class="container">
-
         <div class="row my-3 justify-content-end">
         </div>
         <div class="row">
             <div class="col-9">
-                <table id="example" class="table display" width="100%" cellspacing="0">
+                <table id="example" datatable [dtTrigger]="dtTrigger" class="table table-bordered " (change)="ngOnInit()" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="mastercheckbox" name="mastercheckbox" (change)="seleccionarcheck()" class="form-check-input ml-3"></th>
                             <th>Caja</th>
                             <th>Cajero</th>
                             <th>Fondo</th>
                             <th>Estado</th>
+                            <th class="noicon"></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr *ngFor="let cajero of DataArray; let i=index">
-                            <td><input type="checkbox" id="{{i}}" class="form-check-input ml-3" /></td>
                             <th scope="row">{{cajero.nombre}}</th>
                             <td>{{(cajero.nombrecajero)?cajero.nombrecajero:'n/a'}}</td>
                             <td> {{(cajero.fondo)?cajero.fondo:'0'}}</td>
                             <td>{{cajero.estatus}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" (click)="removerCaja(i)"><i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-3">
-                <button class="btn btn-danger">Eliminar</button>
-            </div>
         </div>
 
+    </div>
+
+
+    <!-- Modals para cancelar caja y error al cancelar una caja -->
+    <div class="modal fade" id="ModalCancelar" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Advertencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Desea cancelar la Caja?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="desasignar()">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalError" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <p>No se puede desasignar una caja si no esta en estado PENDIENTE</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

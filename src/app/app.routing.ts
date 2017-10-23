@@ -4,7 +4,8 @@ import {AppComponent} from './app.component';
 
 import {PrincipalComponent} from './principal/principal.component'
 import {LoginComponent} from './login/login.component';
-import {AsignarCajaComponent} from './supervisor/components/asignar-caja/asignar-caja.component';
+import {CajeroComponent} from './cajero/components/cajero.component';
+import {ReciboComponent} from './cajero/components/recibo/recibo.component'
 
 const appRoutes:Routes=[
     

@@ -6,3 +6,25 @@ h2 {
     color: white !important;
     opacity: 0;
 }
+
+thead {
+    background: #13445A;
+    color: white;
+}
+
+
+/* .error {
+    background: #727b84;
+} */
+
+.bien {
+    /* background-color: #007bff;
+    border-color: #007bff; */
+    /* background: #727b84; */
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color: #727b84;
+    border-color: #727b84;
+}

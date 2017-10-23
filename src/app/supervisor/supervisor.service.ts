@@ -31,6 +31,11 @@ export class SupervisorService {
         return this._http.get(this.url + 'cajascajeros/')
         .map((res: Response) => res.json());
       }
+      
+      getallCajeros() {
+        return this._http.get(this.url + 'cajeros/')
+        .map((res: Response) => res.json());
+      }
  
       getCajero2() {
         return this._http.get(this.url + 'cajeros')
@@ -43,6 +48,76 @@ export class SupervisorService {
         return this._http.put(this.url+'cajeros/asignarCaja', params, {headers: headers})
           .map((res: Response) => res.json());
       }
+
+      desasignarCaja(cajero){
+        const params = JSON.stringify(cajero);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.put(this.url+'cajeros/desasignarCaja', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+      
+      getFolioVale() {
+        return this._http.get(this.url + 'folio-vales')
+        .map((res: Response) => res.json());
+      }
+            
+      /**23/10/2017 */
+      altaFolioPago(foliopago){
+        const params = JSON.stringify(foliopago);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'folio-recibos/agregar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+      
+      altaSeriePago(serie){
+        const params = JSON.stringify(serie);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'serie-recibos/agregar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
+      altaSerieVale(serie){
+        const params = JSON.stringify(serie);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'serie-vales/agregar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
+      getSeriePago() {
+        return this._http.get(this.url + 'serie-recibos/mostrar')
+        .map((res: Response) => res.json());
+      }
+
+      getSerieVale() {
+        return this._http.get(this.url + 'serie-vales/mostrar')
+        .map((res: Response) => res.json());
+      }
+
+      getFolioPagos() {
+        return this._http.get(this.url + 'folio-recibos/mostrar')
+        .map((res: Response) => res.json());
+      }
+
+      getFolioVales() {
+        return this._http.get(this.url + 'folio-vales/mostrar')
+        .map((res: Response) => res.json());
+      }
+
+      bajaFolioPago(folioPago){
+        const params = JSON.stringify(folioPago);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'folio-recibo/agregar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
+      eliminarFoliosPagos(folios){
+        const params = JSON.stringify(folios);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.put(this.url+'folio-recibos/eliminar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
+      /**TERMINAN SERVICIOS DE SERIES */
 
       //A partir de aqui se tiene que borrar ↓↓↓↓↓↓↓
       

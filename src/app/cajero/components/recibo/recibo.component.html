@@ -1,0 +1,285 @@
+<div class=".fluid-container">
+
+    <main class="col py-5 main">
+        <div class="row my-3 justify-content-end">
+
+            <!-- MENSAJES DE ADVERTRENCIA O ALERTS -->
+
+
+            <!--TERMINAN LOS MENSAJES DE ADVERTRENCIA-->
+            <!-- Comienza las tablas de cajas asignadas y la de cajas pendientes -->
+
+            <div class="col-12">
+                <label><h1 class="titulos ">Recibos</h1></label>
+                <div>
+                    <table id="tablaRecibos" class="table table-bordered table-sm table table-responsive" width="90%" cellspacing="0">
+                        <thead class="color-thead">
+                            <tr>
+                                <th>Folio</th>
+                                <th>Clave Catastral</th>
+                                <th>Domicilio</th>
+                                <th>Cajero</th>
+                                <th>Caja</th>
+                                <th>Sucursal</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let recibo of recibos; let i=index" class="col-sm-12">
+                                <td style="width:10%">{{recibo.folio}}</td>
+                                <th style="width:10%">{{recibo.clave}}</th>
+                                <td style="width:15%"></td>
+                                <td style="width:10%">1</td>
+                                <td style="width:10%">1</td>
+                                <td style="width:10%">1</td>
+                                <td style="width:10%">1</td>
+                                <td style="width:10%">1</td>
+                                <td style="width:15%">
+                                    <div class="form-inline">
+                                        <div class="space input-group add-on">
+                                            <button data-toggle="modal" data-target="#ModalView" type="button" class="btn btn-success">
+                                            <i class="fa fa-eye" aria-hidden="true" title="Ver detalles"></i></button>
+                                        </div>
+                                        <div class="space input-group add-on">
+                                            <button data-toggle="modal" data-target="#modalCancel" type="button" class="btn btn-danger">
+                                            <i class="fa fa-trash" aria-hidden="true" title="Cancelar"></i></button>
+                                        </div>
+                                        <div class="space input-group add-on">
+                                            <button data-toggle="modal" data-target="#modalPrint" type="button" class="btn btn-primary">
+                                            <i class="fa fa-print" aria-hidden="true" title="Imprimir"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal VISTA -->
+<!-- Modal -->
+<div class="mmodal modal fade bd-example-modal-lg" id="ModalView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="modal-title" id="exampleModalLabel">Detalles del Recibo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <form #formEditPro="ngForm" id="formCategorias" name="formCategorias">
+                    <!--Número de folio & Fecha y hora-->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <p class="my-0">
+                                <label><strong>No. Folio:</strong></label><br />
+                                <label>No.folio</label>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="my-0">
+                                <label><strong>Fecha y Hora:</strong></label><br />
+                                <label>19/07/2017 11:13</label>
+                            </p>
+
+                        </div>
+                    </div>
+                    <!--TERMINA Número de folio & Fecha y hora-->
+
+                    <!--Clave Catastral-->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <p class="my-0">
+                                <label><strong>Clave Catastral:</strong></label><br />
+                                <label>Clave Catastral</label>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="my-0">
+                                <label></label>
+                            </p>
+
+                        </div>
+                    </div>
+                    <!--TERMINA Clave Catastral-->
+
+                    <!--Domicilio-->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <p class="my-0">
+                                <label><strong>Domicilio:</strong></label><br />
+                                <label>Domicilio</label>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="my-0">
+                                <label></label>
+                            </p>
+
+                        </div>
+                    </div>
+                    <!--TERMINA Domicilio-->
+
+                    <!--Cantidad-->
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <p class="my-0">
+                                <label><strong>Cantidad:</strong></label><br />
+                                <label>$ Cantidad</label>
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="my-0">
+                                <label></label>
+                            </p>
+
+                        </div>
+                    </div>
+                    <!--TERMINA Cantidad-->
+
+                    <!--Cajero, Num caja y Sucursal-->
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="my-0">
+                                <label><strong>Cajero:</strong></label><br />
+                                <label>Cajero</label>
+                            </p>
+
+                        </div>
+                        <div class="col">
+                            <p class="my-0">
+                                <label><strong>No. de Caja:</strong></label><br />
+                                <label>No. de Caja</label>
+                            </p>
+
+                        </div>
+                        <div class="col">
+                            <p class="my-0">
+                                <label><strong>Sucursal:</strong></label><br />
+                                <label>Sucursal</label>
+                            </p>
+
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                    <!--TERMINA Cajero, Num caja y Sucursal-->
+
+
+                    <fieldset class="form-group">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalPrint">Reimprimir</button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modalCancel">Cancelar Recibo</button>
+                        </div>
+                    </fieldset>
+                    <!--TERMINA CATEGORIA-->
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal VISTA -->
+
+<!-- Modal IMPRIMIR -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>Se ha imprimido el recibo.</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit" data-dismiss="modal" data-target="#ModalPrint" style="text-align:center">Aceptar</button>
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal IMPRIMIR -->
+<!-- Modal CANCELAR -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Alerta</h5>
+
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>¿Desea cancelar el recibo?</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" data-dismiss="modal" style="text-align:center">Aceptar</button>
+                    <button class="btn btn-danger" type="submit" data-dismiss="modal" style="text-align:center">Cancelar</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal CANCELAR -->
+
+<!-- Modal generar devolución -->
+<!-- Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDev">
+        Generar devolución
+      </button>
+<div class="modal" id="modalDev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Generar Devolución en Vales</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="my-0">
+
+                            <label><strong>Nombre del Cajero:</strong></label><br />
+                            <label>Nombre del Cajero</label><br />
+                            <label><strong>Importe:</strong></label><br />
+                            <label>$ Cantidad</label><br />
+                            <label><strong>Motivo:</strong></label><br />
+                            <textarea placeholder="Descripción del problema"></textarea><br />
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" data-dismiss="modal" style="text-align:center">Siguiente</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal generar devolución -->

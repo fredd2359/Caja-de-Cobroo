@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import {Caja} from '../../../models/caja.model';
 import {Cajero} from '../../../models/cajero.model';
-
+import { DataTableDirective} from 'angular-datatables';
+import { Subject } from 'rxjs/Rx';
 /**ESTE MISMO SERVICIO PARA DATATABLES... */
 import {SupervisorService} from '../../supervisor.service';
 
@@ -17,11 +18,13 @@ declare var $: any;
   selector: 'asignar-caja',
   templateUrl: './asignar-caja.component.html',
   styleUrls: ['./asignar-caja.component.css']
-}) 
-export class AsignarCajaComponent implements OnInit {
+})
+
+export class AsignarCajaComponent implements OnInit{
   public caja:Caja;
   public cajas:Caja[];
   public cajero:Cajero;
+  public allcajeros: Cajero[];
   public cajeros: Cajero[];
   public cajeros2;
   public modfondo=false;
@@ -29,8 +32,18 @@ export class AsignarCajaComponent implements OnInit {
   public cajabol : boolean=false;
   public cajerobol:boolean= false;
   public fondobol:boolean= false;
+  public modbol:boolean=true;
   public status:string;
   public caj;
+  public fondotemp;
+  public cajaEliminar:number=0;
+  public prueba;
+
+  //Directivas y declaracion de variables para el uso de la tabla !important
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+dtTrigger: Subject<string> = new Subject();
   /**PROPIEDAD PARA LOS DATOS DE LA TABLA */
   DataArray : any = [];
   /** */
@@ -40,32 +53,75 @@ export class AsignarCajaComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    
+
 
     this.caja=new Caja(0,"",0,"");
     this.cajas=new Array();
 
     this.cajero=new Cajero(0,"","",0,0,null);
+    this.allcajeros=new Array();
     this.cajeros=new Array();
     this.cajeros2=new Array();
-    
-    } 
-  
+
+    }
 
   ngOnInit() {
-    /**FUNCION PARA CARGAR DATATABLE
-     * 
-     */
-     /**TERMINA FUNCIÓN DE CARGA DEL DATATABLE */
-
-    this.LoadTableData();
-
-
+    //Se cargan los datos para la tabla y el manejo de ellos
     this.obtenerdatos();
+  
+    //Se cargan los datos de la tabla
+    this.LoadTableData();
+    
+  }
 
-        console.log(this.cajeros);
+  onSubmit(){
+    this.cajero.fondo=this.cajerofondo;
+    this.caja.estatus='PENDIENTE';
+    this.cajero.cajas=this.caja;
+    console.log("Cajero asignar");
+    console.log(this.cajero);
+    
 
-        this.seleccionarcheck();
+    this._superService.asignarCaja(this.cajero).subscribe(
+     
+      result =>{
+        console.log("Se envio con éxito");
+        $("#example").dataTable().fnDestroy();
+        this.obtenerdatos();
+        this.LoadTableData();
+      },
+      error =>{
+        if (error.status=="400"){
+          $("#example").dataTable().fnDestroy();
+          this.status="error";
+          this.obtenerdatos();
+          this.LoadTableData();
+        }
+        else{
+          $("#example").dataTable().fnDestroy();
+          this.status="success";
+          this.obtenerdatos();
+          this.LoadTableData();
+        }
+        
+        if((error._body.substring(20,46)) == "Fondo mayor a lo permitido"){
+          console.log("FONDO MAYOR ....");
+          this.status="fondomayor";
+        }
+        console.log("Error en Submit de asignar caja, asignarCaja");
+        console.log(error);
+        //console.log("HEADERS...");
+        //console.log(JSON.stringify(error));
+        //console.log(JSON.stringify(error._body.substring(20,46))) /**EXTRAEMOS EL MENSAJE DE ERROR */
+        
+      }
+      
+    );
+
+    this.caja=new Caja(0,"",0,"");
+    this.cajero=new Cajero(0,"","",0,0,null);
+    this.cajabol=false;
+    this.cajerobol=false;
   }
 
   obtenerdatos(){
@@ -85,7 +141,7 @@ export class AsignarCajaComponent implements OnInit {
     //Se hace la peticion para los cajeros que estan libres
     this._superService.getCajero().subscribe(
       result => {
-        this.cajeros=result.respuesta;
+        this.cajeros=result;
         console.log("Cajeros libres");
         console.log(this.cajeros);
       },
@@ -93,7 +149,20 @@ export class AsignarCajaComponent implements OnInit {
         console.log(error);
       }
     );
-    //prueba!!
+
+    //Se hace la petición para obtener todos los cajeros
+    this._superService.getallCajeros().subscribe(
+      result => {
+        this.allcajeros=result;
+        console.log("All Cajeros");
+        console.log(this.allcajeros);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    //Petición para obtener todas las cajas y cajeros para después meterlos en la tabla.
     this._superService.getcajasCajeros().subscribe(
       result => {
         console.log("cajascajeros");
@@ -105,7 +174,6 @@ export class AsignarCajaComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
 
   cambiarfondo(){
@@ -115,41 +183,18 @@ export class AsignarCajaComponent implements OnInit {
     else {
       this.modfondo=true;
     }
+    if( this.modbol==true){
+      this.modbol=false;
+    }
+    else {
+      this.modbol=true;
+    }
   }
 
-  onSubmit(){
-    this.cajero.fondo=this.cajerofondo;
-    this.caja.estatus='PENDIENTE';
-    this.cajero.cajas=this.caja;
-
-    
-    let res = this.cajero;
-    this._superService.asignarCaja(this.cajero).subscribe(
-      result =>{
-        console.log("Se envio con éxito");
-        this.obtenerdatos();
-      },
-      error =>{
-        if (error.status=="400"){
-          this.status="error";
-          this.obtenerdatos();
-        }
-        else{
-          this.status="success";
-          this.obtenerdatos();
-        }
-        console.log("Error en Submit de asignar caja, asignarCaja");
-        console.log(error.status);
-      }
-    );
-    
-
-    this.caja=new Caja(0,"",0,"");
-    this.cajero=new Cajero(0,"","",0,0,null);
-    this.cajabol=false;
-    this.cajerobol=false;
+  //Método para asiganr la cantidad anterior si es que se cancela el modificar fondo
+  cancelfondo(){
+    this.cajerofondo=this.cajero.fondo;
   }
-
 
   //Metodo que se ejecuta despues de seleccionar una caja
   seleccCaja(){
@@ -158,8 +203,6 @@ export class AsignarCajaComponent implements OnInit {
         this.caja.id=this.cajas[i].id;
         this.caja.sucursal=this.cajas[i].sucursal;
         this.caja.estatus=this.cajas[i].estatus;
-        console.log(this.caja);
-      
       }
       if(this.caja.nombre==""){
         this.cajabol=false;
@@ -168,8 +211,6 @@ export class AsignarCajaComponent implements OnInit {
         this.cajabol=true;
       }
     }
-    console.log(this.cajabol);
-    console.log(this.cajerobol);
   }
 
   //Método que se ejecuta cunado se selecciona un cajero
@@ -181,7 +222,8 @@ export class AsignarCajaComponent implements OnInit {
         this.cajero.id=this.cajeros[i].id;
         this.cajero.fondo=this.cajeros[i].fondo;
         this.cajerofondo=this.cajeros[i].fondo;
-
+        this.fondotemp=this.cajeros[i].fondo;
+        
       }
       if(this.cajero.nombre=="Seleccionar cajero..."){
         this.cajerobol=false;
@@ -193,58 +235,26 @@ export class AsignarCajaComponent implements OnInit {
   }
 
   verificarCantidad() {
-    if (this.cajerofondo > 0) {
+    console.log(this.cajero.fondo);
+    if (this.cajerofondo >= 0) {
+
       this.fondobol = true;
-    
+
     }
-    else if (this.cajerofondo <= 0) {
+    else if (this.cajerofondo < 0) {
       this.fondobol = false;
     }
     else {
       this.fondobol=false;
     }
   }
-  
-  //Metodo para desasignar cajas seleccionadas
 
-  removerSeleccion() {
-    //OBTENER TABLA
-    var table = <HTMLTableElement>document.getElementById("cajas");
-
-    var tmp = new Array<Cajero>();
-    //VERIFICAR TOTAL DE RENGLONES A ELIMINAR
-    let totalSeleccion = 0;
-    for (var i = 1; i < table.rows.length; i++) {
-      let checkbox = <HTMLInputElement>table.rows[i].cells[0].firstElementChild;
-      if (!checkbox.checked){
-        tmp.push(this.cajeros[i - 1]);
-      }
-      else{
-        let caja=<HTMLInputElement>table.rows[i].cells[1].firstElementChild;
-        let cajero=<HTMLInputElement>table.rows[i].cells[2].firstElementChild;
-
-      }
-    }
-
-    // this.productos = tmp;
-
-    // console.log('TOTAL_SEL:' + totalSeleccion);
-
-    // localStorage.setItem('cajas', JSON.stringify(this.productos));
-
-    // //VERIFICAR LISTA
-    // if (this.productos.length > 0)
-    //   this.listaVacia = false;
-    // else
-    //   this.listaVacia = true;
-  }
   /**MÉTODO PARA CARGAR LOS DATOS DE LA TABLA Y USAR DATATABLES... */
   LoadTableData() {
     this._superService.getcajasCajeros().subscribe(
       result => {
-        console.log("nuevo");
-        this.cajeros2=result;
         this.DataArray = result.respuesta;
+        this.prueba=this.DataArray;
         console.log(" Datos del array para la tabla....");
         console.log(this.DataArray);
         this.loadTable();
@@ -253,46 +263,60 @@ export class AsignarCajaComponent implements OnInit {
         console.log(error);
       }
     );
-
-     
-    /** 
-    this._superService.LoadData().subscribe(
-      _superService => {
-        this.DataArray = _superService;
-        console.log("QWERTY...");
-        console.log(JSON.stringify(this._superService));
-      }
-    );
-    */
   }
+
 
   loadTable(): void {
     setTimeout(function () {
       $(function () {
-        $('#example').DataTable();
+    
+       $('#example').dataTable();
+
       });
     }, 1000);
   }
 
 
 
-  //JQuery
-
-  seleccionarcheck(){
-    $('#mastercheckbox').click(function(event) {
-      if(this.checked) {
-          // Iterate each checkbox
-          $(':checkbox').each(function() {
-              this.checked = true;
-          });
+  removerCaja(a){
+    for(let i = 0; i < this.allcajeros.length; i++){
+      if(this.DataArray[a].nombrecajero==this.allcajeros[i].nombre){
+        if (this.DataArray[a].estatus=="PENDIENTE"){
+        console.log(this.allcajeros[i].cajas.estatus);
+        this.cajaEliminar=i;
+        $('#ModalCancelar').modal('show');
+        console.log(this.allcajeros[i]);
+        //desasignarCaja
+        }
+        else {
+          $('#ModalError').modal('show');
+        }
+        break;
       }
-      else {
-        $(':checkbox').each(function() {
-              this.checked = false;
-          });
-      }
-    });
+    }
   }
 
+  desasignar(){
+    this._superService.desasignarCaja(this.allcajeros[this.cajaEliminar]).subscribe(
+      result => {
+        this.status="cajaelim";
+        console.log("Se desasigno con éxito");
+        $('#ModalCancelar').modal('hide');
+        this.LoadTableData();
+      },
+      error => {
+        $('#ModalCancelar').modal('hide');
+        if (error.status=="400"){
+          this.status="cajaerror";
+          this.LoadTableData();
+        }else {
+          this.status="cajaelim";
+          $("#example").dataTable().fnDestroy();
+          this.obtenerdatos();
+          this.LoadTableData();
 
+        }
+      }
+    );
+  }
 }

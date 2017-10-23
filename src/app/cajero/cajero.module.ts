@@ -9,21 +9,21 @@ import { FormsModule } from '@angular/forms';
  * Es decir, el mismo archivo que se encuentra en este directorio que contiene las,
  * configuraciones de rutas...
 */
-import { CajerosRoutingModule } from './cajero.routing';     //PENDIENTE DE ASIGNAR CLASE...
-/**IMPORTACIÓN DE COMPONENTES... */
-/**COMPONENTE DE USUARIO 
- * Es decir el nombre de la CLASE EXPORTADA en el COMPONENTE principal de este directorio.
-*/
-import { CajerosComponent } from './components/cajero.component'; 
+import { CajerosRoutingModule } from './cajero.routing';
+import {CajerosService} from './cajeros.service'
+
+import { CajeroComponent } from './components/cajero.component'; 
 /**COMPONENTE LOGIN y registro DE USUARIOS */
 //import { LoginUserComponent } from './login/login-user.component';
 //import { RegistroUserComponent } from './register/registro-user.component';
-
+/**COMPONENTE DE PRUEBA */
+import { ReciboComponent } from './components/recibo/recibo.component'
 /**SERVICES */
 //import { AdminGuard } from '../services/admin.guards';
 @NgModule({
   declarations: [
-    CajerosComponent, //ESTE ES EL COMPONENTE PRINCIPAL DE LOS USUARIOS
+    CajeroComponent, //ESTE ES EL COMPONENTE PRINCIPAL DE LOS USUARIOS
+    ReciboComponent
     //LoginUserComponent, //COMPONENTE DE LOGIN PARA USUARIOS NORMALES...
     //RegistroUserComponent //EL COMPONENTE DE REGISTRO PARA USUARIOS
   ],
@@ -35,8 +35,11 @@ import { CajerosComponent } from './components/cajero.component';
       CommonModule,
       HttpModule
   ],
+  exports:[
+      ReciboComponent
+  ],
   providers: [
-    //appRoutingProviders
+    CajerosService
     //AdminGuard
 ], /**appRoutingProviders..  para que funcionen las rutas especificadas en admin.routing*/
 
