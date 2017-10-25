@@ -17,6 +17,8 @@ import { SeriesComponent } from './components/series/series.component';
 /**MODULOS CHILD DE SERIES */
 import { AltaPagoComponent } from './components/series/altapago/altapago.component';
 import { AltaValeComponent } from './components/series/altavale/altavale.component';
+import { HistorialPagoComponent } from './components/historial-pago/historial-pago.component';
+
 @NgModule ({
     declarations:[
         MainComponent,
@@ -26,8 +28,9 @@ import { AltaValeComponent } from './components/series/altavale/altavale.compone
         AltaValeComponent,
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
+        HistorialPagoComponent,
 ],
-    imports:[
+    imports:[ 
         CommonModule,
         FormsModule,
         HttpModule,
@@ -41,6 +44,7 @@ import { AltaValeComponent } from './components/series/altavale/altavale.compone
         AltaValeComponent,
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
+        HistorialPagoComponent
     ],
     providers:[
         SupervisorService

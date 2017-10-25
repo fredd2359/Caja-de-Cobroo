@@ -68,6 +68,13 @@ export class SupervisorService {
         return this._http.post(this.url+'folio-recibos/agregar', params, {headers: headers})
           .map((res: Response) => res.json());
       }
+
+      altaFolioVale(foliovale){
+        const params = JSON.stringify(foliovale);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'folio-vales/agregar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
       
       altaSeriePago(serie){
         const params = JSON.stringify(serie);
@@ -108,12 +115,18 @@ export class SupervisorService {
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         return this._http.post(this.url+'folio-recibo/agregar', params, {headers: headers})
           .map((res: Response) => res.json());
-      }
+      } 
 
       eliminarFoliosPagos(folios){
         const params = JSON.stringify(folios);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         return this._http.put(this.url+'folio-recibos/eliminar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+      eliminarFoliosVales(vales){
+        const params = JSON.stringify(vales);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.post(this.url+'folio-vales/eliminar', params, {headers: headers})
           .map((res: Response) => res.json());
       }
 

@@ -69,6 +69,7 @@ dtTrigger: Subject<string> = new Subject();
     //Se cargan los datos para la tabla y el manejo de ellos
     this.obtenerdatos();
   
+    $('#caj').prop('readonly', true);
     //Se cargan los datos de la tabla
     this.LoadTableData();
     
@@ -107,6 +108,11 @@ dtTrigger: Subject<string> = new Subject();
         if((error._body.substring(20,46)) == "Fondo mayor a lo permitido"){
           console.log("FONDO MAYOR ....");
           this.status="fondomayor";
+        }
+
+        if((error._body.substring(20,43)) == "Fondo menor o igual a 0"){
+          console.log("FONDO IGUAL O MENOR A CERO ....");
+          this.status="fondoiguala0";
         }
         console.log("Error en Submit de asignar caja, asignarCaja");
         console.log(error);
@@ -179,9 +185,11 @@ dtTrigger: Subject<string> = new Subject();
   cambiarfondo(){
     if( this.modfondo==true){
       this.modfondo=false;
+      this.readOnly();
     }
     else {
       this.modfondo=true;
+      this.notreadOnly();
     }
     if( this.modbol==true){
       this.modbol=false;
@@ -318,5 +326,12 @@ dtTrigger: Subject<string> = new Subject();
         }
       }
     );
+  }
+
+  readOnly(){
+    $('#caj').prop('readonly', true);
+  }
+  notreadOnly(){
+    $('#caj').prop('readonly', false);
   }
 }

@@ -18,6 +18,9 @@
     <div *ngIf="status=='fondomayor'" class="alert alert-danger d-flex col-5" role="alert">
         Error: fondo mayor a lo permitido, Ejemplo de formato permitido: 12345678.00 (8 dígitos enteros + 2 decimales)
     </div>
+    <div *ngIf="status=='fondoiguala0'" class="alert alert-danger d-flex col-5" role="alert">
+        Error: El fondo es igual o menor a cero
+    </div>
 
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
     <div class="row align-items-center">
@@ -41,7 +44,7 @@
                     <label>Fondo:</label>
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" name="caj" #caj="ngModel" [(ngModel)]="cajerofondo" [disabled]="!modfondo " maxlength=16 (keyup)="verificarCantidad()" required pattern="[0-9][0-9]*(.([0-9][0-9]))?$">
+                        <input type="text" id="caj" class="form-control" name="caj" #caj="ngModel" [(ngModel)]="cajerofondo" maxlength=16 (keyup)="verificarCantidad()" required pattern="[0-9][0-9]*(.([0-9][0-9]))?$">
                     </div>
                     <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="caj.dirty && !caj.valid">
                         <span class="err" *ngIf="caj.errors?.required">
@@ -54,7 +57,7 @@
                 </div>
                 <!-- Boton de asignar un cajero a una caja -->
                 <div class="col-3 align-items-center mt-4 d-flex">
-                    <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol || !fondobol  && !caj.valid" [class.error]="!disabled" [class.bien]="disabled">Asignar</button>
+                    <button class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="!cajabol || !cajerobol || !fondobol  || !caj.valid" [class.error]="!disabled" [class.bien]="disabled">Asignar</button>
                     <button *ngIf="modbol" class="btn btn-info btn-lg ml-2" (click)="cambiarfondo()">Modificar Fondo</button>
                     <button *ngIf="!modbol" class="btn btn-danger btn-lg ml-2" (click)="cambiarfondo();cancelfondo()">Cancelar</button>
                 </div>

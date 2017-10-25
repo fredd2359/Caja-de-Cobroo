@@ -65,3 +65,8 @@
     text-align: center !important;
     top: 5px;
 }
+
+.noicon {
+    color: white !important;
+    opacity: 0;
+}

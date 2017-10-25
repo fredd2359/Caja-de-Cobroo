@@ -11,8 +11,8 @@
         <div class="form-group row">
             <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar nombre para serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Ingresar nombre para serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.serie" [class.error]="nombre.touched && !nombre.valid" minlength="2"
-                    maxlength="5" required/>
+                <input type="text" class="form-control" title="Ingresar nombre para serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.serie" [class.error]="nombre.touched && !nombre.valid" minlength="1"
+                    maxlength="5" required/>|
             </div>
 
 

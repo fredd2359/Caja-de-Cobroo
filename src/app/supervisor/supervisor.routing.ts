@@ -13,6 +13,7 @@ import { AltaValeComponent } from './components/series/altavale/altavale.compone
 import { AltasBajasFolioPagoComponent } from './components/folios/altas-bajas-folio-pago/altas-bajas-folio-pago.component';
 import { AltasBajasFolioValeComponent } from './components/folios/altas-bajas-folio-vale/altas-bajas-folio-vale.component';
   
+import { HistorialPagoComponent } from './components/historial-pago/historial-pago.component';
 // import {AdminGuard} from '../services/admin.guard'
   
 const adminRoutes: Routes=[
@@ -29,6 +30,7 @@ const adminRoutes: Routes=[
             {path: 'alta-pago', component:AltaPagoComponent},
             {path: 'alta-vale', component:AltaValeComponent},
 
+            {path: 'historial-pago', component:HistorialPagoComponent},
             {path: 'altas-bajas-folio-pago', component:AltasBajasFolioPagoComponent},
             {path: 'altas-bajas-folio-vale', component:AltasBajasFolioValeComponent},
             {path: '**', component:MainComponent}

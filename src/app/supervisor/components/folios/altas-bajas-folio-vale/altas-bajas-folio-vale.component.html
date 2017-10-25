@@ -2,15 +2,29 @@
     <h2>Alta de Folios de Vales</h2>
     <hr>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
-
+    <div *ngIf="status=='folioexist'" class="alert alert-danger d-flex col-5" role="alert">
+        Folio ya existe.
+    </div>
+    <div *ngIf="status=='error'" class="alert alert-danger d-flex col-5" role="alert">
+        Folio no resgistrado.
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
+        Se ha registrado exitosamente.
+    </div>
+    <div *ngIf="status=='elimsuccess'" class="alert alert-success d-flex col-5" role="alert">
+        Se ha(n) cancelado exitosamente el (los) registro(s).
+    </div>
+    <div *ngIf="status=='elimerror'" class="alert alert-success d-flex col-5" role="alert">
+        No se ha(n) cancelado el (los) registros, puede que uno o varios ya esten cancelados.
+    </div>
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
 
-    <form #formAltaSeries="ngForm" id="" name="">
+    <form #formAltaSeries="ngForm" id="formAltaSeries" name="">
 
         <div class="form-group row">
             <label name="serie" class="col-sm-2 col-form-label" for="serie" title="Serie" [class.errorLabel]="serie.touched && !serie.valid">Serie: </label>
             <div class="col-sm-8">
-                <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="serieid" (change)="selectSerie()" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="serieid" (change)="selectSerie()" required> <!--(change)="sacarCategoria($event.target.value)"--> 
                 <option selected>Escoge una categoria...</option>
                 <option *ngFor="let serie of series">{{serie.id}}</option>
             </select>
@@ -22,12 +36,13 @@
         <div class="form-group row">
             <label name="folioinput" class="col-sm-2 col-form-label" for="folio" title="Folio Inicial" [class.errorLabel]="folio.touched && !folio.valid">Folio Inicial: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Folio Inicial" id="folio" name="folio" placeholder="Inserte el folio" #folio="ngModel" [(ngModel)]="cantfolios" [class.error]="folio.touched && !folio.valid" minlength="1" maxlength="5" required />
+                <input type="text" class="form-control" title="Folio Inicial" id="folio" name="folio" placeholder="Inserte el folio" #folio="ngModel" [(ngModel)]="cantfolios" [class.error]="folio.touched && !folio.valid" maxlength="40" (keyup)="asignarfolios2()" step=0.01
+                    required pattern="[1-9][0-9]*$" />
             </div>
             <!--VALIDACIÓN DE FOLIO-->
-            <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.touched && !folio.valid">
+            <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.dirty && !folio.valid">
                 <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El campo folio es obligatorio</small></span>
-                <span class="err" *ngIf="folio.errors.minlength" title="longitud mínima de caracteres que conforman el folio es de al menos 2 caracteres."><small>longitud mínima de caracteres que conforman el folio es de al menos 2 caracteres.</small></span>
+                <span class="err" *ngIf="folio.errors.pattern"><small>Sólo puedes ingresar números entreros.</small></span>
             </div>
 
         </div>
@@ -39,14 +54,14 @@
             <label name="cantidad" class="col-sm-2 col-form-label" for="cantidad" title="Cantidad" [class.errorLabel]="cantidad.touched && !cantidad.valid">Cantidad: </label>
             <div class="col-sm-8">
 
-                <input type="number" class="form-control" title="Cantidad" id="Cantidad" name="cantidad" placeholder="Inserte la cantidad" #cantidad="ngModel" [(ngModel)]="cantidades" [class.error]="cantidad.touched && !cantidad.valid" (keyup)="asignarfolios()" step=0.01
-                    required pattern="[1-9][0-9]*$" />
+                <input type="text" class="form-control" title="Cantidad" id="Cantidad" name="cantidad" maxlength="30" placeholder="Inserte la cantidad" #cantidad="ngModel" [(ngModel)]="cantidades" [class.error]="cantidad.touched && !cantidad.valid" (keyup)="asignarfolios()"
+                    step=0.01 required pattern="[1-9][0-9]*$" />
                 <!-- con decimales pattern="[1-9][0-9]*.([0-9][0-9])$"-->
             </div>
 
             <!--VALIDACIÓN DE CANTIDAD-->
 
-            <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.touched && !cantidad.valid">
+            <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.dirty && !cantidad.valid">
                 <span class="err" *ngIf="cantidad.errors.required" title="El apellido paterno es obligatorio."><small>Ingresa la cantidad.</small></span>
                 <span class="err" *ngIf="cantidad.errors.pattern" title="Extención no valida"><small>Sólo puedes ingresar números enteros.</small></span>
             </div>
@@ -55,7 +70,7 @@
         <div class="form-group row">
             <label name="foliof" class="col-sm-2 col-form-label" for="foliofinal" title="Folio Final">Folio Final: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Folio final" id="foliofinal" [(ngModel)]="folfinal" #foliofinal="ngModel" name="foliofinal" minlength="2" maxlength="100" disabled/>
+                <input type="text" class="form-control" title="Folio final" id="foliofinal" [(ngModel)]="folfinal" #foliofinal="ngModel" name="foliofinal" readOnly="readOnly" minlength="2" (change)="cambiofoliofinal()" maxlength="100" />
             </div>
         </div>
         <!--TERMINA VALIDACIÓN DE CANTIDAD-->
@@ -63,7 +78,7 @@
         <!--BOTÓN GUARDAR REGISTRO USUARIO-->
 
         <div class="offset-xs-3 col-xs-9 form-inline">
-            <button type="submit" class="btn btn-success" title="Realizar Alta" data-toggle="modal" (click)="onSubmit()">Guardar</button>
+            <button type="submit" class="btn btn-success" title="Realizar Alta" data-toggle="modal" (click)="onSubmit()" [disabled]="!formAltaSeries.form.valid || !seriebol">Guardar</button>
         </div>
         <!--TERMINA BOTÓN GUARDAR REGISTRO USUARIO
         [disabled]="!formAltaSeries.form.valid" -->
@@ -71,13 +86,22 @@
     </form>
 
     <hr>
-
     <h2>Baja de Folios de Vales</h2>
-    <table id="tablafoliosvales" datatable class="table table-bordered " cellspacing="0">
+    <div class="row">
+        <div class="col-1 d-flex justify-content-end">
+
+            <input type="checkbox" id="mastercheckbox" name="mastercheckbox" (change)="seleccionarcheck2()" class="form-check-input ml-4">
+        </div>
+        <div class="col d-flex justify-content-start">
+
+            <label>Seleccionar todo.</label>
+        </div>
+    </div>
+    <table id="tablafoliosvales" datatable class="table table-bordered mt-4 " cellspacing="0">
         <!-- <table id="tablafolios" datatable [dtTrigger]="dtTrigger" class="table table-bordered " (change)="ngOnInit()" width="100%" cellspacing="0"> -->
         <thead>
             <tr>
-                <th></th>
+                <th class="noicon"></th>
                 <th>No. de folio</th>
                 <th>Estado</th>
             </tr>
@@ -86,9 +110,9 @@
         <tbody>
             <!-- <tr> -->
             <tr *ngFor="let folio of folios; let i=index">
-                <th scope="row">folio</th>
+                <th><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="selectcheck2(i)" /></th>
                 <td>
-                    {{folio.numeroFolio}}
+                    {{folio.serie.serie+folio.numeroFolio}}
                 </td>
                 <td>
                     {{folio.estadoFolio}}
@@ -99,8 +123,8 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalBajaDefinitivaVale" data-backdrop="static" data-keyboard="false">
-        Baja Definitiva
+    <button type="button" id="baja" class="btn btn-danger" data-toggle="modal" data-target="#ModalBajaDefinitivaVale" data-backdrop="static" data-keyboard="false">
+        eliminar Varios
     </button>
 </div>
 
@@ -128,6 +152,29 @@
 </div>
 <!-- TERMINA Modal CONFIRMACIÓN DE REGISTRO -->
 
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="ModalErrorCancelacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Atención</h5>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>El registro esta cancelado</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal Error de cancelacion -->
+
 <div class="modal fade bd-example-modal-sm" id="ModalBajaDefinitivaVale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -142,7 +189,7 @@
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" data-dismiss="modal" style="text-align:center">Aceptar</button>
+                    <button class="btn btn-primary" type="submit" data-dismiss="modal" (click)="eliminarvarios()" style="text-align:center">Aceptar</button>
                     <button class="btn btn-danger" type="submit" data-dismiss="modal" style="text-align:center">Cancelar</button>
 
                 </div>

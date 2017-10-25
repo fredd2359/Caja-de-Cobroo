@@ -29,6 +29,12 @@ export class AltasBajasFolioPagoComponent implements OnInit
     public cantidades:number;
     public folfinal:number;
     public numerofol:any;
+    public cantidadesbol:boolean=true;
+    public status:string="";
+    public arregloeliminar=[];
+    public seriebol=false;
+    public textos:number;
+    public folioelim:number;
   //Directivas y declaracion de variables para el uso de la tabla !important
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -78,64 +84,187 @@ dtTrigger: Subject<string> = new Subject();
         }
         this._superService.altaFolioPago(this.folios).subscribe(
             result => {
-                console.log(result);
+                //NO SE UTILIZA POR QUE LA RESPUESTA VIENE MAL SE MANEJA EN ERROR
+                // console.log(result);
+                // this.status="success";
+                // console.log(this.status);
+                // $("#tablafolios").dataTable().fnDestroy();
 
-        $("#tablafolios").dataTable().fnDestroy();
-        this.LoadTableData();
+                // this.LoadTableData();
             },
             error => {
+                console.log("errorisirto");
                 console.log(error);
-                
-        $("#tablafolios").dataTable().fnDestroy();
-
-        this.LoadTableData();
-            }
+                if (error.status=="400"){
+                    $("#tablafolios").dataTable().fnDestroy();
+                    this.status="error";
+                    this.LoadTableData();
+                  }
+                else{
+                    this.status="success";
+                    $("#tablafolios").dataTable().fnDestroy();
+            
+                    this.LoadTableData();
+                    
+                }
+                if((error._body.substring(20,38)) == "El folio ya existe"){
+                    console.log("FONDO IGUAL O MENOR A CERO ....");
+                    this.status="folioexist";
+                    $("#tablafolios").dataTable().fnDestroy();
+            
+                    this.LoadTableData();
+                }
+            } 
           );
+          $('#formAltaSeries').trigger("reset");
           console.log("Mandar ");
         console.log(JSON.stringify(this.folios));
     }
 
     asignarfolios(){
+        let a = this.cantidades;
+        console.log("cantidades");
+        console.log(this.cantidades);
         if (this.cantidades<0){
-
+            this.folfinal=0;
         }
         else if (this.cantidades > 0){
             console.log(this.cantfolios);
             let a=Number(this.cantfolios);
             let b=Number(this.cantidades);
             this.folfinal=a+(b-1);
+            if (isNaN(this.folfinal)){
+                this.folfinal=0;
+            }
+        }
+
+        if (isNaN(this.folfinal)){
+            this.folfinal=0;
+        }
+        if (isNaN(a)){
+            this.folfinal=0;
         }
     }
 
-    eliminartodos(){
-        
-        for(let a=0;a<this.folios.length;a++){
-            console.log("a");
-            this.numerofol.push(this.folios[a].numeroFolio);
+    asignarfolios2(){
+        let a = this.cantfolios;
+        console.log("cantidades");
+        console.log(this.cantfolios);
+        if (this.cantfolios<0){
+            this.folfinal=0;
         }
-        console.log("Eliminar");
-        console.log(this.numerofol);
-        this._superService.eliminarFoliosPagos(this.numerofol).subscribe(
-            result => {
-                
-        $("#tablafolios").dataTable().fnDestroy();
-              this.loadTable();
-            },
-            error => {
-                $("#tablafolios").dataTable().fnDestroy();
+        else if (this.cantfolios > 0){
+            console.log(this.cantfolios);
+            let a=Number(this.cantfolios);
+            let b=Number(this.cantidades);
+            this.folfinal=a+(b-1);
+            if (isNaN(this.folfinal)){
+                this.folfinal=0;
             }
-          );
+        }
+        if (isNaN(this.folfinal)){
+            this.folfinal=0;
+        }
+
+        if (isNaN(a)){
+            this.folfinal=0;
+        }
     }
+
+    cambiofoliofinal(){
+        let a=this.folfinal;
+        console.log();
+        if (isNaN(a)){
+            console.log("es nana");
+        }
+    }
+
+    selectcheck2(i){
+        let self=this;
+        var texto="";
+        var fol:number;
+        let index:number=i;
+        let check:number=i;
+        console.log(i);
+      
+        for(let a=0 ; a < this.folios.length;a++){
+          if (a==i){
+            if ((this.folios[a].estadoFolio=="CANCELADO")){
+              if ($('#check'+check).is(":checked")){
+      
+                $("#ModalErrorCancelacion").modal("show");
+              }
+              else{
+      
+              }
+            }
+            else{
+            if ($('#check'+check).is(":checked")){
+            console.log("if de check");
+            console.log("entroooooo");
+            this.arregloeliminar.push({numeroFolio: this.folios[a].numeroFolio});
+            console.log(this.folios[a].numeroFolio);
+            self.folioelim=this.folios[a].numeroFolio;
+            break;
+            }
+            else {
+              console.log("else de check");
+              for(let a=0;a<self.arregloeliminar.length;a++){
+                console.log("fpolio elimi");
+                console.log(this.folios[check].numeroFolio);
+                if(this.folios[check].numeroFolio==self.arregloeliminar[a].numeroFolio){
+                  console.log("splice");
+                  self.arregloeliminar.splice(a,1);
+                }
+            }
+          }
+        }
+              
+          }
+      }
+      
+      
+      console.log("dato a eliminar");
+      console.log(this.arregloeliminar);
+      }
+
+    verificarCantidad() {
+        console.log(this.cantidades);
+        if (this.cantidades > 0) {
+    
+          this.cantidadesbol = true;
+    
+        }
+        else if (this.cantidades < 0) {
+          this.cantidadesbol = false;
+        }
+        else {
+          this.cantidadesbol=false;
+        }
+      }
 
     selectSerie(){
         console.log("hola");
         console.log(this.serieid);
+        let a:string=this.serieid.toString();
+        console.log("a");
+        console.log(a);
+        if (a=="Escoge una categoria..."){
+          console.log("holi");
+          this.seriebol=false;
+        }
+        else{
+          console.log("else de tostring");
+        }
         for(let s=0; s< this.series.length;s++){
             if (this.serieid == this.series[s].id){
                 this.serie=this.series[s];
+                this.seriebol=true;
                 console.log(this.serie);
+                break;
             }
             else{
+
             }
         }
     }
@@ -144,28 +273,35 @@ dtTrigger: Subject<string> = new Subject();
   LoadTableData() {
     this._superService.getFolioPagos().subscribe(
       result => {
-        this.DataArray = result.respuesta;
+        this.folios = result.respuesta;
         console.log(" Datos del array para la tabla....");
-        console.log(this.DataArray);
+        console.log(this.folios);
+        $("#tablafolios").dataTable().fnDestroy();
         this.loadTable();
       },
       error => {
           console.log("error LoadTableData getFolioPagos");
+          $("#tablafolios").dataTable().fnDestroy();
         console.log(error);
       }
     );
   }
 
-
   loadTable(): void {
     setTimeout(function () {
       $(function () {
     
+       $("#tablafolios").dataTable().fnDestroy();
+
+       //hola
        $('#tablafolios').dataTable();
 
       });
     }, 1000);
   }
+
+
+  
 
   //JQuery
   seleccionarcheck(){
@@ -183,4 +319,31 @@ dtTrigger: Subject<string> = new Subject();
       }
     });
   }
+  
+  eliminarvarios(){
+    console.log("Arreglo de eliminiar");
+    console.log(this.arregloeliminar);
+  this._superService.eliminarFoliosPagos(this.arregloeliminar).subscribe(
+     result => {
+       $("#tablafolios").dataTable().fnDestroy();
+         this.status="elimino"
+         this.LoadTableData();
+     },
+     error => {
+      if (error.status=="400"){
+        $("#tablafolios").dataTable().fnDestroy();
+        this.status="elimerror";
+        this.LoadTableData();
+      }
+      else {
+        console.log(error);
+          this.status="elimsuccess";
+          $("#tablafolio").dataTable().fnDestroy();
+  
+          this.LoadTableData();
+      }
+  }
+  );
+}
+
 }
