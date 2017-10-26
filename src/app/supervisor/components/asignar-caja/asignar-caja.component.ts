@@ -13,7 +13,7 @@ import {SupervisorService} from '../../supervisor.service';
 
 declare var jquery: any;
 declare var $: any;
-
+  
 @Component({
   selector: 'asignar-caja',
   templateUrl: './asignar-caja.component.html',

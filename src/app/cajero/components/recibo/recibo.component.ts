@@ -34,7 +34,6 @@ export class ReciboComponent implements OnInit {
   ) {
     this.recibo=new Recibo(0,0,"","",null);
     this.recibos=new Array();
-    this.folio=new Folio(0,0,"","",null);
     this.folios=new Array();
     this.serie=new Serie(0,"","","","");
     this.recibos=new Array();

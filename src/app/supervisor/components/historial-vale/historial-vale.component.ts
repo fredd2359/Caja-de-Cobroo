@@ -1,4 +1,5 @@
-import { Component, OnInit,ViewChild, AfterViewInit  } from '@angular/core';
+import { Component, OnInit,ViewChild, AfterViewInit } from '@angular/core';
+
 import {SupervisorService} from '../../supervisor.service';
 
 import { DataTableDirective} from 'angular-datatables';
@@ -14,12 +15,11 @@ declare var jquery:any;
 declare var $ :any;
 
 @Component({
-  selector: 'app-historial',
-  templateUrl: './historial-pago.component.html',
-  styleUrls: ['./historial-pago.component.css']
+  selector: 'app-historial-vale',
+  templateUrl: './historial-vale.component.html',
+  styleUrls: ['./historial-vale.component.css']
 })
-export class HistorialPagoComponent implements OnInit {
-
+export class HistorialValeComponent implements OnInit {
   public serie:Serie;
   public series:Serie[];
   public folio:Folio;
@@ -40,11 +40,11 @@ export class HistorialPagoComponent implements OnInit {
   public cajerom:string;
   public cajerobol:boolean;
   
-   //Directivas y declaracion de variables para el uso de la tabla !important
-   @ViewChild(DataTableDirective)
-   dtElement: DataTableDirective;
-   dtOptions: DataTables.Settings = {};
-   dtTrigger: Subject<string> = new Subject();
+  //Directivas y declaracion de variables para el uso de la tabla !important
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<string> = new Subject();
 
   constructor(
     public _superService: SupervisorService /**Necesitamos el servicio */
@@ -59,11 +59,11 @@ export class HistorialPagoComponent implements OnInit {
 
   ngOnInit() {
     this.LoadTableData();  
-    this._superService.getFolioPagos().subscribe(
+    this._superService.getFolioVales().subscribe(
       result => {
         
         this.folios = result.respuesta;
-        console.log("folios cargados");
+        console.log("vales cargados");
         console.log(this.folios);
         this.loadTable();
       },
@@ -71,7 +71,7 @@ export class HistorialPagoComponent implements OnInit {
         console.log(error);
       }
     );
-    this._superService.getSeriePago().subscribe(
+    this._superService.getSerieVale().subscribe(
       result => {
         
         this.series = result.respuesta;

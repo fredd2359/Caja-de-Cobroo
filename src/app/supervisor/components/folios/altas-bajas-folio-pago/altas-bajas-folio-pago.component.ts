@@ -46,7 +46,7 @@ dtTrigger: Subject<string> = new Subject();
         
         this.serie = new Serie(0,"","","","");
         this.series = new Array();
-        this.folio = new Folio(0,0,"","",null);
+        this.folio = new Folio(0,0,"","",null,null);
         this.folios = new Array();
         this.numerofol=new Array();
     }
@@ -73,10 +73,11 @@ dtTrigger: Subject<string> = new Subject();
         this.folios=new Array();
         for(let i=0; i < this.cantidades;i++){
             console.log(a);
-            this.folio=new Folio(0,0,"","",null);
+            this.folio=new Folio(0,0,"","",null,null);
             this.folio.id=null;
             this.folio.fechaAlta=null;
             this.folio.estadoFolio="DISPONIBLE";
+            this.folio.cajero=null;
             this.folio.numeroFolio=Number(this.cantfolios)+Number(a);
             this.folio.serie=this.serie;
             this.folios.push(this.folio);

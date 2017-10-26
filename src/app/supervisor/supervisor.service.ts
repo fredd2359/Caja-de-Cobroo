@@ -69,6 +69,20 @@ export class SupervisorService {
           .map((res: Response) => res.json());
       }
 
+      asignarFolioPago(foliopago){
+        const params = JSON.stringify(foliopago);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.put(this.url+'folio-recibos/asignar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
+      asignarFolioVales(foliovales){
+        const params = JSON.stringify(foliovales);
+        const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        return this._http.put(this.url+'folio-vales/asignar', params, {headers: headers})
+          .map((res: Response) => res.json());
+      }
+
       altaFolioVale(foliovale){
         const params = JSON.stringify(foliovale);
         const headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});

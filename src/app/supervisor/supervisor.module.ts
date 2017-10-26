@@ -18,6 +18,7 @@ import { SeriesComponent } from './components/series/series.component';
 import { AltaPagoComponent } from './components/series/altapago/altapago.component';
 import { AltaValeComponent } from './components/series/altavale/altavale.component';
 import { HistorialPagoComponent } from './components/historial-pago/historial-pago.component';
+import { HistorialValeComponent } from './components/historial-vale/historial-vale.component';
 
 @NgModule ({
     declarations:[
@@ -29,6 +30,7 @@ import { HistorialPagoComponent } from './components/historial-pago/historial-pa
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
         HistorialPagoComponent,
+        HistorialValeComponent,
 ],
     imports:[ 
         CommonModule,
@@ -44,7 +46,8 @@ import { HistorialPagoComponent } from './components/historial-pago/historial-pa
         AltaValeComponent,
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
-        HistorialPagoComponent
+        HistorialPagoComponent,
+        HistorialValeComponent
     ],
     providers:[
         SupervisorService

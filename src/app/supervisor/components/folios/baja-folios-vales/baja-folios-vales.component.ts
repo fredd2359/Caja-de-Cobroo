@@ -28,7 +28,7 @@ export class BajaFoliosValesComponent implements OnInit {
   {
     this.serieVale=new Serie(0,"","","","");
     this.serieVales=new Array();
-    this.folio=new Folio(0,0,"","",null);
+    this.folio=new Folio(0,0,"","",null,null);
     this.folios=new Array();  
   }
 
