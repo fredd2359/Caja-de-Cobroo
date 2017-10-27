@@ -2,9 +2,27 @@
     <h2>Historial Folios de Vales</h2>
     <hr>
 
+    <div *ngIf="status=='successelim'" class="alert alert-success d-flex col-5" role="alert">
+        Se ha desasignado el (los) folio(s) exitosamente.
+    </div>
+    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
+        Se ha asigado el (los) folio(s) exitosamente.
+    </div>
+    <div *ngIf="status=='errorelim'" class="alert alert-danger d-flex col-5" role="alert">
+        Uno o más folios ya han sido desasignados.
+    </div>
+    <div *ngIf="status=='folioasig'" class="alert alert-danger d-flex col-5" role="alert">
+        Uno o más folios ya han sido asignados.
+    </div>
+    <div *ngIf="status=='errorasignar'" class="alert alert-danger d-flex col-5" role="alert">
+        Uno o mas folios ya han sido cancelados.
+    </div>
     <button type="button" id="baja" class="btn btn-success mb-3" data-toggle="modal" data-target="#ModalAsignar" data-backdrop="static" data-keyboard="false">
             Seleccionar Folios
          </button>
+    <button type="button" id="baja" class="btn btn-success mb-3" data-toggle="modal" data-target="#ModalAsignarCajero" data-backdrop="static" data-keyboard="false" [disabled]="!asignarfoliosbol">
+                 Asignar Folios
+          </button>
     <div class="row">
         <div class="col-1 d-flex justify-content-end">
 
@@ -15,7 +33,7 @@
             <label>Seleccionar todo.</label>
         </div>
     </div>
-    <table id="tablafolios" datatable class="table table-bordered table-sm table table-responsive" cellspacing="0">
+    <table id="tablafoliosvales" datatable class="table table-bordered table-sm table table-responsive" cellspacing="0">
         <!-- <table id="tablafolios" datatable [dtTrigger]="dtTrigger" class="table table-bordered " (change)="ngOnInit()" width="100%" cellspacing="0"> -->
         <thead>
             <tr>
@@ -28,15 +46,15 @@
         <tbody>
             <!-- <tr> -->
             <tr *ngFor="let foli of folios; let i=index">
-                <td><input type="checkbox" id="{{i}}" class="form-check-input ml-3" (change)="selectcheck(i)" /></td>
+                <td><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="selectcheck2(i)" /></td>
                 <td>
-                    {{foli.numeroFolio}}
+                    {{foli.serie.serie+foli.numeroFolio}}
                 </td>
                 <td>
                     {{foli.estadoFolio}}
                 </td>
                 <td>
-                    {{foli.cajero}}
+                    {{(foli.cajero) ? foli.cajero.nombre : 'n/a' }}
                 </td>
                 <!-- <td>'{(cajero.nombrecajero)?cajero.nombrecajero:'n/a'}}'</td>
             <td>'{(cajero.fondo)?cajero.fondo:'0'}}'</td> -->
@@ -47,9 +65,6 @@
     <button type="button" id="baja" class="btn btn-danger" data-toggle="modal" data-target="#ModalDesasignar" data-backdrop="static" data-keyboard="false">
             Desasignar Folios
     </button>
-    <button type="button" id="baja" class="btn btn-success" data-toggle="modal" data-target="#ModalAsignarCajero" data-backdrop="static" data-keyboard="false">
-            Asignar Folios
-     </button>
 </div>
 
 
@@ -92,9 +107,9 @@
                             <label for="recipient-name" class="col-form-label mr-3">Serie:</label>
                         </div>
                         <div class="col-6">
-                            <select class="form-control ml-3" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="serieid" (change)="selectSerie()" required> 
+                            <select class="form-control ml-3" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="seriename" (change)="selectSerie()" required> 
                             <option selected>Escoge una categoria...</option>
-                            <option *ngFor="let serie of series">{{serie.id}}</option>
+                            <option *ngFor="let serie of series">{{serie.serie}}</option>
                         </select>
                         </div>
 
@@ -108,7 +123,7 @@
                         <div class="col-5">
                             <select class="form-control" name="folinicio" type="text" #folinicio="ngModel" [(ngModel)]="folioinicio" (change)="validarfolios(i)" required> 
                                 <option selected>Folio...</option>
-                                <option *ngFor="let folio of folios; let i =index">{{folio.numeroFolio}}</option>
+                                <option *ngFor="let folio of foliosserie; let i =index">{{folio.numeroFolio}}</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -117,14 +132,14 @@
                         <div class="col-5">
                             <select class="form-control" name="folfinal" type="text" #folfinal="ngModel" [(ngModel)]="foliofinal" (change)="validarfolios2(i)" required>
                                 <option selected>Folio...</option>
-                                <option *ngFor="let folio2 of folios; let i =index">{{folio2.numeroFolio}}</option>
+                                <option *ngFor="let folio2 of foliosserie; let i =index">{{folio2.numeroFolio}}</option>
                             </select>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" [disabled]="!serieidbol || !foliniciobol || !folfinal">Seleccionar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" [disabled]="!serieidbol || !foliniciobol || !folfinalbol" (click)="cambio()">Seleccionar</button>
             </div>
         </div>
     </div>
@@ -195,8 +210,31 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="asignarCajero()" [disabled]="!cajerobol">Asignar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="asignarCajero();cambio()" [disabled]="!cajerobol">Asignar</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="ModalErrorCancelacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Atención</h5>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>El registro esta cancelado</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!-- TERMINA Modal Error de cancelacion -->

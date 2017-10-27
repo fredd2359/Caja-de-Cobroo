@@ -6,6 +6,7 @@ import {HttpModule} from '@angular/http';
 
 import {SupervisorModule} from './supervisor/supervisor.module';
 import {CajerosModule} from './cajero/cajero.module';
+import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { AsignarCajaComponent } from './supervisor/components/asignar-caja/asignar-caja.component';
@@ -28,7 +29,9 @@ import { DataTablesModule } from 'angular-datatables';
     HttpModule,
     SupervisorModule,
     CajerosModule,
-    DataTablesModule
+    DataTablesModule,
+    AdminModule /**Modulo admin 26/10/2017 */
+    
   ],
   providers: [
     appRoutingProviders

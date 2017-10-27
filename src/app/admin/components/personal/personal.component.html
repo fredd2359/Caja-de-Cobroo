@@ -1,0 +1,226 @@
+<main class="col py-5 main">
+<p>
+  personal administradores works!
+</p>
+<div class="justify-content-center">
+    <div class="row">
+        <div class="col-10">
+            <h1 title="Alta de Personal">Alta de Personal</h1>
+        </div>
+        <div class="col-2">
+            <div class="bot space input-group add-on">
+                <button class="agregar buttons btn btn-success" data-toggle="modal" data-target="#">
+                    Alta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form #formAgregaPersonal="ngForm" name="formAgregaPersonal" id="formAgregaPersonal" (ngSubmit)="onSubmit()" class="justify-content-center">
+    <div class="row ">
+        <div class="col-12 col-sm-12 col-md-6">
+    <h2>Datos Personales</h2>
+    <hr />
+    <div class="container no-gutters">
+<!--CURP-->
+    <div class="form-group row">
+        <label title="curp" for="curp" class="col-sm-2 col-form-label">Curp:</label>
+        <div class="col-sm-10">
+            <input title="Ingrese CURP" type="text" name="curpinput" class="form-control" id="curpinput" placeholder="Ingrese CURP" #curp="ngModel" [(ngModel)]="altapersonal.curp" minlength="2" maxlength="100" [class.error]="curp.touched && !curp.valid" required
+            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+      </div>
+<!--TERMINA CURP-->
+<!--NOMBRE-->
+      <div class="form-group row">
+          <label title="curp" for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+          <div class="col-sm-10">
+              <input title="Ingrese CURP" type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese nombre" #nombre="ngModel" [(ngModel)]="altapersonal.nombre" minlength="2" maxlength="100" [class.error]="nombre.touched && !nombre.valid" required
+              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+        </div>
+        <!--TERMINA NOMBRE-->
+        <!--APELLIDO PATERNO-->
+        <div class="form-group row">
+            <label title="curp" for="apellidop" class="col-sm-2 col-form-label">Apellido Paterno:</label>
+            <div class="col-sm-10">
+                <input title="Ingrese CURP" type="text" name="apellidop" class="form-control" id="apellidop" placeholder="Ingrese apellido paterno" #apellidop="ngModel" [(ngModel)]="altapersonal.apellidop" minlength="2" maxlength="100" [class.error]="apellidop.touched && !apellidop.valid" required
+                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+          </div>
+          <!--TERMINA AP-->
+          <!--APELLIDO MATERNO-->
+          <div class="form-group row">
+              <label title="curp" for="apellidom" class="col-sm-2 col-form-label">Apellido Materno:</label>
+              <div class="col-sm-10">
+                  <input title="Ingrese CURP" type="text" name="apellidom" class="form-control" id="apellidom" placeholder="Ingrese apellido materno" #apellidom="ngModel" [(ngModel)]="altapersonal.apellidom" minlength="2" maxlength="100" [class.error]="apellidom.touched && !apellidom.valid" required
+                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+            </div>
+            <!--TERMINA AM-->
+            <!---->
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
+                <div class="col-sm-10">
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+              </div>
+              <!---->
+              <!--date PICKER-->
+              <!--TERMINA DATE PICKER-->
+              <!---->
+              <div class="form-group row">
+                  <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
+                  <div class="col-sm-10">
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                </div>
+                <!---->
+                <!--CORREO-->
+                <div class="form-group row">
+                    <label title="curp" for="correo" class="col-sm-2 col-form-label">Correo:</label>
+                    <div class="col-sm-10">
+                        <input title="Ingrese CURP" type="text" name="correo" class="form-control" id="correo" placeholder="Ingrese correo" #correo="ngModel" [(ngModel)]="altapersonal.correo" minlength="2" maxlength="100" [class.error]="correo.touched && !correo.valid" required
+                        pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                  </div>
+                  <!--TERMINA CORREO-->
+                  <!--LADA-->
+                  <div class="form-group row">
+                      <label title="curp" for="lada" class="col-sm-2 col-form-label">Lada:</label>
+                      <div class="col-sm-10">
+                          <input title="Ingrese CURP" type="text" name="lada" class="form-control" id="lada" placeholder="Ingrese CURP" #lada="ngModel" [(ngModel)]="altapersonal.lada" minlength="2" maxlength="100" [class.error]="lada.touched && !lada.valid" required
+                          pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                    </div>
+                    <!--TERMINA LADA-->
+                    <!--TELÉFONO-->
+                    <div class="form-group row">
+                        <label title="curp" for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
+                        <div class="col-sm-10">
+                            <input title="Ingrese CURP" type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese teléfono" #telefono="ngModel" [(ngModel)]="altapersonal.telefono" minlength="2" maxlength="100" [class.error]="telefono.touched && !telefono.valid" required
+                            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                      </div>
+                      <!--TERMINA TELÉFONO-->
+                      <!--CELULAR-->
+                      <div class="form-group row">
+                          <label title="curp" for="celular" class="col-sm-2 col-form-label">Celular:</label>
+                          <div class="col-sm-10">
+                              <input title="Ingrese CURP" type="text" name="celular" class="form-control" id="celular" placeholder="Ingrese celular" #celular="ngModel" [(ngModel)]="altapersonal.celular" minlength="2" maxlength="100" [class.error]="celular.touched && !celular.valid" required
+                              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        </div>
+                        <!--TERMINA CELULAR-->
+
+        </div>
+
+</div>
+
+<div class="col-12 col-sm-12 col-md-6">
+        <h2>Domicilio</h2>
+        <hr />
+        <div class="container no-gutters">
+          <!--CP-->
+        <div class="form-group row">
+            <label title="curp" for="cp" class="col-sm-2 col-form-label">Código Postal:</label>
+            <div class="col-sm-10">
+                <input title="Ingrese CURP" type="text" name="cp" class="form-control" id="cp" placeholder="Ingrese código postal" #cp="ngModel" [(ngModel)]="altapersonal.cp" minlength="2" maxlength="100" [class.error]="cp.touched && !cp.valid" required
+                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+          </div>
+          <!--TERMINA CP-->
+          <!--ESTADO-->
+          <div class="form-group row">
+              <label title="curp" for="estado" class="col-sm-2 col-form-label">Estado:</label>
+              <div class="col-sm-10">
+                  <input title="Ingrese CURP" type="text" name="estado" class="form-control" id="estado" placeholder="Ingrese estado" #estado="ngModel" [(ngModel)]="altapersonal.estado" minlength="2" maxlength="100" [class.error]="estado.touched && !estado.valid" required
+                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+            </div>
+            <!--TERMINA ESTADO-->
+            <!--CIUDAD-->
+            <div class="form-group row">
+                <label title="curp" for="ciudad" class="col-sm-2 col-form-label">Ciudad:</label>
+                <div class="col-sm-10">
+                    <input title="Ingrese CURP" type="text" name="ciudad" class="form-control" id="ciudad" placeholder="Ingrese ciudad" #ciudad="ngModel" [(ngModel)]="altapersonal.ciudad" minlength="2" maxlength="100" [class.error]="ciudad.touched && !ciudad.valid" required
+                    pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+              </div>
+              <!--TERMINA CIUDAD-->
+              <!--MUNICIPIO-->
+              <div class="form-group row">
+                  <label title="curp" for="municipio" class="col-sm-2 col-form-label">Municipio:</label>
+                  <div class="col-sm-10">
+                      <input title="Ingrese CURP" type="text" name="municipio" class="form-control" id="municipio" placeholder="Ingrese nmunicipio" #municipio="ngModel" [(ngModel)]="altapersonal.municipio" minlength="2" maxlength="100" [class.error]="municipio.touched && !municipio.valid" required
+                      pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                </div>
+                <!--TERMINA MUNICIPIO-->
+                <!---->
+                <div class="form-group row">
+                    <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
+                    <div class="col-sm-10">
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  </div>
+                  <!---->
+                  <!--CALLE-->
+                  <div class="form-group row">
+                      <label title="curp" for="calle" class="col-sm-2 col-form-label">Calle:</label>
+                      <div class="col-sm-10">
+                          <input title="Ingrese CURP" type="text" name="calle" class="form-control" id="calle" placeholder="Ingrese calle" #calle="ngModel" [(ngModel)]="altapersonal.calle" minlength="2" maxlength="100" [class.error]="calle.touched && !calle.valid" required
+                          pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                    </div>
+                    <!--TERMINA CALLE-->
+                    <!--NÚMERO-->
+                    <div class="form-group row">
+                        <label title="curp" for="numero" class="col-sm-2 col-form-label">Número:</label>
+                        <div class="col-sm-10">
+                            <input title="Ingrese CURP" type="text" name="numero" class="form-control" id="numero" placeholder="Ingrese número" #curp="ngModel" [(ngModel)]="altapersonal.numero" minlength="2" maxlength="100" [class.error]="numero.touched && !numero.valid" required
+                            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                      </div>
+                      <!--TERMINA NÚMERO-->
+                      <!--NÚMERO INTERIOR-->
+                      <div class="form-group row">
+                          <label title="curp" for="numeroint" class="col-sm-2 col-form-label">Número Interior:</label>
+                          <div class="col-sm-10">
+                              <input title="Ingrese CURP" type="text" name="numeroint" class="form-control" id="numeroint" placeholder="Ingrese número interior" #curp="ngModel" [(ngModel)]="altapersonal.numeroint" minlength="2" maxlength="100" [class.error]="numeroint.touched && !numeroint.valid" required
+                              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        </div>
+                        <!--TERMINA NÚMERO INTERIOR-->
+                        <!--USUARIO-->
+                        <h2>Datos de Usuario</h2>
+                        <hr />
+                        <div class="form-group row">
+                            <label title="curp" for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
+                            <div class="col-sm-10">
+                                <input title="Ingrese CURP" type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese Usuario" #usuario="ngModel" [(ngModel)]="altapersonal.usuario" minlength="2" maxlength="100" [class.error]="usuario.touched && !usuario.valid" required
+                                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                          </div>
+                          <!--TERMINA USUARIO-->
+                          <!--CONTRASEÑA-->
+                          <div class="form-group row">
+                              <label title="curp" for="password" class="col-sm-2 col-form-label">Contraseña:</label>
+                              <div class="col-sm-10">
+                                  <input title="Ingrese CURP" type="text" name="password" class="form-control" id="password" placeholder="Ingrese Contraseña" #curp="ngModel" [(ngModel)]="altapersonal.password" minlength="2" maxlength="100" [class.error]="password.touched && !password.valid" required
+                                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                            </div>
+                            <!--TERMINA CONTRASEÑA-->
+            </div>
+
+         
+          
+        
+
+</div>
+</div>
+</form>
+
+</main>

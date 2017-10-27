@@ -1,18 +1,18 @@
 <div class="container mt-3">
-    <h1 title="Alta de Seriess en Pagos">Alta series en Pago</h1>
+    <h1 title="Alta de Seriess en Pagos">Alta series de Recibos</h1>
     <hr>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
 
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
 
-    <form #formAltaSeries="ngForm" (ngSubmit)="onSubmit()" id="" name="">
+    <form #formAltaSeries="ngForm" (ngSubmit)="onSubmit()" id="formAltaSeries" name="">
 
         <!--Nombre-->
         <div class="form-group row">
             <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar nombre para serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" title="Ingresar nombre para serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.serie" [class.error]="nombre.touched && !nombre.valid" minlength="1"
-                    maxlength="5" required/>|
+                    maxlength="5" required/>
             </div>
 
 
@@ -108,3 +108,4 @@
     </div>
 </div>
 <!-- TERMINA Modal CONFIRMACIÓN DE REGISTRO ERR -->
+<button type="submit" class="btn btn-success" (click)="pass()" title="Realizar Alta">Realizar Alta</button>

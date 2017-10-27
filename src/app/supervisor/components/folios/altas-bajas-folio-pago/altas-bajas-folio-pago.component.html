@@ -26,9 +26,9 @@
         <div class="form-group row">
             <label name="serie" class="col-sm-2 col-form-label" for="serie" title="Serie" [class.errorLabel]="serie.touched && !serie.valid">Serie: </label>
             <div class="col-sm-8">
-                <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="serieid" (change)="selectSerie()" required> <!--(change)="sacarCategoria($event.target.value)"-->
+                <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="seriename" (change)="selectSerie()" required> <!--(change)="sacarCategoria($event.target.value)"-->
                 <option selected>Escoge una categoria...</option>
-                <option *ngFor="let serie of series">{{serie.id}}</option>
+                <option *ngFor="let serie of series">{{serie.serie}}</option>
             </select>
             </div>
 
@@ -38,8 +38,8 @@
         <div class="form-group row">
             <label name="folioinput" class="col-sm-2 col-form-label" for="folio" title="Folio Inicial" [class.errorLabel]="folio.touched && !folio.valid">Folio Inicial: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Folio Inicial" id="folio" name="folio" placeholder="Inserte el folio" #folio="ngModel" [(ngModel)]="cantfolios" [class.error]="folio.touched && !folio.valid" maxlength="40" (keyup)="asignarfolios2()" step=0.01
-                    required pattern="[1-9][0-9]*$" />
+                <input type="text" class="form-control" title="Folio Inicial" id="folio" name="folio" autocomplete="off" placeholder="Inserte el folio" #folio="ngModel" [(ngModel)]="cantfolios" [class.error]="folio.touched && !folio.valid" maxlength="40" (keyup)="asignarfolios2()"
+                    step=0.01 required pattern="[1-9][0-9]*$" />
             </div>
             <!--VALIDACIÓN DE FOLIO-->
             <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.dirty && !folio.valid">
@@ -56,8 +56,8 @@
             <label name="cantidad" class="col-sm-2 col-form-label" for="cantidad" title="Cantidad" [class.errorLabel]="cantidad.dirty && !cantidad.valid">Cantidad: </label>
             <div class="col-sm-8">
 
-                <input type="text" class="form-control" title="Cantidad" id="Cantidad" name="cantidad" placeholder="Inserte la cantidad" #cantidad="ngModel" [(ngModel)]="cantidades" [class.error]="cantidad.touched && !cantidad.valid" (keyup)="asignarfolios()" step=0.01
-                    required pattern="[1-9][0-9]*$" maxlength="30" />
+                <input type="text" class="form-control" title="Cantidad" id="Cantidad" name="cantidad" autocomplete="off" placeholder="Inserte la cantidad" #cantidad="ngModel" [(ngModel)]="cantidades" [class.error]="cantidad.touched && !cantidad.valid" (keyup)="asignarfolios()"
+                    step=0.01 required pattern="[1-9][0-9]*$" maxlength="30" />
                 <!-- con decimales pattern="[1-9][0-9]*.([0-9][0-9])$"-->
             </div>
 
@@ -114,7 +114,7 @@
         <tbody>
             <!-- <tr> -->
             <tr *ngFor="let folio of folios; let i=index">
-                <td><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="selectcheck2(i)" /></td>
+                <td><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="nuevoarray();selectcheck2(i)" /></td>
                 <td>
                     {{folio.serie.serie+folio.numeroFolio}}
                 </td>

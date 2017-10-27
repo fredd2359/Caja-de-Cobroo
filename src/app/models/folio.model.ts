@@ -4,7 +4,7 @@ import {Cajero} from './Cajero.model' ;
 export class Folio {
     constructor(
         public id:number,
-        public numeroFolio:number,
+        public numeroFolio:string,
         public estadoFolio:string,
         public fechaAlta:string,
         public cajero:Cajero,

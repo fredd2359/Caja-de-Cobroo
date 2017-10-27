@@ -1,0 +1,300 @@
+<main class="col py-5 main">
+    <div class="justify-content-center">
+        <div class="row">
+            <div class="col-12">
+                <h2 title="Alta Sistemas">Alta Sistemas</h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <form #formAgregaSistema="ngForm" name="formAgregaSistema" id="formAgregaSistema" (ngSubmit)="onSubmit()" class="justify-content-center">
+        <!-- MENSAJE DE SUCCESS-->
+        <div *ngIf="status == 'success'" class="alert alert-success mt-3" role="alert">
+            El sistema ha sido agregado con éxito
+        </div>
+        <!--termina success-->
+        <!-- MENSAJE DE ERROR-->
+        <div *ngIf="status == 'error'" class="alert alert-danger mt-3" role="alert">
+            Error: el sistema no pudo ser registrado
+        </div>
+        <!--termina ERROR-->
+        <!-- MENSAJE DE ERROR-->
+        <div *ngIf="status == 'existente'" class="alert alert-warning mt-3" role="alert">
+            Error: el registro ya existe
+        </div>
+        <!--MENSAJES DE ELIMINADO-->
+        <!--SE ELIMINÓ CORRECTAMENTE-->
+        <div *ngIf="status == 'eliminadoo'" class="alert alert-success mt-3" role="alert">
+            El sistema ha sido eliminado con éxito
+        </div>
+        <!--No se eliminó-->
+        <div *ngIf="status == 'Noeliminadoo'" class="alert alert-danger mt-3" role="alert">
+            El sistema NO ha sido eliminado
+        </div>
+        <!--TERMINA SE ELIMINÓ CORRECTAMENTE-->
+
+        <!--MODIFICADOS-->
+        <div *ngIf="status == 'modificado'" class="alert alert-success mt-3" role="alert">
+            El sistema ha sido modificado con éxito
+        </div>
+        <div *ngIf="status == 'errormodificado'" class="alert alert-danger mt-3" role="alert">
+            El sistema no se modificó
+        </div>
+
+        <!--TERMINA MODIFICADOS-->
+
+
+        <div class="row">
+            <div class="form-group row col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="nombre" class="form-control resett" id="nombre" placeholder="Ingrese Nombre" #nombre="ngModel" [(ngModel)]="sistemas.nombre" minlength="2" maxlength="100" [class.error]="nombre.touched && !nombre.valid" required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}"
+                    />
+                </div>
+            </div>
+
+
+            <div class="form-group row col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                <label for="descripcion" class="col-sm-2 col-form-label">Descripción:</label>
+                <div class="col-sm-10">
+                    <input title="Ingrese Descripción" type="email" name="descripcion" class="form-control resett" id="inputEmail3" placeholder="Ingrese Descripción" #descripcion="ngModel" [(ngModel)]="sistemas.descripcion" minlength="10" maxlength="100" [class.error]="descripcion.touched && !nombre.valid"
+                        required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}">
+
+                </div>
+            </div>
+            <div class="form-group row col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 justify-content-center">
+                <button [disabled]="!formAgregaSistema.form.valid" type="submit" class="btn btn-success" title="Agregar">Agregar</button>
+            </div>
+        </div>
+        <!--VALIDACIÓN DE DESCRIPCIÓN-->
+        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.touched && !descripcion.valid">
+            <span class="err" *ngIf="descripcion.errors.required" title="La descripcion del sistema, es un campo obligatorio">* La descripcion del sistema, es un campo obligatorio</span>
+            <span class="err" *ngIf="descripcion.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de descripcion es de al menos 2 caracteres">* La longitud mínima de caracteres que conforman el campo de descripcion es de al menos 10 caracteres</span>
+            <span class="err" *ngIf="descripcion.errors.pattern" title="Extención no valida Ejemplo: sistema con fines de cobro a personal de catastro">* Extención no valida Ejemplo: sistema con fines de cobro a personal de catastro</span>
+        </div>
+        <!--TERMINA VALIDACIÓN DE DESCRIPCIÓN-->
+
+        <!--VALIDACIÓN DE Nombre-->
+        <div class="col-12 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
+            <span class="err" *ngIf="nombre.errors.required" title="El nombre del sistema. es un campo obligatorio">* El nombre del sistema. es un campo obligatorio</span>
+            <span class="err" *ngIf="nombre.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">* La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+            <span class="err" *ngIf="nombre.errors.pattern" title="Extención no valida Ejemplo: pago en línea">* Extención no valida Ejemplo: pago en línea</span>
+        </div>
+        <!--TERMINA VALIDACIÓN DE Nombre-->
+
+    </form>
+    <div class="justify-content-center">
+        <div class="row">
+            <div class="col-12">
+                <h3 title="Sistemas">Sistemas</h3>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!--CHECKBOX TODO
+    <div class="row">
+        <div class="col-1 d-flex justify-content-end">
+
+            <input type="checkbox" id="mastercheckbox" name="mastercheckbox" (change)="seleccionarcheck2()" class="form-check-input ml-4">
+        </div>
+        <div class="col d-flex justify-content-start">
+            <label>Seleccionar todo</label>
+        </div>
+    </div>-->
+    <!--TERMINA CHECKBOX DE TODO-->
+    <!--TABLE-->
+    <table id="TablaSistemas" datatable class="table table-bordered table-responsive" cellspacing="0">
+        <thead class="encabezadoTable">
+            <tr>
+                <!--(change)="seleccionarcheck()" id="mastercheckbox" name="mastercheckbox" class="form-check-input ml-3"-->
+                <!--<th class="noicon">gvfgh</th>-->
+                <th>Nombre v</th>
+                <th>Descripción v</th>
+                <th class="noicon">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- <tr *ngFor="let folio of folios; let i=index"> -->
+            <tr *ngFor="let sistema of DataArray; let i=index" id="check{{i}}">
+                <!--(change)="selectcheck(i)" class="form-check-input ml-3" -->
+                <!--<input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="selectcheck2(i)" />-->
+                <!--<th style="width:5%" scope="row"></th>-->
+                <td style="width:40%">
+                    {{sistema.nombre}}
+                </td>
+                <td style="width:40%">
+                    {{sistema.descripcion}}
+                </td>
+                <td style="width:20%">
+                    <div class="form-inline justify-content-center">
+                        <div class="space input-group add-on">
+                            <button type="button" class="modificar btn btn-primary" (click)="asignarCat(i);" data-toggle="modal" data-target="#ModalModificaSistema">
+                                                    <i class="fa fa-pencil" aria-hidden="true" title="Modificar Sistema"></i></button>
+                        </div>
+                        <div class="space input-group add-on">
+                            <button type="button" class="eliminar btn btn-danger" (click)="selectcheck2(i)" data-toggle="modal" data-target="#ModalBajaSistema">
+                                            <i class="eliminar fa fa-trash" aria-hidden="true" title="Baja Sistema"></i></button>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <!--TERMINA TABLE-->
+</main>
+<footer class="mainfooter" role="contentinfo">
+    <div class="footer-top p-y-2">
+
+    </div>
+    <div class="footer-middle">
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xs-12">
+                    <!--Footer Bottom-->
+                    <p class="text-xs-center">Píe de Página</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--MODALES-->
+<!--MODAL BAJA DE SISTEMA-->
+<div class="modal fade bd-example-modal-sm" id="ModalBajaSistema" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Alerta</h5>
+
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>¿Desea dar de baja el sistema?</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer justify-content-center">
+                    <button class="btn btn-success" type="submit" data-dismiss="modal" data-target="#" style="text-align:center" title="Aceptar" (click)="eliminarSistema()">Aceptar</button>
+                    <button class="btn btn-danger" type="submit" data-dismiss="modal" data-target="#" style="text-align:center" title="Cancelar">Cancelar</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!--TERMINA MODAL BAJA DE SISTEMA-->
+
+<!--MODAL MODIFICAR DATOS DE SISTEMAS EXTRAER DE LA BD-->
+<div class="modal fade bd-example-modal-lg" id="ModalModificaSistema" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="modal-title" id="exampleModalLabel" title="Modificar Sistema">Modificar Sistema:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form #formModificaDireccion="ngForm">
+                    <!--(ngSubmit)="onSubmit()"-->
+                    <!--Número de folio & Fecha y hora-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!--NOMBRE-->
+                            <div class="form-group row add-on">
+                                <label name="nombresModal" class="lab col-sm-3 col-form-label my-0 form-control-label" for="nombresModal" title="Nombre del Sistema"> Nombre: </label>
+                                <div class="col-sm-12">
+                                    <div class="input-group add-on">
+                                        <!--<i class="fa fa-user input-group-addon" aria-hidden="true"></i>-->
+                                        <input #nombreEdit="ngModel" name="nombreEdit" id="nombreEdit" [(ngModel)]="SistemaSeleccionado.nombre" type="text" class="form-control" title="Nombre del Sistema" placeholder="Nombre del sistema" [class.error]="nombreEdit.touched && !nombreEdit.valid"
+                                            minlength="2" maxlength="100" required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" />
+                                    </div>
+                                </div>
+                                <!--VALIDACIÓN DE Nombre-->
+                                <div class="d-flex justify-content-start invalid-feedback row" *ngIf="nombreEdit.touched && !nombreEdit.valid">
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="nombreEdit.errors.required" title="El nombre del sistema, es un campo obligatorio">* El nombre del sistema, es un campo obligatorio</span>
+                                    </div><br />
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="nombreEdit.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">* La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                                    </div><br />
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="nombreEdit.errors.pattern" title="Extención no valida Ejemplo: pago en línea">* Extención no valida Ejemplo: pago en línea</span>
+                                    </div><br />
+                                </div>
+                                <!--TERMINA VALIDACIÓN DE Nombre--><br/>
+                            </div>
+                            <!--TERMINA NOMBRE-->
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group row add-on">
+                                <!--DESCRIPCIÓN-->
+                                <label class="col-sm-3 col-form-label my-0 form-control-label" for="descripcion" title="Descripción" [class.errorLabel]="descripcion.touched && !descripcion.valid">Descripción: </label>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <!--<i class="fa fa-user input-group-addon" aria-hidden="true"></i>-->
+                                        <input #descripcionEdit="ngModel" name="descripcionEdit" id="descripcionEdit" [(ngModel)]="SistemaSeleccionado.descripcion" type="text" class="form-control" title="Descripción" placeholder="Modifica la Descripción" [class.error]="descripcionEdit.touched && !descripcionEdit.valid"
+                                            minlength="2" maxlength="100" required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" />
+                                    </div>
+                                </div>
+                                <!--VALIDACIÓN DE DESCRIPCIÓN-->
+                                <div class="row d-flex justify-content-start invalid-feedback" *ngIf="descripcionEdit.touched && !descripcionEdit.valid">
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="descripcionEdit.errors.required" title="La descripción del sistema, es un campo obligatorio">* La descripción del sistema, es un campo obligatorio</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="descripcionEdit.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de descripción es de al menos 10 caracteres">* La longitud mínima de caracteres que conforman el campo de descripción es de al menos 10 caracteres</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="descripcionEdit.errors.pattern" title="Extención no valida Ejemplo: sistema con fines de cobro a personal de catastro">* Extención no valida Ejemplo: sistema con fines de cobro a personal de catastro</span>
+                                    </div>
+                                </div>
+                                <!--TERMINA VALIDACIÓN DE DESCRIPCIÓN-->
+                            </div>
+                            <!--TERMINA DESCRIPCIÓN-->
+                        </div>
+                    </div>
+                    <!--TERMINA modal-->
+                    <!--button-->
+                    <br />
+                    <fieldset class="form-group ">
+                        <div class="justify-content-center offset-xs-3 col-xs-9 form-inline">
+                            <button type="submit" class="btn btn-success" title="Guardar Cambios" (click)="modificarSistema()">Guardar</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--TERMINA MODAL MODIFICAR SISTEMAS-->
+
+<!-- Modals DE CONFIRMACIÓN DE ALTA DE SISTEMA -->
+<div class="modal fade" id="ModalInfoAlta" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Información</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Se ha dado de alta el sistema</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- TERMINA MODAL DE CONFIRMACIÓN DE ALTA DE SISTEMA -->

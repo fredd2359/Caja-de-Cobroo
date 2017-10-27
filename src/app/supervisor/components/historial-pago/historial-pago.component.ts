@@ -24,13 +24,19 @@ export class HistorialPagoComponent implements OnInit {
   public series:Serie[];
   public folio:Folio;
   public folios:Folio[];
+  public foliosserie:Folio[];
+  public foliosasig:Folio[];
+  public foliosELIMINAR:any;
   public caja:Caja;
   public cajas:Caja[];
   public cajero:Cajero;
+  public folioelim;
   public cajeros:Cajero[];
   public folioinicio:number;
   public foliofinal:number;
-  public serieid:number;
+  public seriename:string;
+  public status;
+  public arregloeliminar;
 
   public pos1:number=null;
   public pos2:number=null;
@@ -38,7 +44,9 @@ export class HistorialPagoComponent implements OnInit {
   public foliniciobol:boolean;
   public folfinalbol:boolean;
   public cajerom:string;
+  public textos:number;
   public cajerobol:boolean;
+  public asignarfoliosbol:boolean=false;
   
    //Directivas y declaracion de variables para el uso de la tabla !important
    @ViewChild(DataTableDirective)
@@ -51,10 +59,14 @@ export class HistorialPagoComponent implements OnInit {
   ) {
     this.serie=new Serie(0,"","","","");
     this.series=new Array();
-    this.folio=new Folio(0,0,"","",null,null);
+    this.folio=new Folio(0,"","","",null,null);
     this.folios=new Array();  
+    this.foliosserie=new Array();  
     this.cajero=new Cajero(0,"","",0,0,null);
+    this.foliosasig=new Array();  
     this.cajeros=new Array();  
+    this.arregloeliminar =new Array();
+    this.foliosELIMINAR=new Array;
   }
 
   ngOnInit() {
@@ -95,13 +107,18 @@ export class HistorialPagoComponent implements OnInit {
         console.log(error);
       }
     );
+    this.seleccionarcheck2();
   }
 
   validarfolios(i){
-    
+    console.log(i);
+    console.log("folio inicio");
+    console.log(this.folioinicio);
     for(let a=0;a<this.folios.length;a++){
-      if (this.folioinicio==this.folios[a].numeroFolio){
+      if (this.folioinicio==Number(this.folios[a].numeroFolio)){
         this.pos1=a;
+        console.log("pos1");
+        console.log(this.pos1);
         break;
       }
     }
@@ -123,8 +140,10 @@ export class HistorialPagoComponent implements OnInit {
 
   validarfolios2(i){
     for(let a=0;a<this.folios.length;a++){
-      if (this.foliofinal==this.folios[a].numeroFolio){
+      if (this.foliofinal==Number(this.folios[a].numeroFolio)){
         this.pos2=a;
+        console.log("pos2");
+        console.log(this.pos2);
         break;
       }
     }
@@ -146,8 +165,8 @@ export class HistorialPagoComponent implements OnInit {
 
   selectSerie(){
     console.log("hola");
-    console.log(this.serieid);
-    let a:string=this.serieid.toString();
+    console.log(this.seriename);
+    let a:string=this.seriename;
     console.log("a");
     console.log(a);
     if (a=="Escoge un cajero..."){
@@ -158,12 +177,21 @@ export class HistorialPagoComponent implements OnInit {
       console.log("else de tostring");
     }
     for(let s=0; s< this.series.length;s++){
-        if (this.serieid == this.series[s].id){
+        if (this.seriename == this.series[s].serie){
             this.serie=this.series[s];
             console.log(this.serie);
             this.serieidbol=true;
-            console.log("bolean de serie");
-            console.log(this.serieidbol);
+            // this._superService.getFolioporSerie(this.serie.id).subscribe(
+            //   result => {
+            //     console.log("resultado");
+            //     console.log(result);
+            //     this.foliosserie=result.respuesta;
+            //   },
+            //   error => {
+            //     console.log("error");          
+            //     console.log(error);
+            //   }
+            // );
             break;
         }
         else{
@@ -185,7 +213,9 @@ selectcajero(){
   console.log(this.cajerom);
   for(let s=0; s< this.cajeros.length;s++){
       if (this.cajerom == this.cajeros[s].nombre){
+        console.log("cajero select cajeros");
           this.cajero=this.cajeros[s];
+          console.log(this.cajero);
           this.cajerobol=true;
           console.log("bolean de cajero");
           console.log(this.cajerobol);
@@ -197,21 +227,184 @@ selectcajero(){
       }
   }
 }
+seleccionarcheck2(){
+  let self=this;
+  var texto="";
+  $('#mastercheckbox').click(function(event) {
+    if(this.checked) {
+      let a=0;  
+      self.arregloeliminar=new Array();
+      // Iterate each checkbox
+        $(':checkbox').each(function() {
+          
+          this.checked = true;
+          $('#tablafolios tr td').each(function(){
+            texto = $('#tablafolios tr:nth-child('+(a++)+') td:nth-child('+2+')').text();
+            if ((texto=="")){
+            }
+            else {
+              
+              self.textos=Number(texto);
+              self.arregloeliminar.push({numeroFolio: self.textos});
+            }
+          });
+          
+          a++;
+        });
+    }
+    else {
+      $(':checkbox').each(function() {
+            this.checked = false;
+        });
+        self.arregloeliminar=new Array;
+    }
+  });
+  console.log("arreglo a eliminar");
+  console.log(JSON.stringify(self.arregloeliminar));
+  
+  // this.eliminarmuchos();
+}
 
-  asignarCajero(){
-    for (this.pos1;this.pos1<(this.pos2+1);this.pos1++){
-      this.folio=this.folios[this.pos1];
-      this.folio.cajero=this.cajero;
-      console.log(this.folio);
-      this._superService.asignarFolioPago(this.folio).subscribe(
+asignarCajero(){
+  
+      for (this.pos1;this.pos1<(this.pos2+1);this.pos1++){
+        this.foliosasig=new Array();
+        this.folio=this.folios[this.pos1];
+        console.log(this.folios[this.pos1]);
+        this.folio.cajero=this.cajero;
+        this.foliosasig.push(this.folio);
+        console.log("folio stringifydo");
+        console.log(JSON.stringify(this.foliosasig));
+        this._superService.asignarFolioPago(this.foliosasig).subscribe(
+          result => {
+            console.log("resultado");
+            this.loadTable();
+          },
+          error => {
+          if (error.status=="400"){
+            this.status="folioasig";
+            $("#tablafoliosvales").dataTable().fnDestroy();
+
+            this.LoadTableData();
+          }
+          else{
+            this.status="success";
+            console.log("error");          
+            console.log(error);
+            $("#tablafolios").dataTable().fnDestroy();
+  
+            this.LoadTableData(); 
+          }
+          if (error.status=="500"){
+            this.status="folioasig";
+            $("#tablafoliosvales").dataTable().fnDestroy();
+
+            this.LoadTableData();
+          }
+          }
+        );
+      }
+    }
+
+    cambio(){
+      this.asignarfoliosbol=!this.asignarfoliosbol;
+    }
+
+    eliminarvarios(){
+      for (let i=0;i<this.arregloeliminar.length;i++){   
+        for (let j=0; j<this.folios.length;j++){      
+          let foliovector=Number(this.folios[j].numeroFolio);
+          let folioeliminar=Number(this.arregloeliminar[i]);
+          if (this.arregloeliminar[i].numeroFolio==this.folios[j].numeroFolio){
+            this.foliosELIMINAR.push(this.folios[j]);
+          }
+        }
+      }
+      console.log("arreglo a desasignar");
+      console.log(this.foliosELIMINAR);
+      this._superService.desasignarFolioPagos(this.foliosELIMINAR).subscribe(
         result => {
+          console.log("resultado");
           this.loadTable();
         },
         error => {
-          console.log(error);
+          if (error.status=="400"){
+            this.status="errorelim";
+            $("#tablafoliosvales").dataTable().fnDestroy();
+
+            this.LoadTableData();
+          }
+          else{
+            this.status="successelim";
+            console.log("error");          
+            console.log(error);
+            $("#tablafolios").dataTable().fnDestroy();
+    
+            this.LoadTableData();
+          } 
+          if (error.status=="500"){
+            this.status="errorasignar";
+            $("#tablafoliosvales").dataTable().fnDestroy();
+
+            this.LoadTableData();
+          }
+          if((error._body.substring(20,53)) == "El folio ya se encuentra asignado"){
+            console.log("FONDO IGUAL O MENOR A CERO ....");
+            this.status="folioasig";
+            $("#tablafoliosvales").dataTable().fnDestroy();
+    
+        }
         }
       );
+      this.arregloeliminar=new Array();
+      this.foliosELIMINAR=new Array();
     }
+
+  selectcheck2(i){
+    let self=this;
+    var texto="";
+    var fol:number;
+    let index:number=i;
+    let check:number=i;
+    console.log(i);
+  
+    for(let a=0 ; a < this.folios.length;a++){
+      if (a==i){
+        if ((this.folios[a].estadoFolio=="CANCELADO")){
+          if ($('#check'+check).is(":checked")){
+  
+            $("#ModalErrorCancelacion").modal("show");
+          }
+          else{
+  
+          }
+        }
+        else{
+        if ($('#check'+check).is(":checked")){
+        console.log("if de check");
+        console.log("entroooooo");
+        this.arregloeliminar.push({numeroFolio: this.folios[a].numeroFolio});
+        console.log(this.folios[a].numeroFolio);
+        self.folioelim=this.folios[a].numeroFolio;
+        break;
+        }
+        else {
+          console.log("else de check");
+          for(let a=0;a<self.arregloeliminar.length;a++){
+            console.log("fpolio elimi");
+            console.log(this.folios[check].numeroFolio);
+            if(this.folios[check].numeroFolio==self.arregloeliminar[a].numeroFolio){
+              console.log("splice");
+              self.arregloeliminar.splice(a,1);
+            }
+        }
+      }
+    }
+          
+      }
+  }
+  console.log("dato a eliminar");
+  console.log(this.arregloeliminar);
   }
 
     /**MÉTODO PARA CONFIGURAR LA TABLA Y USAR DATATABLES... */

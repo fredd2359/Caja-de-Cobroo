@@ -46,7 +46,7 @@
                 <a class="nav-link dropdown-toggle fw" href="#" [routerLinkActive]="['active']" id="DropSerie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Series</a>
                 <ul class="dropdown-menu" aria-labelledby="DropSerie">
                     <li class="dropdown-submenu">
-                        <a class="dropdown-item" [routerLink]="['supervisor/alta-pago']">Series de Pago</a>
+                        <a class="dropdown-item" [routerLink]="['supervisor/alta-pago']">Series de Recibos</a>
                         <a class="dropdown-item" [routerLink]="['supervisor/alta-vale']">Series de Vales</a>
                     </li>
                 </ul>
@@ -58,13 +58,10 @@
                         <a class="dropdown-item" [routerLink]="['supervisor/folios']" id="DropPagos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios de Pagos</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/historial-pago']">Historial de Pagos</a>
+                                <a class="dropdown-item" [routerLink]="['supervisor/historial-pago']">Historial de Recibos</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/altas-bajas-folio-pago']">Alta y Baja de Pagos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/baja-folio-pago']">Asignar y Desasignar Pagos</a>
+                                <a class="dropdown-item" [routerLink]="['supervisor/altas-bajas-folio-pago']">Alta y Baja de Recibos</a>
                             </li>
                         </ul>
                     </li>
@@ -76,9 +73,6 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" [routerLink]="['supervisor/altas-bajas-folio-vale']">Alta y Baja de Vales</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/baja-folio-vale']">Asignar y Desasignar Vales</a>
                             </li>
                         </ul>
                     </li>
@@ -95,6 +89,26 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
+            <!--LINKS PARA SUPER ADMIN 25/10/2017-->
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/personal']">Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Sucursales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/sistemas']">Sistemas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/roles']">Roles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Privilegios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Asignaciones</a>
+            </li>
+            <!--TERMINAN LINKS PARA SUPER ADMIN-->
         </ul>
     </div>
     <div class="inicio">

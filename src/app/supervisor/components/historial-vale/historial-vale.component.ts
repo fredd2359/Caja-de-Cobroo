@@ -24,13 +24,17 @@ export class HistorialValeComponent implements OnInit {
   public series:Serie[];
   public folio:Folio;
   public folios:Folio[];
+  public foliosasig:Folio[];
   public caja:Caja;
   public cajas:Caja[];
   public cajero:Cajero;
   public cajeros:Cajero[];
   public folioinicio:number;
   public foliofinal:number;
-  public serieid:number;
+  public seriename:string;
+  public folioelim;
+  public arregloeliminar;
+  public asignarfoliosbol:boolean;
 
   public pos1:number=null;
   public pos2:number=null;
@@ -39,6 +43,9 @@ export class HistorialValeComponent implements OnInit {
   public folfinalbol:boolean;
   public cajerom:string;
   public cajerobol:boolean;
+  public status:string;
+  public textos:number;
+  public foliosELIMINAR:any;
   
   //Directivas y declaracion de variables para el uso de la tabla !important
   @ViewChild(DataTableDirective)
@@ -51,10 +58,13 @@ export class HistorialValeComponent implements OnInit {
   ) {
     this.serie=new Serie(0,"","","","");
     this.series=new Array();
-    this.folio=new Folio(0,0,"","",null,null);
+    this.folio=new Folio(0,"","","",null,null);
     this.folios=new Array();  
+    this.foliosasig=new Array();  
     this.cajero=new Cajero(0,"","",0,0,null);
     this.cajeros=new Array();  
+    this.arregloeliminar =new Array();
+    this.foliosELIMINAR=new Array;
   }
 
   ngOnInit() {
@@ -95,13 +105,16 @@ export class HistorialValeComponent implements OnInit {
         console.log(error);
       }
     );
+    this.seleccionarcheck2();
   }
 
   validarfolios(i){
     
     for(let a=0;a<this.folios.length;a++){
-      if (this.folioinicio==this.folios[a].numeroFolio){
+      if (this.folioinicio==Number(this.folios[a].numeroFolio)){
         this.pos1=a;
+        console.log("pos1");
+        console.log(this.pos1);
         break;
       }
     }
@@ -123,8 +136,10 @@ export class HistorialValeComponent implements OnInit {
 
   validarfolios2(i){
     for(let a=0;a<this.folios.length;a++){
-      if (this.foliofinal==this.folios[a].numeroFolio){
+      if (this.foliofinal==Number(this.folios[a].numeroFolio)){
         this.pos2=a;
+        console.log("pos2");
+        console.log(this.pos2);
         break;
       }
     }
@@ -146,8 +161,8 @@ export class HistorialValeComponent implements OnInit {
 
   selectSerie(){
     console.log("hola");
-    console.log(this.serieid);
-    let a:string=this.serieid.toString();
+    console.log(this.seriename);
+    let a:string=this.seriename.toString();
     console.log("a");
     console.log(a);
     if (a=="Escoge un cajero..."){
@@ -158,12 +173,11 @@ export class HistorialValeComponent implements OnInit {
       console.log("else de tostring");
     }
     for(let s=0; s< this.series.length;s++){
-        if (this.serieid == this.series[s].id){
+        if (this.seriename == this.series[s].serie){
             this.serie=this.series[s];
             console.log(this.serie);
             this.serieidbol=true;
-            console.log("bolean de serie");
-            console.log(this.serieidbol);
+            
             break;
         }
         else{
@@ -199,25 +213,167 @@ selectcajero(){
 }
 
   asignarCajero(){
+
     for (this.pos1;this.pos1<(this.pos2+1);this.pos1++){
+      this.foliosasig=new Array();
       this.folio=this.folios[this.pos1];
       this.folio.cajero=this.cajero;
-      console.log(this.folio);
-      this._superService.asignarFolioPago(this.folio).subscribe(
+      this.foliosasig.push(this.folio);
+      console.log("folio stringifydo");
+      console.log(JSON.stringify(this.foliosasig));
+      this._superService.asignarFolioVales(this.foliosasig).subscribe(
         result => {
+          console.log("resultado");
           this.loadTable();
         },
         error => {
+          this.status="success";
+          console.log("error");          
           console.log(error);
+          $("#tablafoliosvales").dataTable().fnDestroy();
+          this.serieidbol=false;
+          this.foliniciobol=false;
+          this.folfinalbol=false;
+          this.LoadTableData(); 
         }
       );
     }
   }
 
+  cambio(){
+    this.asignarfoliosbol=!this.asignarfoliosbol;
+  }
+
+  selectcheck2(i){
+    let self=this;
+    var texto="";
+    var fol:number;
+    let index:number=i;
+    let check:number=i;
+    console.log(i);
+  
+    for(let a=0 ; a < this.folios.length;a++){
+      if (a==i){
+        if ((this.folios[a].estadoFolio=="CANCELADO")){
+          if ($('#check'+check).is(":checked")){
+  
+            $("#ModalErrorCancelacion").modal("show");
+          }
+          else{
+  
+          }
+        }
+        else{
+        if ($('#check'+check).is(":checked")){
+        console.log("if de check");
+        console.log("entroooooo");
+        this.arregloeliminar.push({numeroFolio: this.folios[a].numeroFolio});
+        console.log(this.folios[a].numeroFolio);
+        self.folioelim=this.folios[a].numeroFolio;
+        break;
+        }
+        else {
+          console.log("else de check");
+          for(let a=0;a<self.arregloeliminar.length;a++){
+            console.log("fpolio elimi");
+            console.log(this.folios[check].numeroFolio);
+            if(this.folios[check].numeroFolio==self.arregloeliminar[a].numeroFolio){
+              console.log("splice");
+              self.arregloeliminar.splice(a,1);
+            }
+        }
+      }
+    }
+          
+      }
+  }
+  console.log("dato a eliminar");
+  console.log(this.arregloeliminar);
+  }
+ 
+
+  eliminarvarios(){
+    for (let i=0;i<this.arregloeliminar.length;i++){   
+      for (let j=0; j<this.folios.length;j++){      
+        let foliovector=Number(this.folios[j].numeroFolio);
+        let folioeliminar=Number(this.arregloeliminar[i]);
+        if (this.arregloeliminar[i].numeroFolio==this.folios[j].numeroFolio){
+          this.foliosELIMINAR.push(this.folios[j]);
+        }
+      }
+    }
+    console.log("arreglo a desasignar");
+    console.log(this.foliosELIMINAR);
+    this._superService.desasignarFolioVales(this.foliosELIMINAR).subscribe(
+      result => {
+        console.log("resultado");
+        this.loadTable();
+      },
+      error => {
+        if (error.status=="400"){
+          this.status="errorelim";
+          $("#tablafoliosvales").dataTable().fnDestroy();
+
+          this.LoadTableData();
+        }
+        else {
+          this.status="successelim";
+          console.log("error");          
+          console.log(error);
+          $("#tablafoliosvales").dataTable().fnDestroy();
+  
+          this.LoadTableData();
+        } 
+      }
+    );
+
+    this.arregloeliminar=new Array();
+    this.foliosELIMINAR=new Array();
+  }
+
+  seleccionarcheck2(){
+    let self=this;
+    var texto="";
+    $('#mastercheckbox').click(function(event) {
+      if(this.checked) {
+        let a=0;  
+        self.arregloeliminar=new Array();
+        // Iterate each checkbox
+          $(':checkbox').each(function() {
+            
+            this.checked = true;
+            $('#tablafoliosvales tr td').each(function(){
+              texto = $('#tablafoliosvales tr:nth-child('+(a++)+') td:nth-child('+2+')').text();
+              if ((texto=="")){
+              }
+              else {
+                
+                self.textos=Number(texto);
+                self.arregloeliminar.push({numeroFolio: self.textos});
+              }
+            });
+            
+            a++;
+          });
+      }
+      else {
+        $(':checkbox').each(function() {
+              this.checked = false;
+          });
+          self.arregloeliminar=new Array;
+      }
+    });
+    console.log("arreglo a eliminar");
+    console.log(JSON.stringify(self.arregloeliminar));
+    
+    // this.eliminarmuchos();
+  }
+
+
     /**MÉTODO PARA CONFIGURAR LA TABLA Y USAR DATATABLES... */
   // Se tiene que usar $("#talbefolios").dataTable().fnDestroy(); antes de cada vez que se quiera actualizar la tabla 
   LoadTableData() {
-    this._superService.getFolioPagos().subscribe(
+    this._superService.getFolioVales().subscribe(
       result => {
         console.log("Folios");
         console.log(result);
@@ -235,10 +391,10 @@ selectcajero(){
       $(function () {
         //Se destruye la tabla en cuanto se obtiene una respuesta de back
 
-        $("#tablafolios").dataTable().fnDestroy();
+        $("#tablafoliosvales").dataTable().fnDestroy();
 
         //Se carga la tabla 
-        $('#tablafolios').dataTable();
+        $('#tablafoliosvales').dataTable();
 
       });
     }, 1000);

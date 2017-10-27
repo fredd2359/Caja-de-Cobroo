@@ -1,0 +1,124 @@
+.color-thead {
+    background-color: #13445A !important;
+    color: #13445A !important;
+}
+
+.error {
+    border: 1px solid red !important;
+}
+
+footer {
+    text-align: center;
+    background-color: gray;
+}
+
+h2,
+h3,
+hr {
+    color: #13445A !important;
+}
+
+.space {
+    padding: 1px;
+    margin: 1px;
+}
+
+
+/*BOTONES DE LA TABLA MEN*/
+
+.modificar {
+    background-color: #428BCA;
+}
+
+.agregar {
+    background-color: #5CB85C;
+}
+
+.eliminar {
+    background-color: #FF6666;
+}
+
+
+/*COLORES DEL ENCABEZADO DE LOS MODALES*/
+
+.color-thead {
+    background-color: #13445A !important;
+    color: #13445A !important;
+}
+
+.line-modal {
+    border-bottom: 1px solid !important;
+    border-bottom-color: #13445A !important;
+    color: #13445A !important;
+}
+
+.noicon {
+    color: rgb(253, 253, 253);
+    opacity: 0;
+}
+
+.encabezadoTable {
+    background-color: #13445A;
+    color: rgb(255, 255, 255);
+}
+
+
+/*MODAL MODIFICAR DATOS DE rol*/
+
+#ModalModificaRol .modal-dialog {
+    -webkit-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    top: 50%;
+    margin: 0 auto;
+}
+
+
+/*MODAL CONFIRMACIÓN DE BAJA DE SISTEMA DE ROL*/
+
+#ModalBajaRol .modal-dialog {
+    -webkit-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    top: 50%;
+    margin: 0 auto;
+}
+
+#ModalBajaRol .modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 1.3rem;
+    outline: 0;
+}
+
+
+/*MODAL CONFIRMACIÓN DE ALTA DE SISTEMA*/
+
+#ModalInfoAlta .modal-dialog {
+    -webkit-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    top: 50%;
+    margin: 0 auto;
+    text-align: center !important;
+}
+
+#ModalInfoAlta .modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 1.3rem;
+    outline: 0;
+    text-align: center !important;
+}

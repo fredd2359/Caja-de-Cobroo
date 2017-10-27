@@ -1,0 +1,242 @@
+<main class="col py-5 main">
+    <div class="justify-content-center">
+        <div class="row">
+            <div class="col-12">
+                <h2 title="Alta de Roles">Alta de Roles</h2>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <form #formAgregaRol="ngForm" name="formAgregaSistema" id="formAgregaSistema" (ngSubmit)="onSubmit()" class="justify-content-center">
+        <!-- MENSAJE DE SUCCESS-->
+        <div *ngIf="status == 'success'" class="alert alert-success mt-3" role="alert">
+            El rol ha sido agregado con éxito
+        </div>
+        <!--termina success-->
+        <!-- MENSAJE DE ERROR-->
+        <div *ngIf="status == 'error'" class="alert alert-danger mt-3" role="alert">
+            Error: el rol no pudo ser registrado
+        </div>
+        <!--termina ERROR-->
+        <!-- MENSAJE DE ERROR-->
+        <div *ngIf="status == 'existente'" class="alert alert-warning mt-3" role="alert">
+            Error: el rol ya existe
+        </div>
+        <!--MENSAJES DE ELIMINADO-->
+        <!--SE ELIMINÓ CORRECTAMENTE-->
+        <div *ngIf="status == 'eliminadoo'" class="alert alert-success mt-3" role="alert">
+            El rol ha sido eliminado con éxito
+        </div>
+        <!--No se eliminó-->
+        <div *ngIf="status == 'Noeliminadoo'" class="alert alert-danger mt-3" role="alert">
+            El rol NO ha sido eliminado
+        </div>
+        <!--TERMINA SE ELIMINÓ CORRECTAMENTE-->
+
+        <!--MODIFICADOS-->
+        <div *ngIf="status == 'modificado'" class="alert alert-success mt-3" role="alert">
+            El rol ha sido modificado con éxito
+        </div>
+        <div *ngIf="status == 'errormodificado'" class="alert alert-danger mt-3" role="alert">
+            El rol no se modificó
+        </div>
+
+        <!--TERMINA MODIFICADOS-->
+
+        <div class="row">
+            <div class="form-group row col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                <label title="Rol" for="rol" class="col-sm-2 col-form-label">Rol:</label>
+                <div class="col-sm-10">
+                    <input title="Ingrese un nombre de rol" type="text" name="rol" class="form-control  resett" id="rol" placeholder="Ingrese un nombre de rol" #rol="ngModel" [(ngModel)]="role.rol" minlength="2" maxlength="100" [class.error]="rol.touched && !rol.valid" required
+                        pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                </div>
+            </div>
+
+            <!--TERMINA VALIDACIÓN DE DESCRIPCIÓN-->
+            <!--BOTON-->
+            <div class="form-group row col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2 justify-content-center">
+                <button [disabled]="!formAgregaRol.form.valid" type="submit" class="btn btn-success" title="Agregar">Agregar</button>
+            </div>
+            <!--TERMINA BOTON-->
+        </div>
+
+        <!--VALIDACIÓN DE Nombre-->
+        <div class="row d-flex justify-content-start invalid-feedback" *ngIf="rol.touched && !rol.valid">
+            <div class="col-12">
+                <span class="err" *ngIf="rol.errors.required" title="Agrega un rol, es un campo obligatorio">* Agrega un rol, es un campo obligatorio</span>
+            </div>
+            <div class="col-12">
+                <span class="err" *ngIf="rol.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de rol es de al menos 2 caracteres">* La longitud mínima de caracteres que conforman el campo de rol es de al menos 2 caracteres</span>
+            </div>
+            <div class="col-12">
+                <span class="err" *ngIf="rol.errors.pattern" title="Extención no valida Ejemplo: pago en línea">* Extención no valida Ejemplo: administrador</span>
+            </div>
+        </div>
+        <!--TERMINA VALIDACIÓN DE Nombre-->
+    </form>
+    <div class="justify-content-center">
+        <div class="row">
+            <div class="col-12">
+                <h3 title="Roles">Roles</h3>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!--TABLE-->
+    <table id="TablaRoles" datatable class="table table-bordered table-responsive" (change)="ngOnInit()" cellspacing="0">
+        <thead class="encabezadoTable">
+            <tr>
+                <th>Rol</th>
+                <th class="noicon">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- <tr *ngFor="let folio of folios; let i=index"> -->
+            <tr *ngFor="let roles of DataRoles; let i=index">
+                <td style="width:80%">
+                    {{roles.rol}}
+                </td>
+
+                <td style="width:20%">
+                    <div class="form-inline justify-content-center">
+                        <div class="space input-group add-on">
+                            <button type="button" class="modificar btn btn-primary" (click)="asignarCat(i)" data-toggle="modal" data-target="#ModalModificaRol">
+                                                <i class="fa fa-pencil" aria-hidden="true" title="Modificar Rol"></i></button>
+                        </div>
+                        <div class="space input-group add-on">
+                            <button type="button" class="eliminar btn btn-danger" (click)="selectcheck2(i)" data-toggle="modal" data-target="#ModalBajaRol">
+                                        <i class="eliminar fa fa-trash" aria-hidden="true" title="Baja Sistema"></i></button>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--TERMINA TABLE-->
+</main>
+<footer class="mainfooter" role="contentinfo">
+    <div class="footer-top p-y-2">
+
+    </div>
+    <div class="footer-middle">
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xs-12">
+                    <!--Footer Bottom-->
+                    <p class="text-xs-center">Píe de Página</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!--MODALES-->
+<!--MODAL BAJA DE ROL-->
+<div class="modal fade bd-example-modal-sm" id="ModalBajaRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="color-modal-label" id="exampleModalLabel">Alerta</h5>
+
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <label>¿Desea dar de baja el rol?</label>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer justify-content-center">
+                    <button class="btn btn-success" type="submit" data-dismiss="modal" data-target="#" style="text-align:center" title="Aceptar" (click)="eliminarRoles()">Aceptar</button>
+                    <button class="btn btn-danger" type="submit" data-dismiss="modal" data-target="#" style="text-align:center" title="Cancelar">Cancelar</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<!--TERMINA MODAL BAJA DE SISTEMA-->
+<!--MODAL MODIFICAR DATOS DE ROLES EXTRAER DE LA BD-->
+<div class="modal fade bd-example-modal-lg" id="ModalModificaRol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
+                <h5 class="modal-title" id="exampleModalLabel" title="Modificar Rol">Modificar Rol:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form #formModificaRol="ngForm">
+                    <!--(ngSubmit)="onSubmit()"-->
+                    <!--Número de folio & Fecha y hora-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!--ROL-->
+                            <div class="form-group row add-on">
+                                <label name="labelrol" id="labelrol" class="lab col-sm-3 col-form-label my-0 form-control-label" for="RolEdit" title="Roles"> Rol: </label>
+                                <div class="col-sm-12">
+                                    <div class="input-group add-on">
+                                        <!--<i class="fa fa-user input-group-addon" aria-hidden="true"></i>     [class.error]="RolEdit.dirty && !RolEdit.valid"-->
+                                        <input #RolEdit="ngModel" name="RolEdit" id="RolEdit" [(ngModel)]="rolSeleccionado.rol" type="text" class="form-control" title="Roles" placeholder="Modifica el nombre del rol" [class.error]="RolEdit.touched && !RolEdit.valid" minlength="2" maxlength="100"
+                                            required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" />
+                                    </div>
+                                </div>
+                                <!--VALIDACIÓN DE Nombre-->
+                                <div class="d-flex justify-content-start invalid-feedback row" *ngIf="RolEdit.touched && !RolEdit.valid">
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="RolEdit.errors.required" title="El nombre del rol, es un campo obligatorio">* El nombre del rol, es un campo obligatorio</span>
+                                    </div><br />
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="RolEdit.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de rol es de al menos 2 caracteres">* La longitud mínima de caracteres que conforman el campo de rol es de al menos 2 caracteres</span>
+                                    </div><br />
+                                    <div class="col-12">
+                                        <span class="err" *ngIf="RolEdit.errors.pattern" title="Extención no valida Ejemplo: administrador">* Extención no valida Ejemplo: administrador</span>
+                                    </div><br />
+                                </div>
+                                <!--TERMINA VALIDACIÓN DE Nombre--><br/>
+                                <br/>
+                            </div>
+                            <!--TERMINA ROL-->
+                        </div>
+                    </div>
+                    <!--TERMINA modal-->
+                    <!--button-->
+                    <br />
+                    <fieldset class="form-group ">
+                        <div class="justify-content-center offset-xs-3 col-xs-9 form-inline">
+                            <button type="submit" class="btn btn-success" title="Guardar Cambios" (click)="modificarRoles()">Guardar</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--TERMINA MODAL MODIFICAR ROLES-->
+
+<!-- Modals DE CONFIRMACIÓN DE ALTA DE SISTEMA -->
+<div class="modal fade" id="ModalInfoAlta" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Información</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p>Se ha dado de alta el rol</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- TERMINA MODAL DE CONFIRMACIÓN DE ALTA DE SISTEMA -->

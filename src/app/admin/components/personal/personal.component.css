@@ -1,0 +1,42 @@
+html,
+body {
+    font-family: calibri;
+    color: red;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.success {
+    border: 1px solid green;
+}
+
+.errorLabel {
+    color: #D80909;
+}
+
+.space {
+    padding: 1px;
+    margin: 1px;
+}
+
+.encabezadoTable {
+    background-color: #13445A;
+    color: rgb(255, 255, 255);
+}
+
+.modificar {
+    background-color: #428BCA;
+}
+
+.agregar {
+    background-color: #5CB85C;
+}
+
+.eliminar {
+    background-color: #FF6666;
+}
+.bot {
+    justify-content: flex-end;
+}

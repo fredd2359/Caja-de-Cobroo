@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import {Caja} from '../../../models/caja.model';
-import {Cajero} from '../../../models/cajero.model';
+import {Cajero} from '../../../models/Cajero.model';
 import { DataTableDirective} from 'angular-datatables';
 import { Subject } from 'rxjs/Rx';
 /**ESTE MISMO SERVICIO PARA DATATABLES... */
@@ -62,7 +62,6 @@ dtTrigger: Subject<string> = new Subject();
     this.allcajeros=new Array();
     this.cajeros=new Array();
     this.cajeros2=new Array();
-
     }
 
   ngOnInit() {

@@ -18,19 +18,21 @@ declare var $ :any;
 })
 export class AltasBajasFolioValeComponent implements OnInit{
     //Declaracion de variables
-    public serieid:number;
+    public seriename:string;
     public serie:Serie;
     public series:Serie[];
     public folio:Folio;
     public folios:Folio[];
     public cantfolios:number;
     public cantidades:number;
-    public folfinal:number;
+    public folfinal:string;
     public status:string="";
     public seriebol:boolean=false;
     public arregloeliminar:any=[];
     public textos:number;
+    public subCad:number;
     public folioelim:number;
+    public folfinalnum:number;
    //Directivas y declaracion de variables para el uso de la tabla !important
    @ViewChild(DataTableDirective)
    dtElement: DataTableDirective;
@@ -43,7 +45,7 @@ export class AltasBajasFolioValeComponent implements OnInit{
       {
         this.serie=new Serie(0,"","","","");
         this.series=new Array();
-        this.folio=new Folio(0,0,"","",null,null);
+        this.folio=new Folio(0,"","","",null,null);
         this.folios=new Array();  
         this.arregloeliminar=new Array();
       }
@@ -73,16 +75,21 @@ export class AltasBajasFolioValeComponent implements OnInit{
       this.folios=new Array();
       for(let i=0; i < this.cantidades;i++){
           console.log(a);
-          this.folio=new Folio(0,0,"","",null,null);
+          this.folio=new Folio(0,"","","",null,null);
           this.folio.id=null;
           this.folio.fechaAlta=null;
           this.folio.estadoFolio="DISPONIBLE";
           this.folio.cajero=null;
-          this.folio.numeroFolio=Number(this.cantfolios)+Number(a);
+          let c=Number(this.cantfolios)+Number(a);
+          this.folio.numeroFolio=this.verificarcifras(c);
+          console.log(JSON.stringify("000098"));
           this.folio.serie=this.serie;
           this.folios.push(this.folio);
           a++;
       }
+      console.log("arreglo a agregar");
+      console.log(this.folios);
+      
       this._superService.altaFolioVale(this.folios).subscribe(
           result => {
               console.log(result);
@@ -90,27 +97,31 @@ export class AltasBajasFolioValeComponent implements OnInit{
           error => {
               console.log(error);
               if (error.status=="400"){
-                $("#tablafoliosvales").dataTable().fnDestroy();
                 this.status="folioexist";
+                $("#tablafoliosvales").dataTable().fnDestroy();
+
                 this.LoadTableData();
               }
               else {
                   this.status="success";
                   $("#tablafoliosvales").dataTable().fnDestroy();
-          
+
                   this.LoadTableData();
+          
               }
               if (error.status=="500"){
-                $("#tablafoliosvales").dataTable().fnDestroy();
                 this.status="error";
+                $("#tablafoliosvales").dataTable().fnDestroy();
+
                 this.LoadTableData();
               }
+              
+            console.log("se carga la tabla despues de encviar");
             if((error._body.substring(20,38)) == "El folio ya existe"){
                 console.log("FONDO IGUAL O MENOR A CERO ....");
                 this.status="folioexist";
                 $("#tablafoliosvales").dataTable().fnDestroy();
         
-                this.LoadTableData();
             }
           }
         );
@@ -120,61 +131,170 @@ export class AltasBajasFolioValeComponent implements OnInit{
       console.log(JSON.stringify(this.folios));
   }
 
+  verificarcifras(a){
+    
+    let b:string=a.toString();
+    let v;
+    if(b.length==1){
+      v="00000"+a;
+    }
+    if(b.length==2){
+      v="0000"+a;
+      
+    }
+    if(b.length==3){
+      v="000"+a;
+      
+    }
+    if(b.length==4){
+      v="00"+a;
+      
+    }
+    if(b.length==5){
+      v="0"+a;
+    }
+    if(b.length==6){
+      v=a;
+    }
+    
+    console.log("folio");
+    console.log(v);
+    return v;
+  }
+
   asignarfolios(){
     let a = this.cantidades;
+    this.folfinalnum=Number(this.folfinal);
     console.log("cantidades");
     console.log(this.cantidades);
-    if (this.cantidades<0){
-        this.folfinal=0;
+    if (this.cantidades<0 || isNaN(this.cantidades)){
+      this.folfinal="0";
     }
     else if (this.cantidades > 0){
-        console.log(this.cantfolios);
         let a=Number(this.cantfolios);
         let b=Number(this.cantidades);
-        this.folfinal=a+(b-1);
-        if (isNaN(this.folfinal)){
-            this.folfinal=0;
+        this.folfinalnum=a+(b-1);
+        if (isNaN(this.folfinalnum) || isNaN(a) || isNaN(this.cantidades) || this.cantidades==null){
+          this.folfinal="0";
+        }
+        else{
+          this.folfinal=this.folfinalnum.toString();
         }
     }
 
-    if (isNaN(this.folfinal)){
-        this.folfinal=0;
+    if (isNaN(this.folfinalnum)|| isNaN(a) || isNaN(this.cantidades) || this.cantidades==null ){
+      console.log("entro a if nana");
+      this.folfinal="0";
     }
-    if (isNaN(a)){
-        this.folfinal=0;
+    else {
+      let foltostring=Number(this.folfinal);
+      let final=foltostring.toString();
+      let leng:number=final.length;
+      if(final.length==1){
+        let v:string="00000"+this.folfinalnum;
+        this.folfinal=v;
+        console.log("folio final");
+        console.log(this.folfinal);
+      }
+      if(final.length==2){
+        let v:string="0000"+this.folfinalnum;
+        this.folfinal=v;
+        console.log("folio final");
+        console.log(this.folfinal);
+      }
+      if(final.length==3){
+        let v:string="000"+this.folfinalnum;
+        this.folfinal=v;
+        console.log("folio final");
+        console.log(this.folfinal);
+      }
+      if(final.length==4){
+        let v:string="00"+this.folfinalnum;
+        this.folfinal=v;
+        console.log("folio final");
+        console.log(this.folfinal);
+      }
+      if(final.length==5){
+        let v:string="0"+this.folfinalnum;
+        this.folfinal=v;
+        console.log("folio final");
+        console.log(this.folfinal);
+      }
+
     }
+
+
 }
 
 asignarfolios2(){
   let a = this.cantfolios;
-  console.log("cantidades");
+  this.folfinalnum=Number(this.folfinal);
+  console.log("cantfolios");
   console.log(this.cantfolios);
   if (this.cantfolios<0){
-      this.folfinal=0;
+    this.folfinal="0";
   }
   else if (this.cantfolios > 0){
-      console.log(this.cantfolios);
       let a=Number(this.cantfolios);
       let b=Number(this.cantidades);
-      this.folfinal=a+(b-1);
-      if (isNaN(this.folfinal)){
-        this.folfinal=0;
-    }
+      this.folfinalnum=a+(b-1);
+      this.folfinal=this.folfinalnum.toString();
+      if (isNaN(this.folfinalnum) ||  isNaN(a) || isNaN(this.cantidades) || this.cantidades==null){
+        this.folfinal="0";
+      }
+      else {
+        this.folfinal=this.folfinalnum.toString();
+      }
   }
 
-  if (isNaN(this.folfinal)){
-    this.folfinal=0;
-}
+  if (isNaN(this.folfinalnum) || isNaN(a) || isNaN(this.cantidades)|| this.cantidades==null){
+    console.log("entro a if de nan");
+    this.folfinal="0";
+  }
+  else{
+    let foltostring=Number(this.folfinal);
+    let final=foltostring.toString();
+    let leng:number=final.length;
+    if(final.length==1){
 
-if (isNaN(a)){
-    this.folfinal=0;
-}
+      let v:string="00000"+this.folfinalnum;
+      this.folfinal=v;
+      console.log("folio final");
+      console.log(this.folfinal);
+    }
+    if(final.length==2){
+      let v:string="0000"+this.folfinalnum;
+      this.folfinal=v;
+      console.log("folio final");
+      console.log(this.folfinal);
+    }
+    if(final.length==3){
+      let v:string="000"+this.folfinalnum;
+      this.folfinal=v;
+      console.log("folio final");
+      console.log(this.folfinal);
+    }
+    if(final.length==4){
+      let v:string="00"+this.folfinalnum;
+      this.folfinal=v;
+      console.log("folio final");
+      console.log(this.folfinal);
+    }
+    if(final.length==5){
+      let v:string="0"+this.folfinalnum;
+      this.folfinal=v;
+      console.log("folio final");
+      console.log(this.folfinal);
+    }
+    
+  }
+
 }
 
 selectSerie(){
     console.log("hola");
-    console.log(this.serieid);
-    let a:string=this.serieid.toString();
+    console.log(this.seriename);
+    let a:string=this.seriename.toString();
     console.log("a");
     console.log(a);
     if (a=="Escoge una categoria..."){
@@ -185,7 +305,7 @@ selectSerie(){
       console.log("else de tostring");
     }
     for(let s=0; s< this.series.length;s++){
-        if (this.serieid == this.series[s].id){
+        if (this.seriename == this.series[s].serie){
             this.serie=this.series[s];
             console.log(this.serie);
             this.seriebol=true;
@@ -209,13 +329,17 @@ selectSerie(){
   LoadTableData() {
     this._superService.getFolioVales().subscribe(
       result => {
+        
+        this.folios=result.respuesta;
         console.log("Vales");
         console.log(result);
-        this.folios=result.respuesta;
+        $("#tablafoliosvales").dataTable().fnDestroy();
         this.loadTable();
       },
       error => {
         console.log(error);
+        
+        $("#tablafolios").dataTable().fnDestroy();
       }
     );
   }
@@ -223,8 +347,7 @@ selectSerie(){
   loadTable(): void {
     setTimeout(function () {
       $(function () {
-        //Se destruye la tabla en cuanto se obtiene una respuesta de back
-
+        
         $("#tablafoliosvales").dataTable().fnDestroy();
 
         //Se carga la tabla 
@@ -262,42 +385,57 @@ selectSerie(){
   );
 }
 
+nuevoarray(){
+  
+  this.arregloeliminar=new Array();
+}
+  
+
   seleccionarcheck2(){
     let self=this;
     var texto="";
+    
     $('#mastercheckbox').click(function(event) {
+      
       if(this.checked) {
-        let a=0;  
-        self.arregloeliminar=new Array();
         // Iterate each checkbox
           $(':checkbox').each(function() {
-            
             this.checked = true;
-            $('#tablafoliosvales tr td').each(function(){
-              texto = $('#tablafoliosvales tr:nth-child('+(a++)+') td:nth-child('+2+')').text();
-              if ((texto=="")){
-              }
-              else {
-                
-                self.textos=Number(texto);
-                self.arregloeliminar.push({numeroFolio: self.textos});
-              }
-            });
             
-            a++;
+               let s=this.id.toString();
+              //  console.log(s);
+               let g=s.substring(5,s.length);
+               self.subCad=Number(g);
+               self.asignarelim();
+            
           });
       }
       else {
         $(':checkbox').each(function() {
               this.checked = false;
           });
-          self.arregloeliminar=new Array;
+          console.log("entra?");
+          self.arregloeliminar=new Array();
       }
+      
     });
     console.log("arreglo a eliminar");
     console.log(JSON.stringify(self.arregloeliminar));
     
     // this.eliminarmuchos();
+  }
+
+  asignarelim(){
+    console.log("entro a asigelim");
+    console.log(this.subCad);
+
+    for (let h=0; h<this.folios.length;h++){
+      if (h==this.subCad){
+        console.log("self");
+        this.arregloeliminar.push({id: this.folios[h].id});
+      }
+    }
+
   }
 
 selectcheck2(i){
@@ -323,17 +461,17 @@ selectcheck2(i){
       if ($('#check'+check).is(":checked")){
       console.log("if de check");
       console.log("entroooooo");
-      this.arregloeliminar.push({numeroFolio: this.folios[a].numeroFolio});
-      console.log(this.folios[a].numeroFolio);
-      self.folioelim=this.folios[a].numeroFolio;
+      this.arregloeliminar.push({id: this.folios[a].id});
+      console.log(this.folios[a].id);
+      self.folioelim=Number(this.folios[a].id);
       break;
       }
       else {
         console.log("else de check");
         for(let a=0;a<self.arregloeliminar.length;a++){
           console.log("fpolio elimi");
-          console.log(this.folios[check].numeroFolio);
-          if(this.folios[check].numeroFolio==self.arregloeliminar[a].numeroFolio){
+          console.log(this.folios[check].id);
+          if(this.folios[check].id==self.arregloeliminar[a].id){
             console.log("splice");
             self.arregloeliminar.splice(a,1);
           }
@@ -343,8 +481,6 @@ selectcheck2(i){
         
     }
 }
-
-
 console.log("dato a eliminar");
 console.log(this.arregloeliminar);
 }

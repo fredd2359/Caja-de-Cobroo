@@ -37,6 +37,23 @@ export class AltaPagoComponent implements OnInit
     }
     ngOnInit(){
       }
+
+      pass(){
+          let chars;
+          let pass;
+        // function randomPassword(length)
+        // {
+          chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+          pass = "";
+          for(let x=0;x<9;x++)
+          {
+            let i = Math.floor(Math.random() * 62);
+            pass += chars.charAt(i);
+          }
+          console.log(pass);
+        //   return pass;
+        // }
+      }
       onSubmit(){
           console.log("DATOS A CARGAR....");
           this.altaserie.estatus="ACTIVO";
@@ -52,6 +69,7 @@ export class AltaPagoComponent implements OnInit
               $('#modalConfirmaRe').modal('show');
               //$("#example").dataTable().fnDestroy();
               //this.obtenerdatos();
+                $('#formAltaSeries').trigger("reset");
               //this.LoadTableData();
             },
             error =>{
@@ -60,29 +78,27 @@ export class AltaPagoComponent implements OnInit
                   console.log(error);
                 //$("#example").dataTable().fnDestroy();
                 //This.status="error";
-            $('#modalConfirmaReERR').modal('show');
+                $('#formAltaSeries').trigger("reset");
+                 $('#modalConfirmaReERR').modal('show');
                 //this.obtenerdatos();
                 //this.LoadTableData();
             this.altaseries=new Array();
             this.altaserie=new Serie(0,"","","","");
+            
               }
               else if (error.status=="500"){
                 console.log("No se agregó");
                 $('#modalConfirmaReERR').modal('show');
-              }
-              else {
-                //$("#example").dataTable().fnDestroy();
-                //this.status="success";
-                //this.obtenerdatos();
-                //this.LoadTableData();
-                console.log(error);
-                console.log("TODO VA BIEN ...... ");
-                $('#modalConfirmaRe').modal('show');
-                this.altaseries=new Array();
-                this.altaserie=new Serie(0,"","","","");
+                
+                 $('#formAltaSeries').trigger("reset");
               }
               //console.log(error.status);
             }
+            
           );
+    }
+    clear(){
+        
+        $('#formAltaSeries').trigger("reset");
     }
 }

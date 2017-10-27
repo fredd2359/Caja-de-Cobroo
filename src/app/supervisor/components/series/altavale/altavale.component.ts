@@ -44,6 +44,7 @@ export class AltaValeComponent implements OnInit
             console.log("SE HA REGISTRADO CON ÉXITO");
             console.log(result);
             /**MODAL DE ÉXITO */
+            $('#formAltaSeries').trigger("reset");
             $('#modalConfirmaRe').modal('show');
             //$("#example").dataTable().fnDestroy();  
             //this.obtenerdatos();
@@ -59,6 +60,7 @@ export class AltaValeComponent implements OnInit
               //$("#example").dataTable().fnDestroy();
               //This.status="error";
               //this.obtenerdatos();
+            $('#formAltaSeries').trigger("reset");
             $('#modalConfirmaReERR').modal('show');
               //this.LoadTableData();
             this.altaseries=new Array();
@@ -66,6 +68,7 @@ export class AltaValeComponent implements OnInit
             }
             else if (error.status=="500"){
               console.log("No se agregó");
+              $('#formAltaSeries').trigger("reset");
               $('#modalConfirmaReERR').modal('show');
             }
             else{
@@ -75,6 +78,7 @@ export class AltaValeComponent implements OnInit
               //this.LoadTableData();
               console.log("TODO VA BIEN ...... ");
               $('#modalConfirmaRe').modal('show');
+              $('#formAltaSeries').trigger("reset");
               this.altaseries=new Array();
               this.altaserie=new Serie(0,"","","","");
             }
