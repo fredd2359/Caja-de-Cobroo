@@ -44,10 +44,11 @@ export class RolesComponent implements OnInit {
     this.rolSeleccionado = new Rol (0,""); /** La usamos al modificar un registro */
   }
   ngOnInit() {
-    console.log(this.role);
-    //$('#TablaRoles').DataTable(); /**CARGA DATOS DE LA TABLA DE MANERA LOCAL: SIN SERVIDOR */
-    this.LoadTableData(); /**CARGA LOS DATOS EN LA TABLA Y AGREGA EL SETTIME:POR  SERVIDOR */
+    //console.log(this.role);
     this.obtenerRoles(); /**MÉTODO QUE OBTIENE LOS DATOS YA CARGADOS DE LA TABLA DE ARRIVA */    
+    this.LoadTableData(); /**CARGA LOS DATOS EN LA TABLA Y AGREGA EL SETTIME:POR  SERVIDOR */
+    
+    //$('#TablaRoles').DataTable(); /**CARGA DATOS DE LA TABLA DE MANERA LOCAL: SIN SERVIDOR */
     console.log("Obteniendo los datos desde BD...");
     this._adminService.getSistemas().subscribe(
       result => {
@@ -61,10 +62,15 @@ export class RolesComponent implements OnInit {
     );
   }
   onSubmit(){
-    console.log("Cargando nuevos datos...");
     this.obtenerRoles();
-    this.LoadTableData();
+    this.LoadTableData();    
+    this.rolSeleccionado = new Rol (0,"");/**INICIALIZAR EL CLONADO */
+    
+
+    console.log("Cargando nuevos datos...");
+    $("#TablaRoles").dataTable().fnDestroy();    
     this.ngOnInit();
+
     this.rolSeleccionado = new Rol (0,""); /**CUANDO SE MANDAN LOS DATOS MODIFICADOS, REINICIAMOS */
     console.log(JSON.stringify(this.rolSeleccionado));
     /**DAR DE ALTA ROLES */
@@ -84,12 +90,17 @@ export class RolesComponent implements OnInit {
             }
             else {
               this.rolSeleccionado = new Rol (0,"");/**INICIALIZAR EL CLONADO */
+              this.role = new Rol(0,"");
+
+
               $("#ModalInfoAlta").modal('show');              
               //console.log("algo");
               this.status="success";
               $("#TablaRoles").dataTable().fnDestroy();
               this.LoadTableData();
               this.resettt();
+              this.role = new Rol(0,"");
+              
           }
           if((error._body.substring(20,36)) == "El rol ya existe"){
             this.status="existente";
@@ -147,6 +158,7 @@ export class RolesComponent implements OnInit {
 }
 loadTable(): void {
   console.log("biien");
+  $("#TablaRoles").dataTable().fnDestroy();  
   setTimeout(function () {
     $(function () {
      $('#TablaRoles').dataTable();
@@ -156,56 +168,7 @@ loadTable(): void {
  /**TERMINA MÉTODO PARA CARGAR LOS DATOS DE LA TABLA Y USAR DATATABLES... */
 
  selectcheck2(i){
-  //let self=this;
-  //var texto="";
-  //var fol:number;
-  //let index:number=i;
-  try{
-  let check:number=i;
-  console.log("Elemento seleccionado");
-  console.log(i);
-  for(let a=0 ; a < this.roles.length;a++){
-    if (a==i){
-      
-      console.log(this.roles[a]);
-      
-      if ((this.roles[a])){
-        console.log("registros!!!");
-        
-      }
-      else{
-        console.log("Holaaaaaa else principal");
-      if ($('#check'+check).is(":checked")){
-      console.log("if de check");
-      break;
-      }
-      else {
-        console.log("else de check");
-      }
-    }
-  }  
-  else{
-    //console.log("Ocurrió algo feo my friend");
-    console.log("error");
-  }
-}
-  if(this.roles[i] == null){
-    console.log("Ocurrió algo feo my friend x2");
-    this.ngOnInit();
-  }
-  else{
-console.log("Elemento a eliminar:");
-console.log(JSON.stringify(this.roles[i])); /**Este es el dato (sistema a eliminar) */
-this.rolSeleccionado = this.roles[i];
-console.log("ISISISIS");
-console.log(this.rolSeleccionado);
-  }
-
-  }catch(err){
-    console.log("Ocurrió algo feo my friend");
-
-    console.log(err.message);
-  }
+  this.rolSeleccionado.id = this.obtenerRoles[i].id;
 }
 /**TERMINA MÉTODO OBTIENE SISTEMA MEDIENTE  */
 
@@ -239,6 +202,8 @@ this._adminService.bajaRoles(this.rolSeleccionado).subscribe(
  }
 
  asignarCat(i) {
+  this.rolSeleccionado.rol = this.obtenerRoles[i].rol;
+
   let check:number=i;
   console.log("Elemento seleccionado");
   console.log(i);
@@ -321,6 +286,35 @@ modificarRoles(){
     }
   );
 }
+onClearModal() {
+  //this.ngOnInit();
+  //this.LoadTableData();
+  console.log("Recarga de datos nuevos");
+  //console.log("RESET");
+  //$("#exampleModalP").reset();
+  console.log(this.rolSeleccionado.rol);
+  $("#ModalModificaSistema").on("hidden.bs.modal", e => {
+    $(".modal-body")
+      .find("#nombre") //.find("textarea,input")
+      .val('{{SistemaSeleccionado.nombre}}');
+  });
+}
 /**TERMINA MODIFICAR LOS ROLES */
  /**TERMINA ROL */
+ clear(){
+  console.log("Hola");
+  this.obtenerRoles();
+  this.LoadTableData();
+  this.rolSeleccionado = new Rol (0,"");/**INICIALIZAR EL CLONADO */
+  console.log("Cargando nuevos datos...");
+  $("#TablaRoles").dataTable().fnDestroy();    
+  this.ngOnInit();
+
+  //this.LoadTableData();
+  //this.ngOnInit();
+  this.rolSeleccionado = new Rol (0,""); /**CUANDO SE MANDAN LOS DATOS MODIFICADOS, REINICIAMOS */
+  console.log("MEMOOOOO ESTOS SON LOS NUEVOS DATOS DESPUES DE AGREGAR UNO NUEVOOOOOO");    
+  console.log(JSON.stringify(this.rolSeleccionado));
+  /**DAR DE ALTA SISTEMAS  MET=POST*/
+}
 }

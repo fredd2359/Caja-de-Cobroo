@@ -1,226 +1,479 @@
 <main class="col py-5 main">
-<p>
-  personal administradores works!
-</p>
-<div class="justify-content-center">
-    <div class="row">
-        <div class="col-10">
-            <h1 title="Alta de Personal">Alta de Personal</h1>
-        </div>
-        <div class="col-2">
-            <div class="bot space input-group add-on">
-                <button class="agregar buttons btn btn-success" data-toggle="modal" data-target="#">
+    <p>
+        personal administradores works!
+    </p>
+    <div class="justify-content-center">
+        <div class="row">
+            <div class="col-10">
+                <h1 title="Alta de Personal">Alta de Personal</h1>
+            </div>
+            <div class="col-2">
+                <div class="bot space input-group add-on">
+                    <button class="agregar buttons btn btn-success" data-toggle="modal" data-target="#">
                     Alta</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<form #formAgregaPersonal="ngForm" name="formAgregaPersonal" id="formAgregaPersonal" (ngSubmit)="onSubmit()" class="justify-content-center">
-    <div class="row ">
-        <div class="col-12 col-sm-12 col-md-6">
-    <h2>Datos Personales</h2>
-    <hr />
-    <div class="container no-gutters">
-<!--CURP-->
-    <div class="form-group row">
-        <label title="curp" for="curp" class="col-sm-2 col-form-label">Curp:</label>
-        <div class="col-sm-10">
-            <input title="Ingrese CURP" type="text" name="curpinput" class="form-control" id="curpinput" placeholder="Ingrese CURP" #curp="ngModel" [(ngModel)]="altapersonal.curp" minlength="2" maxlength="100" [class.error]="curp.touched && !curp.valid" required
-            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-      </div>
-<!--TERMINA CURP-->
-<!--NOMBRE-->
-      <div class="form-group row">
-          <label title="curp" for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
-          <div class="col-sm-10">
-              <input title="Ingrese CURP" type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese nombre" #nombre="ngModel" [(ngModel)]="altapersonal.nombre" minlength="2" maxlength="100" [class.error]="nombre.touched && !nombre.valid" required
-              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-        </div>
-        <!--TERMINA NOMBRE-->
-        <!--APELLIDO PATERNO-->
-        <div class="form-group row">
-            <label title="curp" for="apellidop" class="col-sm-2 col-form-label">Apellido Paterno:</label>
-            <div class="col-sm-10">
-                <input title="Ingrese CURP" type="text" name="apellidop" class="form-control" id="apellidop" placeholder="Ingrese apellido paterno" #apellidop="ngModel" [(ngModel)]="altapersonal.apellidop" minlength="2" maxlength="100" [class.error]="apellidop.touched && !apellidop.valid" required
-                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-          </div>
-          <!--TERMINA AP-->
-          <!--APELLIDO MATERNO-->
-          <div class="form-group row">
-              <label title="curp" for="apellidom" class="col-sm-2 col-form-label">Apellido Materno:</label>
-              <div class="col-sm-10">
-                  <input title="Ingrese CURP" type="text" name="apellidom" class="form-control" id="apellidom" placeholder="Ingrese apellido materno" #apellidom="ngModel" [(ngModel)]="altapersonal.apellidom" minlength="2" maxlength="100" [class.error]="apellidom.touched && !apellidom.valid" required
-                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-            </div>
-            <!--TERMINA AM-->
-            <!---->
-            <div class="form-group row">
-                <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
-                <div class="col-sm-10">
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+    <form #formAgregaPersonal="ngForm" name="formAgregaPersonal" id="formAgregaPersonal" (ngSubmit)="onSubmit()" class="justify-content-center">
+        <div class="row ">
+            <div class="col-12 col-sm-12 col-md-6">
+                <h2 title="Datos Personales">Datos Personales</h2>
+                <hr />
+                <div class="container no-gutters">
+                    <!--CURP-->
+                    <div class="form-group row">
+                        <label title="curp" for="curp" class="col-sm-3 col-form-label text-right" [class.errorLabel]="curp.dirty && !curp.valid"><label title="Campo obligatorio">*</label>Curp:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese CURP" type="text" name="curpinput" class="form-control" id="curpinput" placeholder="Ingrese CURP" #curp="ngModel" [(ngModel)]="altapersonal.curp" minlength="18" maxlength="18" [class.error]="curp.touched && !curp.valid" required
+                                pattern="[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][A-Z]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,A-Z][0-9]" />
+                        </div>
+                    </div>
+                    <!--Validacion de CURP-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="curp.touched && !curp.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="curp.errors.required" title="El nombre del sistema, es un campo obligatorio">Ingrese CURP, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="curp.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de CURP es de exactamente 18 caracteres">La longitud mínima de caracteres que conforman el campo de CURP es de exactamente 18 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="curp.errors.pattern" title="Extención no valida Ejemplo: HEMY76RGR098TY45O7">Extención no valida Ejemplo: HEMY76RGR098TY45O7 </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion de CURP-->
+                    <!--TERMINA CURP-->
+                    <!--NOMBRE-->
+                    <div class="form-group row">
+                        <label title="Nombre" for="nombre" class="col-sm-3 col-form-label text-right" [class.errorLabel]="nombre.dirty && !nombre.valid"><label title="Campo obligatorio">*</label>Nombre:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Nombre" type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese nombre" #nombre="ngModel" [(ngModel)]="altapersonal.nombre" minlength="2" maxlength="100" [class.error]="nombre.touched && !nombre.valid" required
+                                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="nombre.touched && !nombre.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="nombre.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="nombre.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="nombre.errors.pattern" title="Extención no valida Ejemplo: Ana">Extención no valida Ejemplo: Ana </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA NOMBRE-->
+                    <!--APELLIDO PATERNO-->
+                    <div class="form-group row">
+                        <label title="Apellido Paterno" for="apellidop" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Apellido Paterno:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Apellido Paterno" type="text" name="apellidop" class="form-control" id="apellidop" placeholder="Ingrese apellido paterno" #apellidop="ngModel" [(ngModel)]="altapersonal.apellidop" minlength="2" maxlength="100" [class.error]="apellidop.touched && !apellidop.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="apellidop.touched && !apellidop.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="apellidop.errors.required" title="Ingrese el Apellido Paterno, es un campo obligatorio">Apellido Paterno, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="apellidop.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de Apellido Paterno es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de Apellido Paterno es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="apellidop.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA AP-->
+                    <!--APELLIDO MATERNO-->
+                    <div class="form-group row">
+                        <label title="Apellido Materno" for="apellidom" class="col-sm-3 col-form-label text-right">Apellido Materno:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Apellido Materno" type="text" name="apellidom" class="form-control" id="apellidom" placeholder="Ingrese apellido materno" #apellidom="ngModel" [(ngModel)]="altapersonal.apellidom" minlength="2" maxlength="100" [class.error]="apellidom.touched && !apellidom.valid"
+                                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="apellidom.touched && !apellidom.valid">
+
+                        <div class="col-12">
+                            <span class="err" *ngIf="apellidom.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de Apellido Materno es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de Apellido Materno es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="apellidom.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA AM-->
+                    <!---->
+                    <div class="form-group row">
+                        <label title="Género" for="exampleFormControlSelect1" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Sexo</label>
+                        <div class="col-sm-9">
+                            <select title="Selecciona una de las opciones" class="form-control" id="exampleFormControlSelect1">
+                  <option selected>M</option>
+                  <option>F</option>
+                  <option>NO SABE</option>
+                  
                 </select>
-              </div>
-              </div>
-              <!---->
-              <!--date PICKER-->
-              <!--TERMINA DATE PICKER-->
-              <!---->
-              <div class="form-group row">
-                  <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
-                  <div class="col-sm-10">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
+                        </div>
+                    </div>
+                    <!---->
+
+
+                    <!--date PICKER-->
+                    <div class="form-group row">
+                        <label title="fecha de nacimiento" for="fechanac" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Fecha Nacimiento:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Fecha de Nacimiento" type="data" name="fechanac" class="form-control" id="fechanac" placeholder="Ingrese fecha de nacimiento" #fechanac="ngModel" [(ngModel)]="altapersonal.apellidom" minlength="2" maxlength="100" [class.error]="fechanac.touched && !fechanac.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="fechanac.touched && !fechanac.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="fechanac.errors.required" title="Ingrese la Fecha deNacimiento, es un campo obligatorio">Ingrese la Fecha de Nacimiento, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="fechanac.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de Fecha de Nacimiento es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de Fecha de Nacimiento es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="fechanac.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA DATE PICKER-->
+                    <!---->
+                    <div class="form-group row">
+                        <label title="Estado Civil" for="exampleFormControlSelect1" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Estado Civil</label>
+                        <div class="col-sm-9">
+                            <select title="Selecciona una de las opciones" class="form-control" id="exampleFormControlSelect1">
+                    <option selected>1</option>
                     <option>2</option>
                     <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
                   </select>
-                </div>
-                </div>
-                <!---->
-                <!--CORREO-->
-                <div class="form-group row">
-                    <label title="curp" for="correo" class="col-sm-2 col-form-label">Correo:</label>
-                    <div class="col-sm-10">
-                        <input title="Ingrese CURP" type="text" name="correo" class="form-control" id="correo" placeholder="Ingrese correo" #correo="ngModel" [(ngModel)]="altapersonal.correo" minlength="2" maxlength="100" [class.error]="correo.touched && !correo.valid" required
-                        pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-                  </div>
-                  <!--TERMINA CORREO-->
-                  <!--LADA-->
-                  <div class="form-group row">
-                      <label title="curp" for="lada" class="col-sm-2 col-form-label">Lada:</label>
-                      <div class="col-sm-10">
-                          <input title="Ingrese CURP" type="text" name="lada" class="form-control" id="lada" placeholder="Ingrese CURP" #lada="ngModel" [(ngModel)]="altapersonal.lada" minlength="2" maxlength="100" [class.error]="lada.touched && !lada.valid" required
-                          pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        </div>
                     </div>
+                    <!--Validacion-->
+
+                    <!--Termina Validacion -->
+                    <!---->
+                    <!--CORREO-->
+                    <div class="form-group row">
+                        <label title="Correo" for="correo" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Correo:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Correo Electrónico" type="text" name="correo" class="form-control" id="correo" placeholder="Ingrese correo" #correo="ngModel" [(ngModel)]="altapersonal.correo" minlength="2" maxlength="100" [class.error]="correo.touched && !correo.valid"
+                                required pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="correo.touched && !correo.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="correo.errors.required" title="Ingrese el Correo, es un campo obligatorio">Ingrese el Correo, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="correo.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de Correo es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de Correo es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="correo.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+
+                    <!--Termina Validacion -->
+                    <!--TERMINA CORREO-->
+                    <!--LADA-->
+                    <div class="form-group row">
+                        <label title="Lada" for="lada" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Lada:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Lada" type="number" name="lada" class="form-control" id="lada" placeholder="Ingrese CURP" #lada="ngModel" [(ngModel)]="altapersonal.lada" minlength="2" maxlength="100" [class.error]="lada.touched && !lada.valid" required pattern="[0-9]{3}"
+                            /> </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="lada.touched && !lada.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="lada.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="lada.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="lada.errors.pattern" title="Extención no valida Ejemplo: Ana">Extención no valida Ejemplo: Ana </span>
+                        </div><br />
+                    </div>
+
+                    <!--Termina Validacion -->
                     <!--TERMINA LADA-->
                     <!--TELÉFONO-->
                     <div class="form-group row">
-                        <label title="curp" for="telefono" class="col-sm-2 col-form-label">Teléfono:</label>
-                        <div class="col-sm-10">
-                            <input title="Ingrese CURP" type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese teléfono" #telefono="ngModel" [(ngModel)]="altapersonal.telefono" minlength="2" maxlength="100" [class.error]="telefono.touched && !telefono.valid" required
-                            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-                      </div>
-                      <!--TERMINA TELÉFONO-->
-                      <!--CELULAR-->
-                      <div class="form-group row">
-                          <label title="curp" for="celular" class="col-sm-2 col-form-label">Celular:</label>
-                          <div class="col-sm-10">
-                              <input title="Ingrese CURP" type="text" name="celular" class="form-control" id="celular" placeholder="Ingrese celular" #celular="ngModel" [(ngModel)]="altapersonal.celular" minlength="2" maxlength="100" [class.error]="celular.touched && !celular.valid" required
-                              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        <label title="Teléfono" for="telefono" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Teléfono:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese número de Teléfono" type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese teléfono" #telefono="ngModel" [(ngModel)]="altapersonal.telefono" minlength="2" maxlength="100" [class.error]="telefono.touched && !telefono.valid"
+                                required pattern="[0-9]{9}" /> </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="telefono.touched && !telefono.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="telefono.errors.required" title="Ingrese la lada, es un campo obligatorio">Ingrese la lada, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="telefono.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de lada es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de lada es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="telefono.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+
+                    <!--Termina Validacion -->
+                    <!--TERMINA TELÉFONO-->
+                    <!--CELULAR-->
+                    <div class="form-group row">
+                        <label title="Celular" for="celular" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Celular:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese número de celular" type="text" name="celular" class="form-control" id="celular" placeholder="Ingrese celular" #celular="ngModel" [(ngModel)]="altapersonal.celular" minlength="2" maxlength="100" [class.error]="celular.touched && !celular.valid"
+                                required pattern="[0-9]{9}" />
                         </div>
-                        <!--TERMINA CELULAR-->
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="celular.touched && !celular.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="celular.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el celular, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="celular.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de celular es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de celular es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="celular.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
 
-        </div>
-
-</div>
-
-<div class="col-12 col-sm-12 col-md-6">
-        <h2>Domicilio</h2>
-        <hr />
-        <div class="container no-gutters">
-          <!--CP-->
-        <div class="form-group row">
-            <label title="curp" for="cp" class="col-sm-2 col-form-label">Código Postal:</label>
-            <div class="col-sm-10">
-                <input title="Ingrese CURP" type="text" name="cp" class="form-control" id="cp" placeholder="Ingrese código postal" #cp="ngModel" [(ngModel)]="altapersonal.cp" minlength="2" maxlength="100" [class.error]="cp.touched && !cp.valid" required
-                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-          </div>
-          <!--TERMINA CP-->
-          <!--ESTADO-->
-          <div class="form-group row">
-              <label title="curp" for="estado" class="col-sm-2 col-form-label">Estado:</label>
-              <div class="col-sm-10">
-                  <input title="Ingrese CURP" type="text" name="estado" class="form-control" id="estado" placeholder="Ingrese estado" #estado="ngModel" [(ngModel)]="altapersonal.estado" minlength="2" maxlength="100" [class.error]="estado.touched && !estado.valid" required
-                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-            </div>
-            <!--TERMINA ESTADO-->
-            <!--CIUDAD-->
-            <div class="form-group row">
-                <label title="curp" for="ciudad" class="col-sm-2 col-form-label">Ciudad:</label>
-                <div class="col-sm-10">
-                    <input title="Ingrese CURP" type="text" name="ciudad" class="form-control" id="ciudad" placeholder="Ingrese ciudad" #ciudad="ngModel" [(ngModel)]="altapersonal.ciudad" minlength="2" maxlength="100" [class.error]="ciudad.touched && !ciudad.valid" required
-                    pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-              </div>
-              <!--TERMINA CIUDAD-->
-              <!--MUNICIPIO-->
-              <div class="form-group row">
-                  <label title="curp" for="municipio" class="col-sm-2 col-form-label">Municipio:</label>
-                  <div class="col-sm-10">
-                      <input title="Ingrese CURP" type="text" name="municipio" class="form-control" id="municipio" placeholder="Ingrese nmunicipio" #municipio="ngModel" [(ngModel)]="altapersonal.municipio" minlength="2" maxlength="100" [class.error]="municipio.touched && !municipio.valid" required
-                      pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA CELULAR-->
                 </div>
-                <!--TERMINA MUNICIPIO-->
-                <!---->
-                <div class="form-group row">
-                    <label for="exampleFormControlSelect1" class="col-sm-2">Example select</label>
-                    <div class="col-sm-10">
-                    <select class="form-control" id="exampleFormControlSelect1">
+
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6">
+                <h2 title="Domicilio">Domicilio</h2>
+                <hr />
+                <div class="container no-gutters">
+                    <!--CP-->
+                    <div class="form-group row">
+                        <label title="Código Postal" for="cp" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Código Postal:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Código Postal" type="text" name="cp" class="form-control" id="cp" placeholder="Ingrese código postal" #cp="ngModel" [(ngModel)]="altapersonal.cp" minlength="2" maxlength="100" [class.error]="cp.touched && !cp.valid" required pattern="[1-9][0-9]*$"
+                            /> </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="cp.touched && !cp.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="cp.errors.required" title="Ingrese el Código Postal, es un campo obligatorio">Ingrese el Código Postal, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="cp.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de Código Postal es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de Código Postal es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="cp.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+
+                    <!--Termina Validacion -->
+                    <!--TERMINA CP-->
+                    <!--ESTADO-->
+                    <div class="form-group row">
+                        <label title="Estado" for="estado" class="col-sm-3 col-form-label text-right">Estado:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese nombre del Estado" type="text" name="estado" class="form-control" id="estado" placeholder="Ingrese estado" #estado="ngModel" [(ngModel)]="altapersonal.estado" minlength="2" maxlength="100" [class.error]="estado.touched && !estado.valid"
+                                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="estado.touched && !estado.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="estado.errors.required" title="Ingrese el estado, es un campo obligatorio">Ingrese el estado, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="estado.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de estado es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de estado es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="estado.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+
+                    <!--Termina Validacion -->
+                    <!--TERMINA ESTADO-->
+                    <!--CIUDAD-->
+                    <div class="form-group row">
+                        <label title="Ciudad" for="ciudad" class="col-sm-3 col-form-label text-right">Ciudad:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese nombre de la Ciudad" type="text" name="ciudad" class="form-control" id="ciudad" placeholder="Ingrese ciudad" #ciudad="ngModel" [(ngModel)]="altapersonal.ciudad" minlength="2" maxlength="100" [class.error]="ciudad.touched && !ciudad.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="ciudad.touched && !ciudad.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="ciudad.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="ciudad.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="ciudad.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA CIUDAD-->
+                    <!--MUNICIPIO-->
+                    <div class="form-group row">
+                        <label title="Municipio" for="municipio" class="col-sm-3 col-form-label text-right">Municipio:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese el nombre del Municipio" type="text" name="municipio" class="form-control" id="municipio" placeholder="Ingrese nmunicipio" #municipio="ngModel" [(ngModel)]="altapersonal.municipio" minlength="2" maxlength="100" [class.error]="municipio.touched && !municipio.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="municipio.touched && !municipio.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="municipio.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="municipio.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="municipio.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA MUNICIPIO-->
+                    <!---->
+                    <div class="form-group row">
+                        <label title="Colonia" for="exampleFormControlSelect1" class="col-sm-3 col-form-label text-right">Colonia</label>
+                        <div class="col-sm-9">
+                            <select title="Seleccione una de las opciones" class="form-control" id="exampleFormControlSelect1">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
                       <option>4</option>
                       <option>5</option>
                     </select>
-                  </div>
-                  </div>
-                  <!---->
-                  <!--CALLE-->
-                  <div class="form-group row">
-                      <label title="curp" for="calle" class="col-sm-2 col-form-label">Calle:</label>
-                      <div class="col-sm-10">
-                          <input title="Ingrese CURP" type="text" name="calle" class="form-control" id="calle" placeholder="Ingrese calle" #calle="ngModel" [(ngModel)]="altapersonal.calle" minlength="2" maxlength="100" [class.error]="calle.touched && !calle.valid" required
-                          pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        </div>
                     </div>
+                    <!--Validacion-->
+
+                    <!--Termina Validacion -->
+                    <!---->
+                    <!--CALLE-->
+                    <div class="form-group row">
+                        <label title="Calle" for="calle" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Calle:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese el nombre de la Calle" type="text" name="calle" class="form-control" id="calle" placeholder="Ingrese calle" #calle="ngModel" [(ngModel)]="altapersonal.calle" minlength="2" maxlength="100" [class.error]="calle.touched && !calle.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="calle.touched && !calle.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="calle.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="calle.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="calle.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
                     <!--TERMINA CALLE-->
                     <!--NÚMERO-->
                     <div class="form-group row">
-                        <label title="curp" for="numero" class="col-sm-2 col-form-label">Número:</label>
-                        <div class="col-sm-10">
-                            <input title="Ingrese CURP" type="text" name="numero" class="form-control" id="numero" placeholder="Ingrese número" #curp="ngModel" [(ngModel)]="altapersonal.numero" minlength="2" maxlength="100" [class.error]="numero.touched && !numero.valid" required
-                            pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-                      </div>
-                      <!--TERMINA NÚMERO-->
-                      <!--NÚMERO INTERIOR-->
-                      <div class="form-group row">
-                          <label title="curp" for="numeroint" class="col-sm-2 col-form-label">Número Interior:</label>
-                          <div class="col-sm-10">
-                              <input title="Ingrese CURP" type="text" name="numeroint" class="form-control" id="numeroint" placeholder="Ingrese número interior" #curp="ngModel" [(ngModel)]="altapersonal.numeroint" minlength="2" maxlength="100" [class.error]="numeroint.touched && !numeroint.valid" required
-                              pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
+                        <label title="Número" for="numero" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Número:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese su número de vivienda, ejemplo: 1003" type="text" name="numero" class="form-control" id="numero" placeholder="Ingrese número" #numero="ngModel" [(ngModel)]="altapersonal.numero" minlength="2" maxlength="100" [class.error]="numero.touched && !numero.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
                         </div>
-                        <!--TERMINA NÚMERO INTERIOR-->
-                        <!--USUARIO-->
-                        <h2>Datos de Usuario</h2>
-                        <hr />
-                        <div class="form-group row">
-                            <label title="curp" for="usuario" class="col-sm-2 col-form-label">Usuario:</label>
-                            <div class="col-sm-10">
-                                <input title="Ingrese CURP" type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese Usuario" #usuario="ngModel" [(ngModel)]="altapersonal.usuario" minlength="2" maxlength="100" [class.error]="usuario.touched && !usuario.valid" required
-                                pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-                          </div>
-                          <!--TERMINA USUARIO-->
-                          <!--CONTRASEÑA-->
-                          <div class="form-group row">
-                              <label title="curp" for="password" class="col-sm-2 col-form-label">Contraseña:</label>
-                              <div class="col-sm-10">
-                                  <input title="Ingrese CURP" type="text" name="password" class="form-control" id="password" placeholder="Ingrese Contraseña" #curp="ngModel" [(ngModel)]="altapersonal.password" minlength="2" maxlength="100" [class.error]="password.touched && !password.valid" required
-                                  pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />            </div>
-                            </div>
-                            <!--TERMINA CONTRASEÑA-->
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="numero.touched && !numero.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="numero.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="numero.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="numero.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA NÚMERO-->
+                    <!--NÚMERO INTERIOR-->
+                    <div class="form-group row">
+                        <label title="Número Interior" for="numeroint" class="col-sm-3 col-form-label text-right">Número Interior:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese Número Interior" type="text" name="numeroint" class="form-control" id="numeroint" placeholder="Ingrese número interior" #numeroint="ngModel" [(ngModel)]="altapersonal.numeroint" minlength="2" maxlength="100" [class.error]="numeroint.touched && !numeroint.valid"
+                                required pattern="[1-9][0-9]*$" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="numeroint.touched && !numeroint.valid">
+
+                        <div class="col-12">
+                            <span class="err" *ngIf="numeroint.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="numeroint.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA NÚMERO INTERIOR-->
+                    <!--USUARIO-->
+                    <h2 title="Datos de Usuario">Datos de Usuario</h2>
+                    <hr />
+                    <div class="form-group row">
+                        <label title="usuario" for="usuario" class="col-sm-3 col-form-label text-right"><label title="Campo obligatorio">*</label>Usuario:</label>
+                        <div class="col-sm-9">
+                            <input title="Ingrese nombre del Usuario" type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese Usuario" #usuario="ngModel" [(ngModel)]="altapersonal.usuario" minlength="2" maxlength="100" [class.error]="usuario.touched && !usuario.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="usuario.touched && !usuario.valid">
+                        <div class="col-12">
+                            <span class="err" *ngIf="usuario.errors.required" title="Ingrese el nombre, es un campo obligatorio">Ingrese el nombre, es un campo obligatorio</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="usuario.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="usuario.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA USUARIO-->
+                    <!--CONTRASEÑA-->
+                    <div class="form-group row">
+                        <label title="Contraseña" for="password" class="col-sm-3 col-form-label text-right">Contraseña:</label>
+                        <div class="col-sm-9">
+                            <input title="Su contraseña" type="text" name="password" class="form-control" id="password" placeholder="Ingrese Contraseña" #password="ngModel" [(ngModel)]="altapersonal.password" minlength="2" maxlength="100" [class.error]="password.touched && !password.valid"
+                                required pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,64}" />
+                        </div>
+                    </div>
+                    <!--Validacion-->
+                    <div class="d-flex justify-content-start invalid-feedback row" *ngIf="password.touched && !password.valid">
+
+                        <div class="col-12">
+                            <span class="err" *ngIf="password.errors.minlength" title="La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres">La longitud mínima de caracteres que conforman el campo de nombre es de al menos 2 caracteres</span>
+                        </div><br />
+                        <div class="col-12">
+                            <span class="err" *ngIf="password.errors.pattern" title="Extención no valida Ejemplo: ">Extención no valida Ejemplo:  </span>
+                        </div><br />
+                    </div>
+                    <!--Termina Validacion -->
+                    <!--TERMINA CONTRASEÑA-->
+                </div>
             </div>
-
-         
-          
-        
-
-</div>
-</div>
-</form>
-
+        </div>
+    </form>
 </main>

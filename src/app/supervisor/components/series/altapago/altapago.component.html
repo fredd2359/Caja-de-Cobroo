@@ -1,5 +1,6 @@
-<div class="container mt-3">
-    <h1 title="Alta de Seriess en Pagos">Alta series de Recibos</h1>
+<div class="container col-9">
+    <br/>
+    <h2 title="Alta de Series para Pago">Alta de Series para Recibos</h2>
     <hr>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
 
@@ -9,9 +10,9 @@
 
         <!--Nombre-->
         <div class="form-group row">
-            <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar nombre para serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
+            <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar el Nombre para la Serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Ingresar nombre para serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.serie" [class.error]="nombre.touched && !nombre.valid" minlength="1"
+                <input type="text" class="form-control" title="Ingresar el Nombre para la Serie" id="nombre" name="nombre" placeholder="Ingresar el Nombre para la Serie" #nombre="ngModel" [(ngModel)]="altaserie.serie" [class.error]="nombre.touched && !nombre.valid" minlength="1"
                     maxlength="5" required/>
             </div>
 
@@ -19,8 +20,8 @@
             <!--VALIDACIÓN DE NOMBRE-->
 
             <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
-                <span class="err" *ngIf="nombre.errors.required" title="El campo nombre es obligatorio"><small>El campo nombre es obligatorio</small></span>
-                <span class="err" *ngIf="nombre.errors.minlength" title="longitud mínima de caracteres que conforman el nombre es de al menos 2 caracteres."><small>longitud mínima de caracteres que conforman el nombre es de al menos 2 caracteres.</small></span>
+                <span class="err" *ngIf="nombre.errors.required" title="El Campo del Nombre es Obligatorio"><small>El Campo del Nombre es Obligatorio</small></span>
+                <span class="err" *ngIf="nombre.errors.minlength" title="La Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres."><small>La Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres.</small></span>
             </div>
 
         </div>
@@ -29,7 +30,7 @@
         <!--TERMINA Nombre-->
         <div class="form-group row">
             <!--DESCRIPCIÓN-->
-            <label name="descripcion" class="col-sm-2 col-form-label" for="descripcion" title="Ingresar descripción" [class.errorLabel]="descripcion.touched && !descripcion.valid">Descripción: </label>
+            <label name="descripcion" class="col-sm-2 col-form-label" for="descripcion" title="Ingresar Descripción" [class.errorLabel]="descripcion.touched && !descripcion.valid">Descripción: </label>
             <div class="col-sm-8">
 
                 <input type="text" class="form-control" title="Ingresar descripción" id="descripcion" name="descripcion" placeholder="Ingresar descripción" #descripcion="ngModel" [(ngModel)]="altaserie.descripcion" [class.error]="descripcion.touched && !descripcion.valid"
@@ -39,8 +40,8 @@
             <!--VALIDACIÓN DE DESCRIPCIÓN-->
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.touched && !descripcion.valid">
-                <span class="err" *ngIf="descripcion.errors.required" title="El apellido paterno es obligatorio."><small>La descripción es obligatoria.</small></span>
-                <span class="err" *ngIf="descripcion.errors.minlength" title="La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres."><small>La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres.</small></span>
+                <span class="err" *ngIf="descripcion.errors.required" title="El Apellido Paterno es Obligatorio."><small>La Descripción es Obligatoria.</small></span>
+                <span class="err" *ngIf="descripcion.errors.minlength" title="La Longitud Mínima de Caracteres que Conforman el Apellido Paterno es de al Menos 2 Caracteres."><small>La Longitud Mínima de Caracteres que Conforman el Apellido Paterno es de al Menos 2 Caracteres.</small></span>
                 <!--<span class="err" *ngIf="descripcion.errors.pattern" title="Extención no valida"><small>Extención no valida</small></span>-->
             </div>
 
@@ -68,12 +69,15 @@
         <div class="modal-content">
             <div class="line-modal modal-header">
                 <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
-                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+
+                <div class="input-group">
+                    <h5 class="color-modal-label ml-1" id="exampleModalLabel"><i class="fa fa-check mr-1" aria-hidden="true"></i> Información</h5>
+                </div>
             </div>
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Se ha registrado la serie con éxito</label>
+                <label>Las Series se Registraron con Éxito</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -92,12 +96,15 @@
         <div class="modal-content">
             <div class="line-modal modal-header">
                 <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
-                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+
+                <div class="input-group">
+                    <h5 class="color-modal-label" id="exampleModalLabel"><i class="fa fa-check add-on" aria-hidden="true"></i> Información</h5>
+                </div>
             </div>
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Ups! ha ocurrido un problema.</label>
+                <label>Ups! Ha Ocurrido un Problema.</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -108,4 +115,3 @@
     </div>
 </div>
 <!-- TERMINA Modal CONFIRMACIÓN DE REGISTRO ERR -->
-<button type="submit" class="btn btn-success" (click)="pass()" title="Realizar Alta">Realizar Alta</button>

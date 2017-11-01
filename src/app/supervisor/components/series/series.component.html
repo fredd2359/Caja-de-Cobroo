@@ -8,9 +8,9 @@
     <form #formAltaSeries="ngForm" id="" name="">
         <!--Nombre-->
         <div class="form-group row">
-            <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar nombre para serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
+            <label name="name" class="col-sm-2 col-form-label" for="nombre" title="Ingresar el Nombre para la Serie" [class.errorLabel]="nombre.touched && !nombre.valid">Nombre: </label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" title="Ingresar nombre para serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.nombre" [class.error]="nombre.touched && !nombre.valid" minlength="2"
+                <input type="text" class="form-control" title="Ingresar el Nombre para la Serie" id="nombre" name="nombre" placeholder="Ingresar nombre para serie" #nombre="ngModel" [(ngModel)]="altaserie.nombre" [class.error]="nombre.touched && !nombre.valid" minlength="2"
                     maxlength="100" required pattern="[a-zA-Z]+" />
             </div>
 
@@ -18,9 +18,9 @@
             <!--VALIDACIÓN DE NOMBRE-->
 
             <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="nombre.touched && !nombre.valid">
-                <span class="err" *ngIf="nombre.errors.required" title="El campo nombre es obligatorio"><small>El campo nombre es obligatorio</small></span>
-                <span class="err" *ngIf="nombre.errors.minlength" title="longitud mínima de caracteres que conforman el nombre es de al menos 2 caracteres."><small>longitud mínima de caracteres que conforman el nombre es de al menos 2 caracteres.</small></span>
-                <span class="err" *ngIf="nombre.errors.pattern" title="Extención no valida"><small>Extención no valida</small></span>
+                <span class="err" *ngIf="nombre.errors.required" title="El Campo del Nombre es Obligatorio."><small>El Campo del Nombre es Obligatorio.</small></span>
+                <span class="err" *ngIf="nombre.errors.minlength" title="lLa Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres."><small>La Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres.</small></span>
+                <span class="err" *ngIf="nombre.errors.pattern" title="Extención No Valida"><small>Extención No Valida</small></span>
             </div>
 
         </div>
@@ -29,10 +29,10 @@
         <!--TERMINA Nombre-->
         <div class="form-group row">
             <!--DESCRIPCIÓN-->
-            <label name="descripcion2" class="col-sm-2 col-form-label" for="descripcion2" title="Ingresar descripción" [class.errorLabel]="descripcion2.touched && !descripcion.valid">Descripción: </label>
+            <label name="descripcion2" class="col-sm-2 col-form-label" for="descripcion2" title="Ingresar Descripción" [class.errorLabel]="descripcion2.touched && !descripcion.valid">Descripción: </label>
             <div class="col-sm-8">
 
-                <input type="text" class="form-control" title="Ingresar descripción" id="descripcion" name="descripcion" placeholder="Ingresar descripción" #descripcion="ngModel" [(ngModel)]="altaserie.descripcion" [class.error]="descripcion.touched && !descripcion.valid"
+                <input type="text" class="form-control" title="Ingresar Descripción" id="descripcion" name="descripcion" placeholder="Ingresar descripción" #descripcion="ngModel" [(ngModel)]="altaserie.descripcion" [class.error]="descripcion.touched && !descripcion.valid"
                     minlength="2" maxlength="100" required pattern="[a-zA-Z]+" />
             </div>
 
@@ -40,8 +40,8 @@
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="descripcion.touched && !descripcion.valid">
                 <span class="err" *ngIf="descripcion.errors.required" title="El apellido paterno es obligatorio."><small>El apellido paterno es obligatorio.</small></span>
-                <span class="err" *ngIf="descripcion.errors.minlength" title="La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres."><small>La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres.</small></span>
-                <span class="err" *ngIf="descripcion.errors.pattern" title="Extención no valida"><small>Extención no valida</small></span>
+                <span class="err" *ngIf="descripcion.errors.minlength" title="La Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres."><small>La Longitud Mínima de Caracteres que Conforman el Nombre es de al Menos 2 Caracteres.</small></span>
+                <span class="err" *ngIf="descripcion.errors.pattern" title="Extención No Valida"><small>Extención No Valida</small></span>
             </div>
 
         </div>
@@ -71,7 +71,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Se ha registrado la serie con éxito</label>
+                <label>La Serie se Registro con Éxito</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -87,7 +87,7 @@
 <!-- S E R I E S  E N  V A L E S -->
 
 <div class="container">
-    <h1 title="Alta de Series en Pagos">{{title2}}</h1>
+    <h1 title="Alta de Series para Pagos">{{title2}}</h1>
     <hr>
     <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
 
@@ -106,9 +106,9 @@
             <!--VALIDACIÓN DE NOMBRE2-->
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="nombre2.touched && !nombre2.valid">
-                <span class="err" *ngIf="nombre2.errors.required" title="El campo nombre2 es obligatorio"><small>El campo nombre2 es obligatorio</small></span>
-                <span class="err" *ngIf="nombre2.errors.minlength" title="longitud mínima de caracteres que conforman el nombre2 es de al menos 2 caracteres."><small>longitud mínima de caracteres que conforman el nombre2 es de al menos 2 caracteres.</small></span>
-                <span class="err" *ngIf="nombre2.errors.pattern" title="Extención no valida"><small>Extención no valida</small></span>
+                <span class="err" *ngIf="nombre2.errors.required" title="El campo nombre2 es obligatorio"><small>El Campo nombre2 es Obligatorio</small></span>
+                <span class="err" *ngIf="nombre2.errors.minlength" title="La Longitud Mínima de Caracteres que Conforman el nombre2 es de al Menos 2 caracteres."><small>La Longitud Mínima de Caracteres que Conforman el nombre2 es de al Menos 2 caracteres.</small></span>
+                <span class="err" *ngIf="nombre2.errors.pattern" title="Extención No Valida"><small>Extención No Valida</small></span>
             </div>
 
         </div>
@@ -117,19 +117,19 @@
         <!--TERMINA Nombre2-->
         <div class="form-group row">
             <!--DESCRIPCIÓN-->
-            <label name="descripcion2" class="col-sm-2 col-form-label" for="descripcion2" title="Ingresar descripción" [class.errorLabel]="descripcion2.touched && !descripcion2.valid">Descripción: </label>
+            <label name="descripcion2" class="col-sm-2 col-form-label" for="descripcion2" title="Ingresar Descripción" [class.errorLabel]="descripcion2.touched && !descripcion2.valid">Descripción: </label>
             <div class="col-sm-8">
 
-                <input type="text" class="form-control" title="Ingresar descripción" id="descripcion2" name="descripcion2" placeholder="Ingresar descripción" #descripcion2="ngModel" [(ngModel)]="altaserieVale.descripcion2" [class.error]="descripcion2.touched && !descripcion2.valid"
+                <input type="text" class="form-control" title="Ingresar Descripción" id="descripcion2" name="descripcion2" placeholder="Ingresar Descripción" #descripcion2="ngModel" [(ngModel)]="altaserieVale.descripcion2" [class.error]="descripcion2.touched && !descripcion2.valid"
                     minlength="2" maxlength="100" required pattern="[a-zA-Z]+" />
             </div>
 
             <!--VALIDACIÓN DE DESCRIPCIÓN-->
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="descripcion2.touched && !descripcion2.valid">
-                <span class="err" *ngIf="descripcion2.errors.required" title="El apellido paterno es obligatorio."><small>El apellido paterno es obligatorio.</small></span>
-                <span class="err" *ngIf="descripcion2.errors.minlength" title="La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres."><small>La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres.</small></span>
-                <span class="err" *ngIf="descripcion2.errors.pattern" title="Extención no valida"><small>Extención no valida</small></span>
+                <span class="err" *ngIf="descripcion2.errors.required" title="El Apellido Paterno es Obligatorio."><small>El Apellido Paterno es Obligatorio.</small></span>
+                <span class="err" *ngIf="descripcion2.errors.minlength" title="La longitud mínima de caracteres que conforman el apellido paterno es de al menos 2 caracteres."><small>La Longitud Mínima de Caracteres que Conforman el Apellido Paterno es de al Menos 2 Caracteres.</small></span>
+                <span class="err" *ngIf="descripcion2.errors.pattern" title="Extención no valida"><small>Extención No Valida</small></span>
             </div>
 
         </div>
@@ -158,7 +158,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Se ha registrado la serie con éxito</label>
+                <label>La Serie se Registro con Éxito</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">

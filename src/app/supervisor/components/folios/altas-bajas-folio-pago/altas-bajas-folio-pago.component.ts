@@ -73,57 +73,53 @@ dtTrigger: Subject<string> = new Subject();
     onSubmit(){
         let a=0;
         this.folios=new Array();
-        for(let i=0; i < this.cantidades;i++){
-            console.log(a);
-            this.folio=new Folio(0,"","","",null,null);
-            this.folio.id=null;
-            this.folio.fechaAlta=null;
-            this.folio.estadoFolio="DISPONIBLE";
-            this.folio.cajero=null;
-            let c=Number(this.cantfolios)+Number(a);
-            this.folio.numeroFolio=this.verificarcifras(c);
-            console.log(JSON.stringify("000098"));
-            this.folio.serie=this.serie;
-            this.folios.push(this.folio);
-            a++;
-        }
-        this._superService.altaFolioPago(this.folios).subscribe(
-            result => {
-                //NO SE UTILIZA POR QUE LA RESPUESTA VIENE MAL SE MANEJA EN ERROR
-                // console.log(result);
-                // this.status="success";
-                // console.log(this.status);
-                // $("#tablafolios").dataTable().fnDestroy();
+        console.log(this.cantfolios);
+        console.log(this.cantidades);
+        console.log(this.serie);
+        
+         this._superService.altaFolioPago(this.cantfolios,this.cantidades,this.serie).subscribe(
+             result => {
+                 //NO SE UTILIZA POR QUE LA RESPUESTA VIENE MAL SE MANEJA EN ERROR
+                  console.log(result);
+                  this.status="success";
+                  console.log(this.status);
+                  $('#modalRegistrarfolio').modal("show");
+                  $("#tablafolios").dataTable().fnDestroy();
+                  this.LoadTableData();
+             },
+             error => {
+                 console.log("errorisirto");
+                 console.log(error);
+                 if (error.status=="400"){
+                     $("#tablafolios").dataTable().fnDestroy();
+                     this.status="error";
+                     $('#modalRegistrarfolio').modal("show");
+                     this.LoadTableData();
+                   }
+                 else{
+                     this.status="success";
+                     $('#modalRegistrarfolio').modal("show");
+                     $("#tablafolios").dataTable().fnDestroy();
+          
+                     this.LoadTableData();
+                  
+                 }
+                 if((error._body.substring(20,38)) == "El folio ya existe"){
+                     console.log("FONDO IGUAL O MENOR A CERO ....");
+                     this.status="folioexist";
+                     $('#modalRegistrarfolio').modal("show");
+                     $("#tablafolios").dataTable().fnDestroy();
+            
+                     this.LoadTableData();
+                 }
+             } 
+           );
 
-                // this.LoadTableData();
-            },
-            error => {
-                console.log("errorisirto");
-                console.log(error);
-                if (error.status=="400"){
-                    $("#tablafolios").dataTable().fnDestroy();
-                    this.status="error";
-                    this.LoadTableData();
-                  }
-                else{
-                    this.status="success";
-                    $("#tablafolios").dataTable().fnDestroy();
-            
-                    this.LoadTableData();
-                    
-                }
-                if((error._body.substring(20,38)) == "El folio ya existe"){
-                    console.log("FONDO IGUAL O MENOR A CERO ....");
-                    this.status="folioexist";
-                    $("#tablafolios").dataTable().fnDestroy();
-            
-                    this.LoadTableData();
-                }
-            } 
-          );
-          $('#formAltaSeries').trigger("reset");
-          console.log("Mandar ");
-        console.log(JSON.stringify(this.folios));
+        document.getElementById("folio").blur();
+        document.getElementById("Cantidad").blur();
+           $('#formAltaSeries').trigger("reset");
+           console.log("Mandar ");
+         console.log(JSON.stringify(this.folios));
     }
 
     verificarcifras(a){
@@ -302,7 +298,11 @@ dtTrigger: Subject<string> = new Subject();
                 $("#ModalErrorCancelacion").modal("show");
               }
               else{
-      
+                for(let a=0;a<self.arregloeliminar.length;a++){
+                  if(this.folios[check].id==self.arregloeliminar[a].id){
+                    self.arregloeliminar.splice(a,1);
+                  }
+              }
               }
             }
             else{
@@ -317,10 +317,7 @@ dtTrigger: Subject<string> = new Subject();
             else {
               console.log("else de check");
               for(let a=0;a<self.arregloeliminar.length;a++){
-                console.log("fpolio elimi");
-                console.log(this.folios[check].numeroFolio);
                 if(this.folios[check].id==self.arregloeliminar[a].id){
-                  console.log("splice");
                   self.arregloeliminar.splice(a,1);
                 }
             }
@@ -397,7 +394,7 @@ dtTrigger: Subject<string> = new Subject();
   loadTable(): void {
     setTimeout(function () {
       $(function () {
-    
+        this.arregloeliminar=new Array();
        $("#tablafolios").dataTable().fnDestroy();
 
        //hola
@@ -407,40 +404,31 @@ dtTrigger: Subject<string> = new Subject();
     }, 1000);
   }
 
-nuevoarray(){
-  
-  this.arregloeliminar=new Array();
-}
   
 
   seleccionarcheck2(){
     let self=this;
     var texto="";
     
-    $('#mastercheckbox').click(function(event) {
-      
-      if(this.checked) {
+    if($('#mastercheckbox').is(":checked")) {
         // Iterate each checkbox
           $(':checkbox').each(function() {
             this.checked = true;
-            
                let s=this.id.toString();
               //  console.log(s);
                let g=s.substring(5,s.length);
                self.subCad=Number(g);
                self.asignarelim();
-            
           });
       }
       else {
+
         $(':checkbox').each(function() {
               this.checked = false;
           });
           console.log("entra?");
           self.arregloeliminar=new Array();
       }
-      
-    });
     console.log("arreglo a eliminar");
     console.log(JSON.stringify(self.arregloeliminar));
     
@@ -450,7 +438,6 @@ nuevoarray(){
   asignarelim(){
     console.log("entro a asigelim");
     console.log(this.subCad);
-
     for (let h=0; h<this.folios.length;h++){
       if (h==this.subCad){
         console.log("self");
@@ -467,23 +454,27 @@ nuevoarray(){
      result => {
        $("#tablafolios").dataTable().fnDestroy();
          this.status="elimino"
+         $('#modalRegistrarfolio').modal("show");
          this.LoadTableData();
      },
      error => {
       if (error.status=="400"){
         $("#tablafolios").dataTable().fnDestroy();
         this.status="elimerror";
+        $('#modalRegistrarfolio').modal("show");
         this.LoadTableData();
       }
       else {
         console.log(error);
           this.status="elimsuccess";
+          $('#modalRegistrarfolio').modal("show");
           $("#tablafolio").dataTable().fnDestroy();
   
           this.LoadTableData();
       }
   }
   );
+  this.arregloeliminar=new Array();
 }
 
 }

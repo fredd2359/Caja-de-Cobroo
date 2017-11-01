@@ -17,8 +17,14 @@ import { SeriesComponent } from './components/series/series.component';
 /**MODULOS CHILD DE SERIES */
 import { AltaPagoComponent } from './components/series/altapago/altapago.component';
 import { AltaValeComponent } from './components/series/altavale/altavale.component';
-import { HistorialPagoComponent } from './components/historial-pago/historial-pago.component';
+import { AsignarFolioPagoComponent } from './components/asignar-folio-pago/asignar-folio-pago.component';
+// import { AsignarFolioValeComponent } from './components/asignar-folio-vale/asignar-folio-vale.component';
+import { DesasignarFolioValeComponent } from './components/desasignar-folio-vale/desasignar-folio-vale.component';
+import { DesasignarFolioPagoComponent } from './components/desasignar-folio-pago/desasignar-folio-pago.component';
 import { HistorialValeComponent } from './components/historial-vale/historial-vale.component';
+import { DesasignarCajaComponent } from './components/desasignar-caja/desasignar-caja.component';
+import { AsignarFondoComponent } from './components/asignar-fondo/asignar-fondo.component';
+import { DevolucionFondoComponent } from './components/devolucion-fondo/devolucion-fondo.component';
 
 @NgModule ({
     declarations:[
@@ -29,8 +35,13 @@ import { HistorialValeComponent } from './components/historial-vale/historial-va
         AltaValeComponent,
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
-        HistorialPagoComponent,
+        AsignarFolioPagoComponent,
         HistorialValeComponent,
+        DesasignarCajaComponent,
+        AsignarFondoComponent,
+        DevolucionFondoComponent,
+        DesasignarFolioValeComponent,
+        DesasignarFolioPagoComponent
 ],
     imports:[ 
         CommonModule,
@@ -46,8 +57,12 @@ import { HistorialValeComponent } from './components/historial-vale/historial-va
         AltaValeComponent,
         AltasBajasFolioPagoComponent,
         AltasBajasFolioValeComponent,
-        HistorialPagoComponent,
-        HistorialValeComponent
+        AsignarFolioPagoComponent,
+        HistorialValeComponent,
+        AsignarFondoComponent,
+        DevolucionFondoComponent,
+        DesasignarFolioValeComponent,
+        DesasignarFolioPagoComponent
     ],
     providers:[
         SupervisorService

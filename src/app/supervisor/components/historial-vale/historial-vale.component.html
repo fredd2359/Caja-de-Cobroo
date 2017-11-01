@@ -1,22 +1,7 @@
-<div class="container mt-3">
-    <h2>Historial Folios de Vales</h2>
+<div class="container col-9">
+    <br/>
+    <h2>Historial de Folios para Vales</h2>
     <hr>
-
-    <div *ngIf="status=='successelim'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha desasignado el (los) folio(s) exitosamente.
-    </div>
-    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha asigado el (los) folio(s) exitosamente.
-    </div>
-    <div *ngIf="status=='errorelim'" class="alert alert-danger d-flex col-5" role="alert">
-        Uno o más folios ya han sido desasignados.
-    </div>
-    <div *ngIf="status=='folioasig'" class="alert alert-danger d-flex col-5" role="alert">
-        Uno o más folios ya han sido asignados.
-    </div>
-    <div *ngIf="status=='errorasignar'" class="alert alert-danger d-flex col-5" role="alert">
-        Uno o mas folios ya han sido cancelados.
-    </div>
     <button type="button" id="baja" class="btn btn-success mb-3" data-toggle="modal" data-target="#ModalAsignar" data-backdrop="static" data-keyboard="false">
             Seleccionar Folios
          </button>
@@ -30,7 +15,7 @@
         </div>
         <div class="col d-flex justify-content-start">
 
-            <label>Seleccionar todo.</label>
+            <label>Seleccionar Todo.</label>
         </div>
     </div>
     <table id="tablafoliosvales" datatable class="table table-bordered table-sm table table-responsive" cellspacing="0">
@@ -61,10 +46,12 @@
             </tr>
         </tbody>
     </table>
-
-    <button type="button" id="baja" class="btn btn-danger" data-toggle="modal" data-target="#ModalDesasignar" data-backdrop="static" data-keyboard="false">
+    <div class="col-12 justify-content-center d-flex">
+        <button type="button" id="baja" class="btn btn-danger" data-toggle="modal" data-target="#ModalDesasignar" data-backdrop="static" data-keyboard="false">
             Desasignar Folios
-    </button>
+        </button>
+    </div>
+
 </div>
 
 
@@ -78,7 +65,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>¿Desea dar de baja definitiva los folios seleccionados?</label>
+                <label>¿Desea Dar de Baja Definitiva los Folios Seleccionados?</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -109,7 +96,7 @@
                         <div class="col-6">
                             <select class="form-control ml-3" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="seriename" (change)="selectSerie()" required> 
                             <option selected>Escoge una categoria...</option>
-                            <option *ngFor="let serie of series">{{serie.serie}}</option>
+                            <option *ngFor="let serie of seriesasignar">{{serie.serie}}</option>
                         </select>
                         </div>
 
@@ -145,6 +132,40 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal-sm" id="modalRegistrarfolio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="line-modal modal-header">
+                <div [ngSwitch]="status">
+                    <h5 class="modal-title" *ngSwitchCase="'successelim'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'success'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'errorelim'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'folioasig'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'errorasignar'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'nohayfolios'"><i class="fa fa-exclamation" aria-hidden="true"></i> Precaución</h5>
+                </div>
+            </div>
+            <!--Empieza Modal AGREGA PRODUCTOS-->
+            <div class="modal-body">
+                <!--Número de folio & Fecha y hora-->
+                <div [ngSwitch]="status" class="modal-body">
+                    <p *ngSwitchCase="'successelim'"> Se ha desasignado el (los) folio(s) exitosamente.</p>
+                    <p *ngSwitchCase="'success'">Se ha asigado el (los) folio(s) exitosamente.</p>
+                    <p *ngSwitchCase="'errorelim'"> Uno o más folios ya han sido desasignados.</p>
+                    <p *ngSwitchCase="'folioasig'">Uno o más folios ya han sido asignxcxcados.</p>
+                    <p *ngSwitchCase="'errorasignar'">Uno o mas folios ya han sido cancelados.</p>
+                    <p *ngSwitchCase="'nohayfolios'">No hay folios para la serie seleccionada.</p>
+                </div>
+            </div>
+            <fieldset class="form-group">
+                <div class="modal-footer">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade bd-example-modal-sm" id="ModalFolioError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -155,7 +176,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>El folio inicial debe ser menor que el folio final</label>
+                <label>El Folio Inicial debe ser Menor que el Folio Final</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -202,7 +223,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control ml-3" name="Cajero" type="text" #cajero="ngModel" [(ngModel)]="cajerom" (change)="selectcajero()"> 
-                            <option selected>Escoge un cajero...</option>
+                            <option selected>Seleccione un Cajero...</option>
                             <option *ngFor="let cajer of cajeros">{{cajer.nombre}}</option>
                         </select>
                         </div>
@@ -227,7 +248,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>El registro esta cancelado</label>
+                <label>El Registro esta Cancelado</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">

@@ -1,6 +1,7 @@
 .navsistema {
-    background: #77D4D4;
+    background: #3A718C ;
 }
+
 
 .navlet {
     color: white;
@@ -11,14 +12,27 @@
 .droptext {
     font-size: 130%;
 }
-
 .navmenu .fw {
     color: white !important;
 }
 
 .navmenu {
     background: #13445A !important;
+
 }
+.navmenu a:hover
+{
+     background-color:#13445A ;
+     color: #FEF4E8;
+     font-style: bold;
+     height: auto;
+     height: 30px;
+}
+.navbar-nav
+{
+color: white;
+}
+
 
 nav .inicio {
     justify-content: flex-end;
@@ -69,3 +83,5 @@ li {
     left: -100%;
     margin-left: 10px;
 }
+
+

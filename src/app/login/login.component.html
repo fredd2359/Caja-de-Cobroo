@@ -2,7 +2,7 @@
     <div class="row">
         <main class="col py-5 main">
             <div class="row col fluid fixed py-3" style="width:850px;margin:0px auto">
-                <div class="col-xl-6 col-lg-6 .col-xs-12 .col-sm-12 card card-block" style="width:850px;margin:0px auto">
+                <div class="  col-xl-6 col-lg-6 .col-xs-12 .col-sm-12 card card-block" style="width:850px;margin:0px auto">
                     <form #loginUseForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
                         <br />
                         <h1 class="titulos">{{title}}</h1>
@@ -53,18 +53,22 @@
                         <!--BOTÓN DE CREAR USUARIO-->
                         <fieldset class="form-group">
                             <button type="submit" value="Entrar" id="crearUser" class="nav-link btn btn-secundary btn-lg btn-block" [routerLink]="['/usuarios/registro']" aria-haspopup="true" aria-expanded="false">
-                                    <label id = "label1">Crear Usuario</label></button>
+                                    <label id = "label1">Crear Cuenta</label></button>
                         </fieldset>
                         <!--termina BOTÓN DE CREAR USUARIO-->
 
-                        <div class="form-inline col-sm">
-                            <a class="collapsed" id="oculto" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" title="Crea una cuenta para ti." (click)="ocultar()">¿Haz olvidado tu contraseña?</a>
+                        <div class="container-fluid form-inline col-9" >
+                            <a class="collapsed" id="oculto" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" title="Crea una Cuenta para Ti." (click)="ocultar()">¿Haz Olvidado tu Contraseña?</a>
                         </div>
 
-                        <div id="collapseOne">
+                        <div  id="collapseOne">
                             <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                                <br /> Favor de comunicarse con Soporte Técnico. <br /> <strong>Teléfono:</strong> <br /> <strong>Correo Electronico:</strong>
+                                <br /> Favor de Comunicarse con Soporte Técnico. <br /> <strong>Teléfono:</strong> <br /> <strong>Correo Electronico:</strong>
                             </div>
+                        </div>
+                       
+                        <div class="container-fluid form-inline col-6" >
+                            <a class="collapsed" id="oculto" data-toggle="collapse" href="" aria-expanded="false" aria-controls="collapseTwo" title="Cambiar Contraseña." (click)="ocultar()">Cambiar Contraseña</a>
                         </div>
                         <br />
 

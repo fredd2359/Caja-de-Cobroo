@@ -29,10 +29,13 @@ export class HistorialValeComponent implements OnInit {
   public cajas:Caja[];
   public cajero:Cajero;
   public cajeros:Cajero[];
+  public seriesasignar:Serie[];
+  public foliosserie:Folio[];
   public folioinicio:number;
   public foliofinal:number;
   public seriename:string;
   public folioelim;
+  public subCad:number;
   public arregloeliminar;
   public asignarfoliosbol:boolean;
 
@@ -85,6 +88,7 @@ export class HistorialValeComponent implements OnInit {
       result => {
         
         this.series = result.respuesta;
+        this.seriesasignar=this.series;
         console.log(" Series....");
         console.log(this.series);
         this.loadTable();
@@ -163,21 +167,33 @@ export class HistorialValeComponent implements OnInit {
     console.log("hola");
     console.log(this.seriename);
     let a:string=this.seriename.toString();
-    console.log("a");
-    console.log(a);
-    if (a=="Escoge un cajero..."){
+    if (a=="Escoge una Categoria..."){
       console.log("holi");
       this.serieidbol=false;
     }
     else{
       console.log("else de tostring");
     }
-    for(let s=0; s< this.series.length;s++){
-        if (this.seriename == this.series[s].serie){
-            this.serie=this.series[s];
+    for(let s=0; s< this.seriesasignar.length;s++){
+        if (this.seriename == this.seriesasignar[s].serie){
+            this.serie=this.seriesasignar[s];
             console.log(this.serie);
             this.serieidbol=true;
-            
+            this._superService.getFolioValeporSerie(this.serie.id).subscribe(
+              result => {
+                console.log("resultado");
+                console.log(result);
+                this.foliosserie=result.respuesta;
+              },
+              error => {
+                console.log("error");     
+                this.foliosserie=new Array();
+                this.status="nohayfolios"; 
+                $('#ModalAsignar').modal("hide");  
+                $('#modalRegistrarfolio').modal("show");    
+                console.log(error);
+              }
+            );
             break;
         }
         else{
@@ -214,11 +230,12 @@ selectcajero(){
 
   asignarCajero(){
 
+    this.foliosasig=new Array();
     for (this.pos1;this.pos1<(this.pos2+1);this.pos1++){
-      this.foliosasig=new Array();
       this.folio=this.folios[this.pos1];
       this.folio.cajero=this.cajero;
       this.foliosasig.push(this.folio);
+    }
       console.log("folio stringifydo");
       console.log(JSON.stringify(this.foliosasig));
       this._superService.asignarFolioVales(this.foliosasig).subscribe(
@@ -237,11 +254,51 @@ selectcajero(){
           this.LoadTableData(); 
         }
       );
-    }
   }
 
   cambio(){
     this.asignarfoliosbol=!this.asignarfoliosbol;
+  }
+
+  seleccionarcheck2(){
+    let self=this;
+    var texto="";
+    
+    if($('#mastercheckbox').is(":checked")) {
+        // Iterate each checkbox
+          $(':checkbox').each(function() {
+            this.checked = true;
+            
+               let s=this.id.toString();
+              //  console.log(s);
+               let g=s.substring(5,s.length);
+               self.subCad=Number(g);
+               self.asignarelim();
+            
+          });
+      }
+      else {
+        $(':checkbox').each(function() {
+              this.checked = false;
+          });
+          self.arregloeliminar=new Array();
+      }
+      
+    console.log("arreglo a eliminar");
+    console.log(JSON.stringify(self.arregloeliminar));
+    
+    // this.eliminarmuchos();
+  }
+  
+  asignarelim(){
+  
+    for (let h=0; h<this.folios.length;h++){
+      if (h==this.subCad){
+        console.log("self");
+        this.arregloeliminar.push({id: this.folios[h].id});
+      }
+    }
+  
   }
 
   selectcheck2(i){
@@ -260,16 +317,23 @@ selectcajero(){
             $("#ModalErrorCancelacion").modal("show");
           }
           else{
-  
+            for(let a=0;a<self.arregloeliminar.length;a++){
+              console.log("fpolio elimi");
+              console.log(this.folios[check].numeroFolio);
+              if(this.folios[check].id==self.arregloeliminar[a].id){
+                console.log("splice");
+                self.arregloeliminar.splice(a,1);
+              }
+            }
           }
         }
         else{
         if ($('#check'+check).is(":checked")){
         console.log("if de check");
         console.log("entroooooo");
-        this.arregloeliminar.push({numeroFolio: this.folios[a].numeroFolio});
-        console.log(this.folios[a].numeroFolio);
-        self.folioelim=this.folios[a].numeroFolio;
+        this.arregloeliminar.push({id: this.folios[a].id});
+        console.log(this.folios[a].id);
+        self.folioelim=Number(this.folios[a].id);
         break;
         }
         else {
@@ -277,7 +341,7 @@ selectcajero(){
           for(let a=0;a<self.arregloeliminar.length;a++){
             console.log("fpolio elimi");
             console.log(this.folios[check].numeroFolio);
-            if(this.folios[check].numeroFolio==self.arregloeliminar[a].numeroFolio){
+            if(this.folios[check].id==self.arregloeliminar[a].id){
               console.log("splice");
               self.arregloeliminar.splice(a,1);
             }
@@ -290,21 +354,18 @@ selectcajero(){
   console.log("dato a eliminar");
   console.log(this.arregloeliminar);
   }
- 
 
   eliminarvarios(){
     for (let i=0;i<this.arregloeliminar.length;i++){   
-      for (let j=0; j<this.folios.length;j++){      
-        let foliovector=Number(this.folios[j].numeroFolio);
-        let folioeliminar=Number(this.arregloeliminar[i]);
-        if (this.arregloeliminar[i].numeroFolio==this.folios[j].numeroFolio){
+      for (let j=0; j<this.folios.length;j++){
+        if (this.arregloeliminar[i].id==this.folios[j].id){
           this.foliosELIMINAR.push(this.folios[j]);
         }
       }
     }
     console.log("arreglo a desasignar");
-    console.log(this.foliosELIMINAR);
-    this._superService.desasignarFolioVales(this.foliosELIMINAR).subscribe(
+    console.log(this.arregloeliminar);
+    this._superService.desasignarFolioVales(this.arregloeliminar).subscribe(
       result => {
         console.log("resultado");
         this.loadTable();
@@ -312,6 +373,8 @@ selectcajero(){
       error => {
         if (error.status=="400"){
           this.status="errorelim";
+          $('#modalRegistrarfolio').modal("show");
+          this.arregloeliminar=new Array();
           $("#tablafoliosvales").dataTable().fnDestroy();
 
           this.LoadTableData();
@@ -319,54 +382,33 @@ selectcajero(){
         else {
           this.status="successelim";
           console.log("error");          
+          $('#modalRegistrarfolio').modal("show");
           console.log(error);
+          this.arregloeliminar=new Array();
           $("#tablafoliosvales").dataTable().fnDestroy();
   
           this.LoadTableData();
-        } 
+        } if (error.status=="500"){
+          this.status="errorasignar";
+          $('#modalRegistrarfolio').modal("show");
+          this.arregloeliminar=new Array();
+          $("#tablafoliosvales").dataTable().fnDestroy();
+
+          this.LoadTableData();
+        }
+        if((error._body.substring(20,53)) == "El folio ya se encuentra asignado"){
+          console.log("FONDO IGUAL O MENOR A CERO ....");
+          this.arregloeliminar=new Array();
+          this.status="folioasig";
+          $('#modalRegistrarfolio').modal("show");
+          $("#tablafoliosvales").dataTable().fnDestroy();
+  
+        }
       }
     );
 
     this.arregloeliminar=new Array();
     this.foliosELIMINAR=new Array();
-  }
-
-  seleccionarcheck2(){
-    let self=this;
-    var texto="";
-    $('#mastercheckbox').click(function(event) {
-      if(this.checked) {
-        let a=0;  
-        self.arregloeliminar=new Array();
-        // Iterate each checkbox
-          $(':checkbox').each(function() {
-            
-            this.checked = true;
-            $('#tablafoliosvales tr td').each(function(){
-              texto = $('#tablafoliosvales tr:nth-child('+(a++)+') td:nth-child('+2+')').text();
-              if ((texto=="")){
-              }
-              else {
-                
-                self.textos=Number(texto);
-                self.arregloeliminar.push({numeroFolio: self.textos});
-              }
-            });
-            
-            a++;
-          });
-      }
-      else {
-        $(':checkbox').each(function() {
-              this.checked = false;
-          });
-          self.arregloeliminar=new Array;
-      }
-    });
-    console.log("arreglo a eliminar");
-    console.log(JSON.stringify(self.arregloeliminar));
-    
-    // this.eliminarmuchos();
   }
 
 

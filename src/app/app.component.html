@@ -1,22 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <!-- Aqui se va a poner la nav -->
-<nav class="navbar navbar-expand-sm navsistema">
+<nav class="navbar navbar-expand-sm navsistema" style="height: 50px">
     <a class="navbar-brand navlet" href="#">
         <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> Sistema
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse justify-content-end" id="menu">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle droptext" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle droptext" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     Supervisor
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Action</a>
-                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Another action</a>
-                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Something else here</a>
+                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Perfil</a>
+                    <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Cerrar Sesión</a>
                 </div>
             </li>
         </ul>
@@ -24,26 +23,41 @@
 </nav>
 
 
+
 <!-- Menu de opciones -->
-<nav class="navbar navbar-expand-md navbar-light bg-light navmenu">
+<nav class="navbar navbar-expand-md navbar-light bg-light navmenu " style="height: 50px">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse nav-pills" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw" style=" cursor: pointer !important" href="#" [routerLinkActive]="['active']" id="DropCaja" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja </a>
+                <a class="nav-link dropdown-toggle fw nav-link" style=" cursor: pointer !important" href="#" [routerLinkActive]="['active']" id="DropCaja" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja </a>
                 <ul class="dropdown-menu" aria-labelledby="DropCaja">
                     <li class="dropdown-submenu">
-                        <a class="dropdown-item" [routerLink]="['supervisor/asignar-caja']">Asignación de Caja</a>
+                        <a class="dropdown-item" [routerLink]="['supervisor/asignar-caja']">Asignar Caja</a>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" [routerLink]="['supervisor/desasignar-caja']">Desasignar Caja</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['cajero/recibos']">Recibos</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fw nav-link" style=" cursor: pointer !important" href="#" [routerLinkActive]="['active']" id="DropFondo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fondo </a>
+                <ul class="dropdown-menu" aria-labelledby="DropFondo">
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" [routerLink]="['supervisor/asignar-fondo']">Asignar Fondo</a>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item" [routerLink]="['supervisor/devolucion-fondo']">Realizar Devolución</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['cajero/recibos']">Recibos</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw" href="#" [routerLinkActive]="['active']" id="DropSerie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Series</a>
+                <a class="nav-link dropdown-toggle fw nav-link" href="#" [routerLinkActive]="['active']" id="DropSerie" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Series</a>
                 <ul class="dropdown-menu" aria-labelledby="DropSerie">
                     <li class="dropdown-submenu">
                         <a class="dropdown-item" [routerLink]="['supervisor/alta-pago']">Series de Recibos</a>
@@ -52,13 +66,16 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw" href="#" [routerLinkActive]="['active']" id="DropFolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios</a>
+                <a class="nav-link dropdown-toggle fw nav-link" href="#" [routerLinkActive]="['active']" id="DropFolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios</a>
                 <ul class="dropdown-menu" aria-labelledby="DropFolio">
                     <li class="dropdown-submenu">
-                        <a class="dropdown-item" [routerLink]="['supervisor/folios']" id="DropPagos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios de Pagos</a>
+                        <a class="dropdown-item" [routerLink]="['supervisor/folios']" id="DropPagos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios de Recibos</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/historial-pago']">Historial de Recibos</a>
+                                <a class="dropdown-item" [routerLink]="['supervisor/asignar-folio-pago']">Asignar Recibos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" [routerLink]="['supervisor/desasignar-folio-pago']">Desasignar Recibos</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" [routerLink]="['supervisor/altas-bajas-folio-pago']">Alta y Baja de Recibos</a>
@@ -69,7 +86,10 @@
                         <a class="dropdown-item" [routerLink]="['supervisor/folios']" id="DropVales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Folios de Vales</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" [routerLink]="['supervisor/historial-vale']">Historial de Vales</a>
+                                <a class="dropdown-item" [routerLink]="['supervisor/asignar-folio-vale']">Asignar Vales</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" [routerLink]="['supervisor/desasignar-folio-vale']">Desasignar Vales</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" [routerLink]="['supervisor/altas-bajas-folio-vale']">Alta y Baja de Vales</a>
@@ -79,40 +99,30 @@
                 </ul>
 
             </li>
-            <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle fw" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-              </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
             <!--LINKS PARA SUPER ADMIN 25/10/2017-->
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/personal']">Personal</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/personal']">Personal</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Sucursales</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['s']">Sucursales</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/sistemas']">Sistemas</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/sistemas']">Sistemas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/roles']">Roles</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['administradores/roles']">Roles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Privilegios</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['x']">Privilegios</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw" href="#" [routerLinkActive]="['active']" [routerLink]="['']">Asignaciones</a>
+                <a class="nav-link fw nav-link" href="#" [routerLinkActive]="['active']" [routerLink]="['a']">Asignaciones</a>
             </li>
-            <!--TERMINAN LINKS PARA SUPER ADMIN-->
+            <!-- TERMINAN LINKS PARA SUPER ADMIN -->
         </ul>
     </div>
     <div class="inicio">
-        <a class="nav-link fw" [routerLink]="['login']">Iniciar Sesion</a>
+        <a class="nav-link fw nav-link" [routerLink]="['login']">Iniciar Sesión</a>
     </div>
 </nav>
 

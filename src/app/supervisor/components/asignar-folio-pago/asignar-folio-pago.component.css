@@ -1,0 +1,14 @@
+.noicon {
+    color: white !important;
+    opacity: 0;
+}
+h2 {
+    color: #13445A;
+}
+h1 {
+    color: #13445A;
+}
+thead {
+    background: #13445A;
+    color: white;
+}

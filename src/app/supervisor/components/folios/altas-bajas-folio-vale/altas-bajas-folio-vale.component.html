@@ -1,22 +1,7 @@
-<div class="container mt-3">
-    <h2>Alta de Folios de Vales</h2>
+<div class="container col-9">
+    <br/>
+    <h2>Alta de Folios para Vales</h2>
     <hr>
-    <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
-    <div *ngIf="status=='folioexist'" class="alert alert-danger d-flex col-5" role="alert">
-        Folio ya existe.
-    </div>
-    <div *ngIf="status=='error'" class="alert alert-danger d-flex col-5" role="alert">
-        Folio no resgistrado.
-    </div>
-    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha registrado exitosamente.
-    </div>
-    <div *ngIf="status=='elimsuccess'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha(n) cancelado exitosamente el (los) registro(s).
-    </div>
-    <div *ngIf="status=='elimerror'" class="alert alert-success d-flex col-5" role="alert">
-        No se ha(n) cancelado el (los) registros, puede que uno o varios ya esten cancelados.
-    </div>
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
 
     <form #formAltaSeries="ngForm" id="formAltaSeries" name="">
@@ -41,8 +26,8 @@
             </div>
             <!--VALIDACIÓN DE FOLIO-->
             <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.dirty && !folio.valid">
-                <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El campo folio es obligatorio</small></span>
-                <span class="err" *ngIf="folio.errors.pattern"><small>Sólo puedes ingresar números entreros.</small></span>
+                <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El Campo Folio es Obligatorio</small></span>
+                <span class="err" *ngIf="folio.errors.pattern"><small>Sólo Puedes Ingresar Números Entreros.</small></span>
             </div>
 
         </div>
@@ -62,8 +47,8 @@
             <!--VALIDACIÓN DE CANTIDAD-->
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.dirty && !cantidad.valid">
-                <span class="err" *ngIf="cantidad.errors.required" title="El apellido paterno es obligatorio."><small>Ingresa la cantidad.</small></span>
-                <span class="err" *ngIf="cantidad.errors.pattern" title="Extención no valida"><small>Sólo puedes ingresar números enteros.</small></span>
+                <span class="err" *ngIf="cantidad.errors.required" title="El Apellido Paterno es Obligatorio."><small>Ingresa la Cantidad.</small></span>
+                <span class="err" *ngIf="cantidad.errors.pattern" title="Extención No Válida"><small>Sólo Puedes Ingresar Números Enteros.</small></span>
             </div>
 
         </div>
@@ -94,7 +79,7 @@
         </div>
         <div class="col d-flex justify-content-start">
 
-            <label>Seleccionar todo.</label>
+            <label>Seleccionar Todo.</label>
         </div>
     </div>
     <table id="tablafoliosvales" datatable class="table table-bordered mt-4 " cellspacing="0">
@@ -104,6 +89,7 @@
                 <th class="noicon"></th>
                 <th>Folio</th>
                 <th>Estado</th>
+                <th>Cajero</th>
             </tr>
         </thead>
 
@@ -117,8 +103,8 @@
                 <td>
                     {{folio.estadoFolio}}
                 </td>
-                <!-- <td>'{(cajero.nombrecajero)?cajero.nombrecajero:'n/a'}}'</td>
-                <td>'{(cajero.fondo)?cajero.fondo:'0'}}'</td> -->
+                <td>{{( folio.cajero )? folio.cajero.nombre : 'n/a' }}</td>
+                <!--<td>'{(cajero.fondo)?cajero.fondo:'0'}}'</td> -->
             </tr>
         </tbody>
     </table>
@@ -130,17 +116,29 @@
 
 <!-- Modal CONFIRMACIÓN DE REGISTRO -->
 <!-- Modal -->
-<div class="modal fade bd-example-modal-sm" id="ModalAltaFolioVale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade bd-example-modal-sm" id="modalRegistrarfolio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="line-modal modal-header">
-                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
-                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+                <div [ngSwitch]="status">
+                    <h5 class="modal-title" *ngSwitchCase="'folioexist'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'error'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'success'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'elimsuccess'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'elimerror'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                </div>
             </div>
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Se ha registrado el folio con éxito</label>
+                <div [ngSwitch]="status" class="modal-body">
+                    <p *ngSwitchCase="'folioexist'">El Folio ya Existe.</p>
+                    <p *ngSwitchCase="'error'">Folio No Resgistrado.</p>
+                    <p *ngSwitchCase="'success'">Los Folios se Registraron con Éxito.</p>
+                    <p *ngSwitchCase="'elimsuccess'">Se ha(n) Cancelado Exitosamente el (los) Registro(s).</p>
+                    <p *ngSwitchCase="'elimerror'">No se ha(n) Cancelado el (los) Registros, Puede que uno o Varios ya esten Cancelados.</p>
+                </div>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -150,6 +148,7 @@
         </div>
     </div>
 </div>
+
 <!-- TERMINA Modal CONFIRMACIÓN DE REGISTRO -->
 
 <!-- Modal -->
@@ -163,7 +162,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>El registro esta cancelado</label>
+                <label>El Registro esta Cancelado</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -185,7 +184,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>¿Desea dar de baja definitiva los folios seleccionados?</label>
+                <label>¿Desea dar de Baja Definitiva los Folios Seleccionados?</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">

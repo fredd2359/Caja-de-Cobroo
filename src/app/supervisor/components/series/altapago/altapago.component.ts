@@ -96,6 +96,7 @@ export class AltaPagoComponent implements OnInit
             }
             
           );
+          this.altaseries=new Array();
     }
     clear(){
         

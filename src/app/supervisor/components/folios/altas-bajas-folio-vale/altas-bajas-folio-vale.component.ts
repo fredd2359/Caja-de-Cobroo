@@ -73,37 +73,31 @@ export class AltasBajasFolioValeComponent implements OnInit{
     onSubmit(){
       let a=0;
       this.folios=new Array();
-      for(let i=0; i < this.cantidades;i++){
-          console.log(a);
-          this.folio=new Folio(0,"","","",null,null);
-          this.folio.id=null;
-          this.folio.fechaAlta=null;
-          this.folio.estadoFolio="DISPONIBLE";
-          this.folio.cajero=null;
-          let c=Number(this.cantfolios)+Number(a);
-          this.folio.numeroFolio=this.verificarcifras(c);
-          console.log(JSON.stringify("000098"));
-          this.folio.serie=this.serie;
-          this.folios.push(this.folio);
-          a++;
-      }
-      console.log("arreglo a agregar");
-      console.log(this.folios);
+      console.log(this.cantfolios);
+      console.log(this.cantidades);
+      console.log(this.serie);
       
-      this._superService.altaFolioVale(this.folios).subscribe(
+      this._superService.altaFolioVale(this.cantfolios,this.cantidades,this.serie).subscribe(
           result => {
               console.log(result);
+              this.status="success";
+              $('#modalRegistrarfolio').modal("show");
+              $("#tablafoliosvales").dataTable().fnDestroy();
+
+              this.LoadTableData();
           },
           error => {
               console.log(error);
               if (error.status=="400"){
                 this.status="folioexist";
+                $('#modalRegistrarfolio').modal("show");
                 $("#tablafoliosvales").dataTable().fnDestroy();
 
                 this.LoadTableData();
               }
               else {
                   this.status="success";
+                  $('#modalRegistrarfolio').modal("show");
                   $("#tablafoliosvales").dataTable().fnDestroy();
 
                   this.LoadTableData();
@@ -111,21 +105,22 @@ export class AltasBajasFolioValeComponent implements OnInit{
               }
               if (error.status=="500"){
                 this.status="error";
+                $('#modalRegistrarfolio').modal("show");
                 $("#tablafoliosvales").dataTable().fnDestroy();
 
                 this.LoadTableData();
               }
-              
-            console.log("se carga la tabla despues de encviar");
             if((error._body.substring(20,38)) == "El folio ya existe"){
                 console.log("FONDO IGUAL O MENOR A CERO ....");
                 this.status="folioexist";
+                $('#modalRegistrarfolio').modal("show");
                 $("#tablafoliosvales").dataTable().fnDestroy();
         
             }
           }
         );
-        
+        document.getElementById("folio").blur();
+        document.getElementById("Cantidad").blur();
         $('#formAltaSeries').trigger("reset");
         console.log("Datos enviados");
       console.log(JSON.stringify(this.folios));
@@ -365,24 +360,28 @@ selectSerie(){
      result => {
        $("#tablafoliosvales").dataTable().fnDestroy();
          this.status="elimino"
+         $('#modalRegistrarfolio').modal("show");
          this.LoadTableData();
      },
      error => {
       if (error.status=="400"){
         $("#tablafoliosvales").dataTable().fnDestroy();
         this.status="elimerror";
+        $('#modalRegistrarfolio').modal("show");
         this.LoadTableData();
       }
       else {
         console.log("aquiuiuiuiu");
         console.log(error);
           this.status="elimsuccess";
+          $('#modalRegistrarfolio').modal("show");
           $("#tablafoliosvales").dataTable().fnDestroy();
   
           this.LoadTableData();
       }
   }
   );
+  this.arregloeliminar=new Array();
 }
 
 nuevoarray(){
@@ -395,9 +394,8 @@ nuevoarray(){
     let self=this;
     var texto="";
     
-    $('#mastercheckbox').click(function(event) {
+    if($('#mastercheckbox').is(":checked")) {
       
-      if(this.checked) {
         // Iterate each checkbox
           $(':checkbox').each(function() {
             this.checked = true;
@@ -417,8 +415,6 @@ nuevoarray(){
           console.log("entra?");
           self.arregloeliminar=new Array();
       }
-      
-    });
     console.log("arreglo a eliminar");
     console.log(JSON.stringify(self.arregloeliminar));
     
@@ -454,7 +450,14 @@ selectcheck2(i){
           $("#ModalErrorCancelacion").modal("show");
         }
         else{
-
+          for(let a=0;a<self.arregloeliminar.length;a++){
+            console.log("fpolio elimi");
+            console.log(this.folios[check].id);
+            if(this.folios[check].id==self.arregloeliminar[a].id){
+              console.log("splice");
+              self.arregloeliminar.splice(a,1);
+            }
+        }
         }
       }
       else{

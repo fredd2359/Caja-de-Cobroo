@@ -4,6 +4,13 @@ body {
     color: red;
 }
 
+h1,
+h2,
+h3,
+hr {
+    color: #13445A !important;
+}
+
 .error {
     border: 1px solid red;
 }
@@ -37,6 +44,7 @@ body {
 .eliminar {
     background-color: #FF6666;
 }
+
 .bot {
     justify-content: flex-end;
 }

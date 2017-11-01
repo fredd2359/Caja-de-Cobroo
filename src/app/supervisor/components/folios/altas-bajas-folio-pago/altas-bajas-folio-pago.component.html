@@ -1,24 +1,7 @@
-<div class="container mt-3">
-    <h2>Alta de Folios de Pagos</h2>
+<div class="container col-9">
+    <br/>
+    <h2>Alta de Folios para Recibos</h2>
     <hr>
-
-    <div *ngIf="status=='folioexist'" class="alert alert-danger d-flex col-5" role="alert">
-        Folio ya existe.
-    </div>
-    <div *ngIf="status=='error'" class="alert alert-danger d-flex col-5" role="alert">
-        Folio no resgistrado.
-    </div>
-    <div *ngIf="status=='success'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha registrado exitosamente.
-    </div>
-    <div *ngIf="status=='elimsuccess'" class="alert alert-success d-flex col-5" role="alert">
-        Se ha(n) cancelado exitosamente el (los) registro(s).
-    </div>
-    <div *ngIf="status=='elimerror'" class="alert alert-success d-flex col-5" role="alert">
-        No se ha(n) cancelado el (los) registros, puede que uno o varios ya esten cancelados.
-    </div>
-    <!-- Alerts para la confirmacion de si se ha asignado un cajero a una caja -->
-
     <!-- Inputs para seleccionar la caja y a los cajeros disponibles -->
 
     <form #formAltaSeries="ngForm" id="formAltaSeries" name="">
@@ -27,7 +10,7 @@
             <label name="serie" class="col-sm-2 col-form-label" for="serie" title="Serie" [class.errorLabel]="serie.touched && !serie.valid">Serie: </label>
             <div class="col-sm-8">
                 <select class="form-control" id="exampleFormControlSelect1" title="Serie" name="Serie" placeholder="series" type="text" #serie="ngModel" [(ngModel)]="seriename" (change)="selectSerie()" required> <!--(change)="sacarCategoria($event.target.value)"-->
-                <option selected>Escoge una categoria...</option>
+                <option selected>Seleccione una Categoria...</option>
                 <option *ngFor="let serie of series">{{serie.serie}}</option>
             </select>
             </div>
@@ -43,8 +26,8 @@
             </div>
             <!--VALIDACIÓN DE FOLIO-->
             <div class="col-5 d-flex justify-content-start invalid-feedback" *ngIf="folio.dirty && !folio.valid">
-                <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El campo folio es obligatorio</small></span>
-                <span class="err" *ngIf="folio.errors.pattern"><small>Sólo puedes ingresar números entreros.</small></span>
+                <span class="err" *ngIf="folio.errors.required" title="El campo folio es obligatorio"><small>El Campo Folio es Obligatorio</small></span>
+                <span class="err" *ngIf="folio.errors.pattern"><small>Sólo Puede Ingresar Números Entreros.</small></span>
             </div>
 
         </div>
@@ -64,8 +47,8 @@
             <!--VALIDACIÓN DE CANTIDAD-->
 
             <div class="col-10 d-flex justify-content-start invalid-feedback" *ngIf="cantidad.dirty && !cantidad.valid">
-                <span class="err" *ngIf="cantidad.errors.required" title="El apellido paterno es obligatorio."><small>Ingresa la cantidad.</small></span>
-                <span class="err" *ngIf="cantidad.errors.pattern" title="Extención no valida"><small>Sólo puedes ingresar números enteros.</small></span>
+                <span class="err" *ngIf="cantidad.errors.required" title="El Apellido Paterno es Obligatorio."><small>Ingresa la cantidad.</small></span>
+                <span class="err" *ngIf="cantidad.errors.pattern" title="Extención No Valida"><small>Sólo Puede Ingresar Números Enteros.</small></span>
             </div>
 
         </div>
@@ -98,31 +81,30 @@
         </div>
         <div class="col d-flex justify-content-start">
 
-            <label>Seleccionar todo.</label>
+            <label>Seleccionar Todo.</label>
         </div>
     </div>
     <table id="tablafolios" datatable class="table table-bordered table-sm table table-responsive" cellspacing="0">
-        <!-- <table id="tablafolios" datatable [dtTrigger]="dtTrigger" class="table table-bordered " (change)="ngOnInit()" width="100%" cellspacing="0"> -->
         <thead>
             <tr>
                 <th class="noicon"></th>
                 <th>Folio</th>
                 <th>Estado</th>
+                <th>Cajero</th>
             </tr>
         </thead>
 
         <tbody>
             <!-- <tr> -->
             <tr *ngFor="let folio of folios; let i=index">
-                <td><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="nuevoarray();selectcheck2(i)" /></td>
+                <td><input type="checkbox" id="check{{i}}" class="form-check-input ml-3" (change)="selectcheck2(i)" /></td>
                 <td>
                     {{folio.serie.serie+folio.numeroFolio}}
                 </td>
                 <td>
                     {{folio.estadoFolio}}
                 </td>
-                <!-- <td>'{(cajero.nombrecajero)?cajero.nombrecajero:'n/a'}}'</td>
-                <td>'{(cajero.fondo)?cajero.fondo:'0'}}'</td> -->
+                <td>{{ (folio.cajero) ? folio.cajero.nombre : 'n/a'}}</td>
             </tr>
         </tbody>
     </table>
@@ -137,12 +119,13 @@
         <div class="modal-content">
             <div class="line-modal modal-header">
                 <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
-                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+                <h5 class="color-modal-label" id="exampleModalLabel">Alerta</h5>
             </div>
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>¿Desea dar de baja definitiva los folios seleccionados?</label>
+
+                <label>¿Desea Dar de Baja Befinitiva los Folios Seleccionados?</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -167,7 +150,7 @@
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>El registro esta cancelado</label>
+                <label>El Registro esta Cancelado</label>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">
@@ -179,19 +162,29 @@
 </div>
 <!-- TERMINA Modal Error de cancelacion -->
 
-
 <!-- Modal -->
 <div class="modal fade bd-example-modal-sm" id="modalRegistrarfolio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="line-modal modal-header">
-                <!--<div *ngIf="status=='error'" class="alert alert-danger modal1 mt-3" role="alert"></div>-->
-                <h5 class="color-modal-label" id="exampleModalLabel">Información</h5>
+                <div [ngSwitch]="status">
+                    <h5 class="modal-title" *ngSwitchCase="'folioexist'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'error'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'success'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'elimsuccess'"><i class="fa fa-check" aria-hidden="true"></i>Éxito</h5>
+                    <h5 class="modal-title" *ngSwitchCase="'elimerror'"><i class="fa fa-exclamation" aria-hidden="true"></i>Error</h5>
+                </div>
             </div>
             <!--Empieza Modal AGREGA PRODUCTOS-->
             <div class="modal-body">
                 <!--Número de folio & Fecha y hora-->
-                <label>Se ha registrado el folio con éxito</label>
+                <div [ngSwitch]="status" class="modal-body">
+                    <p *ngSwitchCase="'folioexist'">El Folio ya Existe.</p>
+                    <p *ngSwitchCase="'error'">Folio No Resgistrado.</p>
+                    <p *ngSwitchCase="'success'">Los Folios se Registraron con Éxito.</p>
+                    <p *ngSwitchCase="'elimsuccess'">Se ha(n) Cancelado Exitosamente el (los) Registro(s).</p>
+                    <p *ngSwitchCase="'elimerror'">No se ha(n) Cancelado el (los) Registros, Puede que uno o Varios ya esten Cancelados.</p>
+                </div>
             </div>
             <fieldset class="form-group">
                 <div class="modal-footer">

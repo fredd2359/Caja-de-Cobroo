@@ -1,4 +1,4 @@
-<div class=".fluid-container">
+<div class=".fluid-container container col-9">
 
     <main class="col py-5 main">
         <div class="row my-3 justify-content-end">
@@ -11,6 +11,7 @@
 
             <div class="col-12">
                 <label><h1 class="titulos ">Recibos</h1></label>
+                <hr>
                 <div>
                     <table id="tablaRecibos" class="table table-bordered table-sm table table-responsive" width="90%" cellspacing="0">
                         <thead class="color-thead">
@@ -56,6 +57,9 @@
                         </tbody>
                     </table>
                 </div>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalDev">
+        Generar Devolución
+      </button>
             </div>
         </div>
     </main>
@@ -242,9 +246,7 @@
 
 <!-- Modal generar devolución -->
 <!-- Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDev">
-        Generar devolución
-      </button>
+
 <div class="modal" id="modalDev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

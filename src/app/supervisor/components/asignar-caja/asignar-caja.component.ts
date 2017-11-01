@@ -38,6 +38,9 @@ export class AsignarCajaComponent implements OnInit{
   public fondotemp;
   public cajaEliminar:number=0;
   public prueba;
+  public cajaasignada;
+  public cajeroasignado;
+  public cajerosbol:boolean=true;
 
   //Directivas y declaracion de variables para el uso de la tabla !important
   @ViewChild(DataTableDirective)
@@ -68,9 +71,9 @@ dtTrigger: Subject<string> = new Subject();
     //Se cargan los datos para la tabla y el manejo de ellos
     this.obtenerdatos();
   
+    this.LoadTableData();
     $('#caj').prop('readonly', true);
     //Se cargan los datos de la tabla
-    this.LoadTableData();
     
   }
 
@@ -80,6 +83,8 @@ dtTrigger: Subject<string> = new Subject();
     this.cajero.cajas=this.caja;
     console.log("Cajero asignar");
     console.log(this.cajero);
+    this.cajaasignada=this.cajero.cajas.nombre;
+    this.cajeroasignado=this.cajero.nombre;
     
 
     this._superService.asignarCaja(this.cajero).subscribe(
@@ -94,6 +99,7 @@ dtTrigger: Subject<string> = new Subject();
         if (error.status=="400"){
           $("#example").dataTable().fnDestroy();
           this.status="error";
+          $('#ModalError').modal("show");
           this.obtenerdatos();
           this.LoadTableData();
         }
@@ -102,16 +108,19 @@ dtTrigger: Subject<string> = new Subject();
           this.status="success";
           this.obtenerdatos();
           this.LoadTableData();
+          $('#ModalCajaAsignada').modal("show");
         }
         
         if((error._body.substring(20,46)) == "Fondo mayor a lo permitido"){
           console.log("FONDO MAYOR ....");
           this.status="fondomayor";
+          $('#ModalError').modal("show");
         }
 
         if((error._body.substring(20,43)) == "Fondo menor o igual a 0"){
           console.log("FONDO IGUAL O MENOR A CERO ....");
           this.status="fondoiguala0";
+          $('#ModalError').modal("show");
         }
         console.log("Error en Submit de asignar caja, asignarCaja");
         console.log(error);
@@ -149,8 +158,14 @@ dtTrigger: Subject<string> = new Subject();
         this.cajeros=result;
         console.log("Cajeros libres");
         console.log(this.cajeros);
+        this.cajerosbol=true;
       },
       error => {
+        if (error.status=="400"){
+          console.log("aquimero");
+          this.cajerosbol=false;
+          console.log(this.cajerosbol);
+        }
         console.log(error);
       }
     );
@@ -277,55 +292,12 @@ dtTrigger: Subject<string> = new Subject();
     setTimeout(function () {
       $(function () {
     
-       $('#example').dataTable();
+       $('#tabla').dataTable();
 
       });
     }, 1000);
   }
 
-
-
-  removerCaja(a){
-    for(let i = 0; i < this.allcajeros.length; i++){
-      if(this.DataArray[a].nombrecajero==this.allcajeros[i].nombre){
-        if (this.DataArray[a].estatus=="PENDIENTE"){
-        console.log(this.allcajeros[i].cajas.estatus);
-        this.cajaEliminar=i;
-        $('#ModalCancelar').modal('show');
-        console.log(this.allcajeros[i]);
-        //desasignarCaja
-        }
-        else {
-          $('#ModalError').modal('show');
-        }
-        break;
-      }
-    }
-  }
-
-  desasignar(){
-    this._superService.desasignarCaja(this.allcajeros[this.cajaEliminar]).subscribe(
-      result => {
-        this.status="cajaelim";
-        console.log("Se desasigno con éxito");
-        $('#ModalCancelar').modal('hide');
-        this.LoadTableData();
-      },
-      error => {
-        $('#ModalCancelar').modal('hide');
-        if (error.status=="400"){
-          this.status="cajaerror";
-          this.LoadTableData();
-        }else {
-          this.status="cajaelim";
-          $("#example").dataTable().fnDestroy();
-          this.obtenerdatos();
-          this.LoadTableData();
-
-        }
-      }
-    );
-  }
 
   readOnly(){
     $('#caj').prop('readonly', true);

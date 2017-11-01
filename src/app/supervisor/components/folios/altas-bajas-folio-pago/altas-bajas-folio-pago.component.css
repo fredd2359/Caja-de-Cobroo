@@ -30,43 +30,20 @@
     color: #13445A;
 }
 
-
-/*Modal CONFIRMACIÓN DE REGISTRO*/
-
-#modalRegistrarfolio .modal-dialog {
-    -webkit-transform: translate(0, -50%);
-    -o-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    top: 50%;
-    margin: 0 auto;
-}
-
-#modalRegistrarfolio .modal-content {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 1.3rem;
-    outline: 0;
-}
-
-#modalRegistrarfolio .modal-footer {
-    justify-content: center !important;
-    -ms-flex-align: center !important;
-}
-
-#modalRegistrarfolio .modal-body {
-    padding: 5px;
-    margin: 5px;
-    text-align: center !important;
-    top: 5px;
-}
-
 .noicon {
     color: white !important;
     opacity: 0;
+}
+
+h2 {
+    color: #13445A;
+}
+
+h1 {
+    color: #13445A;
+}
+
+thead {
+    background: #13445A;
+    color: white;
 }
